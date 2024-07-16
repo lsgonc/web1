@@ -12,8 +12,17 @@ public class Paciente {
     private String sexo;
     private LocalDate dataNascimento;
     
-    public Paciente(int id, String email, String senha, String cpf, String nome, String telefone, String sexo,
-            LocalDate dataNascimento) {
+    public Paciente(String email, String senha, String cpf, String nome, String telefone, String sexo, LocalDate dataNascimento) {
+        this.email = email;
+        this.senha = senha;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.sexo = sexo;
+        this.dataNascimento = dataNascimento;
+    }
+
+    public Paciente(int id, String email, String senha, String cpf, String nome, String telefone, String sexo, LocalDate dataNascimento) {
         this.id = id;
         this.email = email;
         this.senha = senha;
@@ -22,6 +31,10 @@ public class Paciente {
         this.telefone = telefone;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
+    }
+
+    public Paciente(int id) {
+        this.id = id;
     }
 
     public int getId() {

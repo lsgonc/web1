@@ -75,14 +75,17 @@ public class PacienteController extends HttpServlet {
         String nome = request.getParameter("nome");
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
-        java.sql.Date dataNascimento = request.getParameter("data_nascimento");
+        String string_data = request.getParameter("data_nascimento");
+        java.sql.Date dataNascimento = java.sql.Date.valueOf(string_data);
 
-        Paciente novoPaciente = new Paciente(id, email, senha, cpf, nome, telefone, sexo, dataNascimento.toLocalDate());
+        Paciente novoPaciente = new Paciente(email, senha, cpf, nome, telefone, sexo, dataNascimento.toLocalDate());
         dao.insert(novoPaciente);
         response.sendRedirect("lista");
     }
 
     private void atualize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int id = Integer.parseInt(request.getParameter("id"));
 
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
@@ -90,7 +93,8 @@ public class PacienteController extends HttpServlet {
         String nome = request.getParameter("nome");
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
-        java.sql.Date dataNascimento = request.getParameter("data_nascimento");
+        String string_data = request.getParameter("data_nascimento");
+        java.sql.Date dataNascimento = java.sql.Date.valueOf(string_data);
 
         Paciente paciente = new Paciente(id, email, senha, cpf, nome, telefone, sexo, dataNascimento.toLocalDate());
         dao.update(paciente);
@@ -98,7 +102,7 @@ public class PacienteController extends HttpServlet {
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Long id = Long.parseLong(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         Paciente paciente = new Paciente(id);
         dao.delete(paciente);
         response.sendRedirect("lista");
