@@ -3,6 +3,7 @@ package br.ufscar.dc.dsw.domain;
 import java.time.LocalDate;
 
 public class Paciente {
+    private int id;
     private String email;
     private String senha;
     private String cpf;
@@ -11,8 +12,9 @@ public class Paciente {
     private String sexo;
     private LocalDate dataNascimento;
     
-    public Paciente(String email, String senha, String cpf, String nome, String telefone, String sexo,
+    public Paciente(int id, String email, String senha, String cpf, String nome, String telefone, String sexo,
             LocalDate dataNascimento) {
+        this.id = id;
         this.email = email;
         this.senha = senha;
         this.cpf = cpf;
@@ -20,6 +22,14 @@ public class Paciente {
         this.telefone = telefone;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {

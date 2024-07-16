@@ -6,7 +6,8 @@ USE clinica_medica;
 
 -- Cria a tabela de pacientes
 CREATE TABLE IF NOT EXISTS pacientes (
-    email VARCHAR(255) PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     CPF VARCHAR(11) UNIQUE NOT NULL,
     nome VARCHAR(255) NOT NULL,
