@@ -1,1 +1,4 @@
-/home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/MainServlet.java
+/home/antonio/ufscar/dsw/projeto1/web1/src/main/java/br/ufscar/dc/dsw/domain/Medico.java
+/home/antonio/ufscar/dsw/projeto1/web1/src/main/java/br/ufscar/dc/dsw/domain/Consulta.java
+/home/antonio/ufscar/dsw/projeto1/web1/src/main/java/br/ufscar/dc/dsw/domain/Paciente.java
+/home/antonio/ufscar/dsw/projeto1/web1/src/main/java/br/ufscar/dc/dsw/MainServlet.java
