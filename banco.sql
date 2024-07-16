@@ -33,3 +33,12 @@ CREATE TABLE IF NOT EXISTS consultas (
     FOREIGN KEY (paciente_cpf) REFERENCES pacientes(CPF),
     FOREIGN KEY (medico_crm) REFERENCES medicos(CRM)
 );
+
+CREATE TABLE IF NOT EXISTS administradores (
+    email VARCHAR(255) PRIMARY KEY,
+    senha VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL
+);
+
+-- Insere um administrador padrão
+INSERT INTO administradores (email, senha, nome) VALUES ('admin@clinica.com', 'root', 'Admin1');
