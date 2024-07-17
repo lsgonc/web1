@@ -15,6 +15,16 @@ public class Consulta {
         this.dataHora = dataHora;
     }
 
+    public Consulta(String pacienteCpf, String medicoCrm, LocalDateTime dataHora) {
+        this.pacienteCpf = pacienteCpf;
+        this.medicoCrm = medicoCrm;
+        this.dataHora = dataHora;
+    }
+
+    public Consulta(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
