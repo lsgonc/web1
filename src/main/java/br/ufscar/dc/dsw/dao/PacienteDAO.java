@@ -39,7 +39,7 @@ public class PacienteDAO extends MainDAO {
         Paciente paciente = null;
         String sql = "SELECT * FROM pacientes WHERE id = ?";
 
-        try{
+        try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
@@ -91,7 +91,6 @@ public class PacienteDAO extends MainDAO {
         }
     }
 
-
     public void delete(Paciente paciente) {
         String sql = "DELETE FROM pacientes WHERE id = ?";
 
@@ -128,7 +127,8 @@ public class PacienteDAO extends MainDAO {
                 String sexo = resultSet.getString("sexo");
                 java.sql.Date dataNascimento = resultSet.getDate("data_nascimento");
 
-                Paciente paciente = new Paciente(id, email, senha, cpf, nome, telefone, sexo, dataNascimento.toLocalDate());
+                Paciente paciente = new Paciente(id, email, senha, cpf, nome, telefone, sexo,
+                        dataNascimento.toLocalDate());
                 listaPacientes.add(paciente);
             }
 

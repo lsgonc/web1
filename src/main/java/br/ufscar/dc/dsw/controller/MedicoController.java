@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/medico/*")
 public class MedicoController extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
     private MedicoDAO dao;
 
@@ -30,9 +29,8 @@ public class MedicoController extends HttpServlet {
         doGet(request, response);
     }
 
-
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {           
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String action = request.getPathInfo();
         if (action == null) {
             action = "";
@@ -68,29 +66,29 @@ public class MedicoController extends HttpServlet {
 
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        
+
+        String crm = request.getParameter("crm");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-        String crm = request.getParameter("crm");
         String nome = request.getParameter("nome");
         String especialidade = request.getParameter("especialidade");
 
-        Medico novoMedico = new Medico(email, senha, crm, nome, especialidade);
+        Medico novoMedico = new Medico(crm, email, senha, nome, especialidade);
         dao.insert(novoMedico);
         response.sendRedirect("lista");
     }
 
-    private void atualize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void atualize(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+        String crm = request.getParameter("crm");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-        String crm = request.getParameter("crm");
         String nome = request.getParameter("nome");
         String especialidade = request.getParameter("especialidade");
 
-        
-        Medico medico = new Medico(email, senha, crm, nome, especialidade);
+        Medico medico = new Medico(crm, email, senha, nome, especialidade);
         dao.update(medico);
         response.sendRedirect("lista");
     }

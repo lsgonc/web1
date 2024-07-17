@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/paciente/*")
 public class PacienteController extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
     private PacienteDAO dao;
 
@@ -30,9 +29,8 @@ public class PacienteController extends HttpServlet {
         doGet(request, response);
     }
 
-
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {           
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String action = request.getPathInfo();
         if (action == null) {
             action = "";
@@ -68,7 +66,7 @@ public class PacienteController extends HttpServlet {
 
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        
+
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String cpf = request.getParameter("CPF");
@@ -83,7 +81,8 @@ public class PacienteController extends HttpServlet {
         response.sendRedirect("lista");
     }
 
-    private void atualize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void atualize(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
 
