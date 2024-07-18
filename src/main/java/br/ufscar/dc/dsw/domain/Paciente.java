@@ -4,14 +4,14 @@ import java.time.LocalDate;
 
 public class Paciente {
     private String cpf;
-    private int usuarioId;
+    private Usuario usuario;
     private String telefone;
     private LocalDate dataNascimento;
 
     // Construtor
-    public Paciente(String cpf, int usuarioId, String telefone, LocalDate dataNascimento) {
+    public Paciente(String cpf, Usuario usuario, String telefone, LocalDate dataNascimento) {
         this.cpf = cpf;
-        this.usuarioId = usuarioId;
+        this.usuario = usuario;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
     }
@@ -25,12 +25,12 @@ public class Paciente {
         this.cpf = cpf;
     }
 
-    public int getUsuarioId() {
-        return usuarioId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario= usuario;
     }
 
     public String getTelefone() {

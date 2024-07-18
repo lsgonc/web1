@@ -12,19 +12,16 @@ import br.ufscar.dc.dsw.domain.Paciente;
 public class PacienteDAO extends MainDAO {
 
     public void insert(Paciente paciente) {
-        String sql = "INSERT INTO pacientes (email, senha, CPF, nome, telefone, sexo, data_nascimento) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO pacientes (usuario_id, CPF, telefone, data_nascimento) VALUES (?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, paciente.getEmail());
-            statement.setString(2, paciente.getSenha());
-            statement.setString(3, paciente.getCpf());
-            statement.setString(4, paciente.getNome());
-            statement.setString(5, paciente.getTelefone());
-            statement.setString(6, paciente.getSexo());
-            statement.setDate(7, java.sql.Date.valueOf(paciente.getDataNascimento()));
+            statement.setInt(1, paciente.getUsuario().getId());
+            statement.setString(2, paciente.getCpf());
+            statement.setString(3, paciente.getTelefone());
+            statement.setDate(4, paciente.getDataNascimento());
 
             statement.executeUpdate();
 

@@ -4,15 +4,15 @@ import java.time.LocalDateTime;
 
 public class Consulta {
     private int id;
-    private String pacienteCpf;
-    private String medicoCrm;
+    private Paciente paciente;
+    private Medico medico;
     private LocalDateTime dataHora;
 
     // Construtor
-    public Consulta(int id, String pacienteCpf, String medicoCrm, LocalDateTime dataHora) {
+    public Consulta(int id, Paciente paciente, Medico medico, LocalDateTime dataHora) {
         this.id = id;
-        this.pacienteCpf = pacienteCpf;
-        this.medicoCrm = medicoCrm;
+        this.paciente = paciente;
+        this.medico = medico;
         this.dataHora = dataHora;
     }
 
@@ -25,20 +25,20 @@ public class Consulta {
         this.id = id;
     }
 
-    public String getPacienteCpf() {
-        return pacienteCpf;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setPacienteCpf(String pacienteCpf) {
-        this.pacienteCpf = pacienteCpf;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
-    public String getMedicoCrm() {
-        return medicoCrm;
+    public Medico getMedico() {
+        return medico;
     }
 
-    public void setMedicoCrm(String medicoCrm) {
-        this.medicoCrm = medicoCrm;
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     public LocalDateTime getDataHora() {

@@ -2,13 +2,13 @@ package br.ufscar.dc.dsw.domain;
 
 public class Medico {
     private String crm;
-    private int usuarioId;
+    private Usuario usuario;
     private String especialidade;
 
     // Construtor
-    public Medico(String crm, int usuarioId, String especialidade) {
+    public Medico(String crm, Usuario usuario, String especialidade) {
         this.crm = crm;
-        this.usuarioId = usuarioId;
+        this.usuario = usuario;
         this.especialidade = especialidade;
     }
 
@@ -21,12 +21,12 @@ public class Medico {
         this.crm = crm;
     }
 
-    public int getUsuarioId() {
-        return usuarioId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getEspecialidade() {
