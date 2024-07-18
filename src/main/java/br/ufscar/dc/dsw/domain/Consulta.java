@@ -8,6 +8,7 @@ public class Consulta {
     private String medicoCrm;
     private LocalDateTime dataHora;
 
+    // Construtor
     public Consulta(int id, String pacienteCpf, String medicoCrm, LocalDateTime dataHora) {
         this.id = id;
         this.pacienteCpf = pacienteCpf;
@@ -15,6 +16,7 @@ public class Consulta {
         this.dataHora = dataHora;
     }
 
+    // Getters e Setters
     public int getId() {
         return id;
     }
