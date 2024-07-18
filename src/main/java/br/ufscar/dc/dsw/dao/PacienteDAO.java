@@ -21,7 +21,7 @@ public class PacienteDAO extends MainDAO {
             statement.setInt(1, paciente.getUsuario().getId());
             statement.setString(2, paciente.getCpf());
             statement.setString(3, paciente.getTelefone());
-            statement.setDate(4, paciente.getDataNascimento());
+            statement.setObject(4, paciente.getDataNascimento());
 
             statement.executeUpdate();
 
@@ -32,15 +32,15 @@ public class PacienteDAO extends MainDAO {
         }
     }
 
-    public Paciente get(int id) {
+    public Paciente get(String CPF) {
         Paciente paciente = null;
-        String sql = "SELECT * FROM pacientes WHERE id = ?";
+        String sql = "SELECT * FROM pacientes WHERE CPF = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, id);
+            statement.setString(1, CPF);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 String email = resultSet.getString("email");
