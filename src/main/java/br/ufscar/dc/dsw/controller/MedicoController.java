@@ -67,37 +67,15 @@ public class MedicoController extends HttpServlet {
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String crm = request.getParameter("crm");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        String nome = request.getParameter("nome");
-        String especialidade = request.getParameter("especialidade");
-
-        Medico novoMedico = new Medico(crm, email, senha, nome, especialidade);
-        dao.insert(novoMedico);
-        response.sendRedirect("lista");
     }
 
     private void atualize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
-        String crm = request.getParameter("crm");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        String nome = request.getParameter("nome");
-        String especialidade = request.getParameter("especialidade");
-
-        Medico medico = new Medico(crm, email, senha, nome, especialidade);
-        dao.update(medico);
-        response.sendRedirect("lista");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String crm = request.getParameter("crm");
-        Medico medico = dao.get(crm);
-        dao.delete(medico);
-        response.sendRedirect("lista");
+
     }
 
 }
