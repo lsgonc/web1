@@ -5,16 +5,15 @@ public class Usuario {
     private String email;
     private String senha;
     private String nome;
-    private String sexo;
     private String tipoUsuario;
 
     // Construtor
-    public Usuario(int id, String email, String senha, String nome, String sexo, String tipoUsuario) {
+    public Usuario(int id, String email, String senha, String nome, String tipoUsuario) {
+        super();
         this.id = id;
         this.email = email;
         this.senha = senha;
         this.nome = nome;
-        this.sexo = sexo;
         this.tipoUsuario = tipoUsuario;
     }
 
@@ -49,14 +48,6 @@ public class Usuario {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
     }
 
     public String getTipoUsuario() {

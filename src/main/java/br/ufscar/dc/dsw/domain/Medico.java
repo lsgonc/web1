@@ -1,14 +1,13 @@
 package br.ufscar.dc.dsw.domain;
 
-public class Medico {
+public class Medico extends Usuario{
     private String crm;
-    private Usuario usuario;
     private String especialidade;
 
     // Construtor
-    public Medico(String crm, Usuario usuario, String especialidade) {
+    public Medico(int id, String email, String senha, String nome, String tipoUsuario, String crm, String especialidade) {
+        super(id, email, senha, nome, tipoUsuario);
         this.crm = crm;
-        this.usuario = usuario;
         this.especialidade = especialidade;
     }
 
@@ -20,15 +19,7 @@ public class Medico {
     public void setCrm(String crm) {
         this.crm = crm;
     }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
+    
     public String getEspecialidade() {
         return especialidade;
     }

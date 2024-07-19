@@ -1,18 +1,19 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
-public class Paciente {
+public class Paciente extends Usuario{
     private String cpf;
-    private Usuario usuario;
     private String telefone;
-    private LocalDate dataNascimento;
+    private String sexo;
+    private Date dataNascimento;
 
     // Construtor
-    public Paciente(String cpf, Usuario usuario, String telefone, LocalDate dataNascimento) {
+    public Paciente(int id, String email, String senha, String nome, String tipoUsuario, String cpf, String telefone, String sexo, Date dataNascimento) {
+        super(id, email, senha, nome, tipoUsuario);
         this.cpf = cpf;
-        this.usuario = usuario;
         this.telefone = telefone;
+        this.sexo = sexo;
         this.dataNascimento = dataNascimento;
     }
 
@@ -25,14 +26,6 @@ public class Paciente {
         this.cpf = cpf;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario= usuario;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -41,11 +34,19 @@ public class Paciente {
         this.telefone = telefone;
     }
 
-    public LocalDate getDataNascimento() {
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 }

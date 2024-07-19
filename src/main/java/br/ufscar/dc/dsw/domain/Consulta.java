@@ -1,19 +1,22 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Time;
 
 public class Consulta {
     private int id;
     private Paciente paciente;
     private Medico medico;
-    private LocalDateTime dataHora;
+    private Date data_consulta;
+    private Time hora_consulta;
 
     // Construtor
-    public Consulta(int id, Paciente paciente, Medico medico, LocalDateTime dataHora) {
+    public Consulta(int id, Paciente paciente, Medico medico, Date data_consulta, Time hora_consulta) {
         this.id = id;
         this.paciente = paciente;
         this.medico = medico;
-        this.dataHora = dataHora;
+        this.data_consulta = data_consulta;
+        this.hora_consulta = hora_consulta;
     }
 
     // Getters e Setters
@@ -41,11 +44,19 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public LocalDateTime getDataHora() {
-        return dataHora;
+    public Date getData() {
+        return data_consulta;
     }
 
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
+    public void setData(Date data_consulta) {
+        this.data_consulta = data_consulta;
+    }
+
+    public Time getHora() {
+        return hora_consulta;
+    }
+
+    public void setHora(Time hora_consulta) {
+        this.hora_consulta = hora_consulta;
     }
 }
