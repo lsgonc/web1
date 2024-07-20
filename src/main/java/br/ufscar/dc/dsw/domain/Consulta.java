@@ -19,20 +19,17 @@ public class Consulta {
         this.hora_consulta = hora_consulta;
     }
 
-<<<<<<< HEAD
-    public Consulta(String pacienteCpf, String medicoCrm, LocalDateTime dataHora) {
-        this.pacienteCpf = pacienteCpf;
-        this.medicoCrm = medicoCrm;
-        this.dataHora = dataHora;
+    public Consulta(Paciente paciente, Medico medico, Date data_consulta, Time hora_consulta) {
+        this.paciente = paciente;
+        this.medico = medico;
+        this.data_consulta = data_consulta;
+        this.hora_consulta = hora_consulta;
     }
 
     public Consulta(int id) {
         this.id = id;
     }
 
-=======
-    // Getters e Setters
->>>>>>> main
     public int getId() {
         return id;
     }

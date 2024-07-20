@@ -1,9 +1,18 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.ConsultaDAO;
+import br.ufscar.dc.dsw.dao.PacienteDAO;
+import br.ufscar.dc.dsw.dao.MedicoDAO;
+import br.ufscar.dc.dsw.domain.Paciente;
+import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Consulta;
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,8 +55,13 @@ public class ConsultaController extends HttpServlet {
                 case "/atualizacao":
                     atualize(request, response);
                     break;
+                case "/listaPaciente":
+                    listaPaciente(request, response);
+                    break;
+                case "listaConsultaMedico":
+                    listaMedico(request, response);
+                    break;
                 default:
-                    lista(request, response);
                     break;
             }
         } catch (RuntimeException | IOException | ServletException e) {
@@ -55,9 +69,19 @@ public class ConsultaController extends HttpServlet {
         }
     }
 
-    private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Consulta> listaConsultas = dao.getAll();
-        request.setAttribute("listaConsultas", listaConsultas);
+    private void listaPaciente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String cpf = request.getParameter("cpf");
+        List<Consulta> listaConsultas = dao.getAllPaciente(cpf);
+        request.setAttribute("listaConsultasPaciente", listaConsultas);
+        request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/consulta/lista.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void listaMedico(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String crm = request.getParameter("crm");
+        List<Consulta> listaConsultas = dao.getAllMedicos(crm);
+        request.setAttribute("listaConsultasMedico", listaConsultas);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/consulta/lista.jsp");
         dispatcher.forward(request, response);
@@ -68,10 +92,18 @@ public class ConsultaController extends HttpServlet {
 
         String paciente_cpf = request.getParameter("paciente_cpf");
         String medico_crm = request.getParameter("medico_crm");
-        String stringDataHora = request.getParameter("data_hora");
-        LocalDateTime data_hora = LocalDateTime.parse(stringDataHora);
+        String stringData = request.getParameter("data_consulta");
+        String stringHora = request.getParameter("hora_consulta");
 
-        Consulta novaConsulta = new Consulta(paciente_cpf, medico_crm, data_hora);
+        LocalDate dataLocalDate = LocalDate.parse(stringData);
+        LocalTime horaLocalTime = LocalTime.parse(stringHora);
+        Date data_consulta = Date.valueOf(dataLocalDate);
+        Time hora_consulta = Time.valueOf(horaLocalTime);
+
+        Paciente paciente = new PacienteDAO().get(paciente_cpf);
+        Medico medico = new MedicoDAO().get(medico_crm);
+        Consulta novaConsulta = new Consulta(paciente, medico, data_consulta, hora_consulta);
+
         dao.insert(novaConsulta);
         response.sendRedirect("lista");
     }
@@ -82,11 +114,20 @@ public class ConsultaController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         String paciente_cpf = request.getParameter("paciente_cpf");
         String medico_crm = request.getParameter("medico_crm");
-        String stringDataHora = request.getParameter("data_hora");
-        LocalDateTime data_hora = LocalDateTime.parse(stringDataHora);
+        String stringData = request.getParameter("data_consulta");
+        String stringHora = request.getParameter("hora_consulta");
 
-        Consulta consulta = new Consulta(id, paciente_cpf, medico_crm, data_hora);
+        LocalDate dataLocalDate = LocalDate.parse(stringData);
+        LocalTime horaLocalTime = LocalTime.parse(stringHora);
+        Date data_consulta = Date.valueOf(dataLocalDate);
+        Time hora_consulta = Time.valueOf(horaLocalTime);
+
+        Paciente paciente = new PacienteDAO().get(paciente_cpf);
+        Medico medico = new MedicoDAO().get(medico_crm);
+        Consulta consulta = new Consulta(id, paciente, medico, data_consulta, hora_consulta);
+
         dao.update(consulta);
+
         response.sendRedirect("lista");
     }
 
