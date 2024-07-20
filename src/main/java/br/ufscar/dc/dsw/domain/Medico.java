@@ -1,21 +1,17 @@
 package br.ufscar.dc.dsw.domain;
 
-public class Medico {
-    private String email;
-    private String senha;
+public class Medico extends Usuario{
     private String crm;
-    private String nome;
     private String especialidade;
 
-    
-    public Medico(String crm, String email, String senha, String nome, String especialidade) {
+    // Construtor
+    public Medico(int id, String email, String senha, String nome, String tipoUsuario, String crm, String especialidade) {
+        super(id, email, senha, nome, tipoUsuario);
         this.crm = crm;
-        this.email = email;
-        this.senha = senha;
-        this.nome = nome;
         this.especialidade = especialidade;
     }
-    
+
+    // Getters e Setters
     public String getCrm() {
         return crm;
     }
@@ -23,31 +19,7 @@ public class Medico {
     public void setCrm(String crm) {
         this.crm = crm;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
+    
     public String getEspecialidade() {
         return especialidade;
     }

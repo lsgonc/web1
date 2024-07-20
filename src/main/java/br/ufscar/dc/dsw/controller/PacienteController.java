@@ -1,7 +1,10 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.PacienteDAO;
+import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Paciente;
+import br.ufscar.dc.dsw.domain.Usuario;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -13,15 +16,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/paciente/*")
+@WebServlet(urlPatterns = {"/paciente/*"})
 public class PacienteController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private PacienteDAO dao;
+    private PacienteDAO daoPaciente;
+    private UsuarioDAO daoUsuario;
 
     @Override
     public void init() {
-        dao = new PacienteDAO();
+        daoPaciente = new PacienteDAO();
+        daoUsuario = new UsuarioDAO();
     }
 
     @Override
@@ -57,7 +62,7 @@ public class PacienteController extends HttpServlet {
     }
 
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Paciente> listaPacientes = dao.getAll();
+        List<Paciente> listaPacientes = daoPaciente.getAll();
         request.setAttribute("listaPacientes", listaPacientes);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/paciente/lista.jsp");
@@ -67,44 +72,15 @@ public class PacienteController extends HttpServlet {
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        String cpf = request.getParameter("CPF");
-        String nome = request.getParameter("nome");
-        String telefone = request.getParameter("telefone");
-        String sexo = request.getParameter("sexo");
-        String string_data = request.getParameter("data_nascimento");
-        java.sql.Date dataNascimento = java.sql.Date.valueOf(string_data);
-
-        Paciente novoPaciente = new Paciente(email, senha, cpf, nome, telefone, sexo, dataNascimento.toLocalDate());
-        dao.insert(novoPaciente);
-        response.sendRedirect("lista");
     }
 
     private void atualize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
-
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        String cpf = request.getParameter("CPF");
-        String nome = request.getParameter("nome");
-        String telefone = request.getParameter("telefone");
-        String sexo = request.getParameter("sexo");
-        String string_data = request.getParameter("data_nascimento");
-        java.sql.Date dataNascimento = java.sql.Date.valueOf(string_data);
-
-        Paciente paciente = new Paciente(id, email, senha, cpf, nome, telefone, sexo, dataNascimento.toLocalDate());
-        dao.update(paciente);
-        response.sendRedirect("lista");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Paciente paciente = new Paciente(id);
-        dao.delete(paciente);
-        response.sendRedirect("lista");
+
     }
 
 }

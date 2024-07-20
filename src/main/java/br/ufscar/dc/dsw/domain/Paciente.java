@@ -1,82 +1,29 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
-public class Paciente {
-    private int id;
-    private String email;
-    private String senha;
+public class Paciente extends Usuario{
     private String cpf;
-    private String nome;
     private String telefone;
     private String sexo;
-    private LocalDate dataNascimento;
+    private Date dataNascimento;
 
-    public Paciente(String email, String senha, String cpf, String nome, String telefone, String sexo,
-            LocalDate dataNascimento) {
-        this.email = email;
-        this.senha = senha;
+    // Construtor
+    public Paciente(int id, String email, String senha, String nome, String tipoUsuario, String cpf, String telefone, String sexo, Date dataNascimento) {
+        super(id, email, senha, nome, tipoUsuario);
         this.cpf = cpf;
-        this.nome = nome;
         this.telefone = telefone;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
     }
 
-    public Paciente(int id, String email, String senha, String cpf, String nome, String telefone, String sexo,
-            LocalDate dataNascimento) {
-        this.id = id;
-        this.email = email;
-        this.senha = senha;
-        this.cpf = cpf;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.sexo = sexo;
-        this.dataNascimento = dataNascimento;
-    }
-
-    public Paciente(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
+    // Getters e Setters
     public String getCpf() {
         return cpf;
     }
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getTelefone() {
@@ -95,11 +42,11 @@ public class Paciente {
         this.sexo = sexo;
     }
 
-    public LocalDate getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 }

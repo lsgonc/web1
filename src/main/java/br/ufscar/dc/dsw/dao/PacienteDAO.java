@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,50 +12,28 @@ import br.ufscar.dc.dsw.domain.Paciente;
 
 public class PacienteDAO extends MainDAO {
 
-    public void insert(Paciente paciente) {
-        String sql = "INSERT INTO pacientes (email, senha, CPF, nome, telefone, sexo, data_nascimento) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try {
-            Connection conn = this.getConnection();
-            PreparedStatement statement = conn.prepareStatement(sql);
-
-            statement.setString(1, paciente.getEmail());
-            statement.setString(2, paciente.getSenha());
-            statement.setString(3, paciente.getCpf());
-            statement.setString(4, paciente.getNome());
-            statement.setString(5, paciente.getTelefone());
-            statement.setString(6, paciente.getSexo());
-            statement.setDate(7, java.sql.Date.valueOf(paciente.getDataNascimento()));
-
-            statement.executeUpdate();
-
-            statement.close();
-            conn.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Paciente get(int id) {
+    public Paciente get(String CPF) {
         Paciente paciente = null;
-        String sql = "SELECT * FROM pacientes WHERE id = ?";
+        String sql = "SELECT u.id, u.email, u.senha, u.nome, u.tipo_usuario, p.CPF, p.telefone, p.sexo, p.data_nascimento FROM paciente p JOIN usuario u ON p.usuario_id = u.id WHERE p.CPF = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, id);
+            statement.setString(1, CPF);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
-                String cpf = resultSet.getString("CPF");
                 String nome = resultSet.getString("nome");
+                String tipoUsuario = resultSet.getString("tipo_usuario");
+                String cpf = resultSet.getString("CPF");
                 String telefone = resultSet.getString("telefone");
                 String sexo = resultSet.getString("sexo");
-                java.sql.Date dataNascimento = resultSet.getDate("data_nascimento");
+                Date dataNascimento = resultSet.getDate("data_nascimento");
 
-                paciente = new Paciente(id, email, senha, cpf, nome, telefone, sexo, dataNascimento.toLocalDate());
+                paciente = new Paciente(id, email, senha, nome, tipoUsuario, cpf, telefone, sexo, dataNascimento);
             }
 
             resultSet.close();
@@ -66,21 +45,51 @@ public class PacienteDAO extends MainDAO {
         return paciente;
     }
 
-    public void update(Paciente paciente) {
-        String sql = "UPDATE pacientes SET email = ?, senha = ?, CPF = ?, nome = ?, telefone = ?, sexo = ?, data_nascimento = ? WHERE id = ?";
+    public List<Paciente> getAll() {
+        List<Paciente> listaPacientes = new ArrayList<>();
+        String sql = "SELECT u.id, u.email, u.senha, u.nome, u.tipo_usuario, p.CPF, p.telefone, p.sexo, p.data_nascimento FROM paciente p JOIN usuario u ON p.usuario_id = u.id";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String nome = resultSet.getString("nome");
+                String tipoUsuario = resultSet.getString("tipo_usuario");
+                String cpf = resultSet.getString("CPF");
+                String telefone = resultSet.getString("telefone");
+                String sexo = resultSet.getString("sexo");
+                Date dataNascimento = resultSet.getDate("data_nascimento");
+
+                Paciente paciente = new Paciente(id, email, senha, nome, tipoUsuario, cpf, telefone, sexo, dataNascimento);
+                listaPacientes.add(paciente);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaPacientes;
+    }
+
+    public void insert(Paciente paciente) {
+        String sql = "INSERT INTO paciente (usuario_id, CPF, telefone, sexo, data_nascimento) VALUES (?, ?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, paciente.getEmail());
-            statement.setString(2, paciente.getSenha());
-            statement.setString(3, paciente.getCpf());
-            statement.setString(4, paciente.getNome());
-            statement.setString(5, paciente.getTelefone());
-            statement.setString(6, paciente.getSexo());
-            statement.setDate(7, java.sql.Date.valueOf(paciente.getDataNascimento()));
-            statement.setInt(8, paciente.getId());
+            statement.setInt(1, paciente.getId());
+            statement.setString(2, paciente.getCpf());
+            statement.setString(3, paciente.getTelefone());
+            statement.setString(4, paciente.getSexo());
+            statement.setObject(5, paciente.getDataNascimento());
 
             statement.executeUpdate();
 
@@ -92,7 +101,7 @@ public class PacienteDAO extends MainDAO {
     }
 
     public void delete(Paciente paciente) {
-        String sql = "DELETE FROM pacientes WHERE id = ?";
+        String sql = "DELETE FROM usuario WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -108,36 +117,25 @@ public class PacienteDAO extends MainDAO {
         }
     }
 
-    public List<Paciente> getAll() {
-        List<Paciente> listaPacientes = new ArrayList<>();
-        String sql = "SELECT * FROM pacientes";
+    public void update(Paciente paciente) {
+        String sql = "UPDATE paciente SET CPF = ?, telefone = ?, sexo = ?, data_nascimento = ? WHERE usuario_id = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String email = resultSet.getString("email");
-                String senha = resultSet.getString("senha");
-                String cpf = resultSet.getString("CPF");
-                String nome = resultSet.getString("nome");
-                String telefone = resultSet.getString("telefone");
-                String sexo = resultSet.getString("sexo");
-                java.sql.Date dataNascimento = resultSet.getDate("data_nascimento");
+            statement.setString(1, paciente.getCpf());
+            statement.setString(2, paciente.getTelefone());
+            statement.setString(3, paciente.getSexo());
+            statement.setDate(4, paciente.getDataNascimento());
+            statement.setInt(5, paciente.getId());
 
-                Paciente paciente = new Paciente(id, email, senha, cpf, nome, telefone, sexo,
-                        dataNascimento.toLocalDate());
-                listaPacientes.add(paciente);
-            }
+            statement.executeUpdate();
 
-            resultSet.close();
             statement.close();
             conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return listaPacientes;
     }
 }

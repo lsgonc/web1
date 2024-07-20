@@ -1,9 +1,11 @@
 /home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/domain/Paciente.java
+/home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/domain/Usuario.java
 /home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/controller/MedicoController.java
+/home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/dao/ConsultaDAO.java
 /home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/dao/PacienteDAO.java
 /home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/domain/Medico.java
-/home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/MainServlet.java
 /home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/controller/PacienteController.java
 /home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/domain/Consulta.java
+/home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/dao/UsuarioDAO.java
 /home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/dao/MedicoDAO.java
 /home/enzo_murayama/DSW/web1/src/main/java/br/ufscar/dc/dsw/dao/MainDAO.java

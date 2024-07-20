@@ -1,20 +1,25 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Time;
 
 public class Consulta {
     private int id;
-    private String pacienteCpf;
-    private String medicoCrm;
-    private LocalDateTime dataHora;
+    private Paciente paciente;
+    private Medico medico;
+    private Date data_consulta;
+    private Time hora_consulta;
 
-    public Consulta(int id, String pacienteCpf, String medicoCrm, LocalDateTime dataHora) {
+    // Construtor
+    public Consulta(int id, Paciente paciente, Medico medico, Date data_consulta, Time hora_consulta) {
         this.id = id;
-        this.pacienteCpf = pacienteCpf;
-        this.medicoCrm = medicoCrm;
-        this.dataHora = dataHora;
+        this.paciente = paciente;
+        this.medico = medico;
+        this.data_consulta = data_consulta;
+        this.hora_consulta = hora_consulta;
     }
 
+<<<<<<< HEAD
     public Consulta(String pacienteCpf, String medicoCrm, LocalDateTime dataHora) {
         this.pacienteCpf = pacienteCpf;
         this.medicoCrm = medicoCrm;
@@ -25,6 +30,9 @@ public class Consulta {
         this.id = id;
     }
 
+=======
+    // Getters e Setters
+>>>>>>> main
     public int getId() {
         return id;
     }
@@ -33,27 +41,35 @@ public class Consulta {
         this.id = id;
     }
 
-    public String getPacienteCpf() {
-        return pacienteCpf;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setPacienteCpf(String pacienteCpf) {
-        this.pacienteCpf = pacienteCpf;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
-    public String getMedicoCrm() {
-        return medicoCrm;
+    public Medico getMedico() {
+        return medico;
     }
 
-    public void setMedicoCrm(String medicoCrm) {
-        this.medicoCrm = medicoCrm;
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
-    public LocalDateTime getDataHora() {
-        return dataHora;
+    public Date getData() {
+        return data_consulta;
     }
 
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
+    public void setData(Date data_consulta) {
+        this.data_consulta = data_consulta;
+    }
+
+    public Time getHora() {
+        return hora_consulta;
+    }
+
+    public void setHora(Time hora_consulta) {
+        this.hora_consulta = hora_consulta;
     }
 }

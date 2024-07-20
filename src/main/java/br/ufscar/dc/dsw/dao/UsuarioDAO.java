@@ -8,20 +8,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufscar.dc.dsw.domain.Medico;
+import br.ufscar.dc.dsw.domain.Usuario;
 
-public class MedicoDAO extends MainDAO {
+public class UsuarioDAO extends MainDAO {
 
-    public Medico get(String crm) {
-        Medico med = null;
+    public Usuario get(String emailUsuario) {
+        Usuario user = null;
 
-        String sql = "SELECT u.id, u.email, u.senha, u.nome, u.tipo_usuario, m.CRM, m.especialidade FROM medico m JOIN usuario u ON m.usuario_id = u.id WHERE m.CRM = ?";
+        String sql = "SELECT * FROM usuario WHERE email = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, crm);
+            statement.setString(1, emailUsuario);
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -29,10 +29,8 @@ public class MedicoDAO extends MainDAO {
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
                 String nome = resultSet.getString("nome");
-                String tipoUsuario = resultSet.getString("tipo_usuario");
-                String CRM = resultSet.getString("CRM");
-                String especialidade = resultSet.getString("especialidade");
-                med = new Medico(id, email, senha, nome, tipoUsuario, CRM, especialidade);
+                String tipo_usuario = resultSet.getString("tipo_usuario");
+                user = new Usuario(id, email, senha, nome, tipo_usuario);
             }
 
             resultSet.close();
@@ -41,14 +39,14 @@ public class MedicoDAO extends MainDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return med;
+        return user;
     }
 
-    public List<Medico> getAll() {
+    public List<Usuario> getAll() {
 
-        List<Medico> listaMedicos = new ArrayList<>();
+        List<Usuario> listaUsuarios = new ArrayList<>();
 
-        String sql = "SELECT u.id, u.email, u.senha, u.nome, u.tipo_usuario, m.CRM, m.especialidade FROM medico m JOIN usuario u ON m.usuario_id = u.id";
+        String sql = "SELECT * FROM usuario ORDER BY nome";
 
         try {
             Connection conn = this.getConnection();
@@ -60,11 +58,9 @@ public class MedicoDAO extends MainDAO {
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
                 String nome = resultSet.getString("nome");
-                String tipoUsuario = resultSet.getString("tipo_usuario");
-                String CRM = resultSet.getString("CRM");
-                String especialidade = resultSet.getString("especialidade");
-                Medico med = new Medico(id, email, senha, nome, tipoUsuario, CRM, especialidade);
-                listaMedicos.add(med);
+                String tipo_usuario = resultSet.getString("tipo_usuario");
+                Usuario user = new Usuario(id, email, senha, nome, tipo_usuario);
+                listaUsuarios.add(user);
             }
 
             resultSet.close();
@@ -73,20 +69,22 @@ public class MedicoDAO extends MainDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return listaMedicos;
+        return listaUsuarios;
     }
 
-    public void insert(Medico med) {
+    public void insert(Usuario user) {
 
-        String sql = "INSERT INTO medico (usuario_id, CRM, especialidade) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO usuario(email, senha, nome, tipo_usuario) VALUES "
+                + "(?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, med.getId());
-            statement.setString(2, med.getCrm());
-            statement.setString(3, med.getEspecialidade());
+            statement.setString(1, user.getEmail());
+            statement.setString(2, user.getSenha());
+            statement.setString(3, user.getNome());
+            statement.setString(4, user.getTipoUsuario());
             statement.executeUpdate();
 
             statement.close();
@@ -96,14 +94,14 @@ public class MedicoDAO extends MainDAO {
         }
     }
 
-    public void delete(Medico med) {
-        String sql = "DELETE FROM usuario WHERE id = ?";
+    public void delete(Usuario user) {
+        String sql = "DELETE FROM usuario WHERE email = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, med.getId());
+            statement.setString(1, user.getEmail());
             statement.executeUpdate();
 
             statement.close();
@@ -113,16 +111,17 @@ public class MedicoDAO extends MainDAO {
         }
     }
 
-    public void update(Medico med) {
-        String sql = "UPDATE medico SET CRM = ?, especialidade = ? WHERE usuario_id = ?";
+    public void update(Usuario user) {
+        String sql = "UPDATE usuario SET email = ?, senha = ?, nome = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, med.getCrm());
-            statement.setString(2, med.getEspecialidade());
-            statement.setInt(3, med.getId());
+            statement.setString(1, user.getEmail());
+            statement.setString(2, user.getSenha());
+            statement.setString(3, user.getNome());
+            statement.setInt(4, user.getId());
             statement.executeUpdate();
 
             statement.close();
