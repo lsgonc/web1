@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.21</version>
+			<version>8.0.33</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -72,6 +72,8 @@
 					<url>http://localhost:8080/manager/text</url>
 					<server>Tomcat9</server>
 					<path>/${project.artifactId}</path>
+					<username>admin</username>
+					<password>123</password>
 				</configuration>
 			</plugin>
 		</plugins>

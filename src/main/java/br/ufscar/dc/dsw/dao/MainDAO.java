@@ -19,7 +19,7 @@ public class MainDAO {
         // String de conexao do mysql
         String connectionString = "jdbc:mysql://localhost:3306/clinica_medica";
 
-        return DriverManager.getConnection(connectionString, "root ", "123123");
+        return DriverManager.getConnection(connectionString, "root", "root");
 
     }
 
