@@ -77,8 +77,13 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
     	
-    	if (usuario == null) {
-    		response.sendRedirect(request.getContextPath());
+    	if (usuario != null) {
+    		if (usuario.getTipoUsuario().equals("admin"))
+                response.sendRedirect(request.getContextPath() + "/admin");
+            else if (usuario.getTipoUsuario().equals("paciente"))
+                response.sendRedirect(request.getContextPath() + "/paciente");
+            else if (usuario.getTipoUsuario().equals("medico"))
+                response.sendRedirect(request.getContextPath() + "/medico");
         } 
         else
         {
