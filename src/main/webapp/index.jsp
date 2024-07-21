@@ -254,7 +254,7 @@
                                 <tbody>
                                     <c:if test="${empty listaMedicos}">
                                         <tr>
-                                            <td colspan="4">Nenhum médico encontrado.</td>
+                                            <td colspan="4">Nenhum médico cadastrado.</td>
                                         </tr>
                                     </c:if>
                                     <c:forEach var="medico" items="${listaMedicos}">
