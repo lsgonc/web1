@@ -239,7 +239,37 @@
         <section id="doctors" class="py-5 bg-light">
             <div class="container">
                 <h2>Nossos Médicos</h2>
-                
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <table class="table table-light table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>CRM</th>
+                                        <th>Especialidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:if test="${empty listaMedicos}">
+                                        <tr>
+                                            <td colspan="4">Nenhum médico encontrado.</td>
+                                        </tr>
+                                    </c:if>
+                                    <c:forEach var="medico" items="${listaMedicos}">
+                                        <tr>
+                                            <td><c:out value="${medico.nome}" /></td>
+                                            <td><c:out value="${medico.email}" /></td>
+                                            <td><c:out value="${medico.crm}" /></td>
+                                            <td><c:out value="${medico.especialidade}" /></td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>               
             </div>
         </section>
 
