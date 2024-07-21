@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/medico/*")
 public class MedicoController extends HttpServlet {
@@ -48,6 +49,9 @@ public class MedicoController extends HttpServlet {
                     break;
                 case "/remocao":
                     remove(request, response);
+                    break;
+                case "/edicao":
+                    apresentaFormEdicao(request, response);
                     break;
                 case "/atualizacao":
                     atualize(request, response);
@@ -89,8 +93,44 @@ public class MedicoController extends HttpServlet {
 
     }
 
+    private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+            String crm = request.getParameter("crm");
+
+            Medico medico = medicoDAO.get(crm);
+
+
+            HttpSession session = request.getSession();
+
+            session.setAttribute("medicoEdit", medico);
+         
+            response.sendRedirect("/ClinicaMedica/admin?showDocModal=true");
+	}
+
     private void atualize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        int id = Integer.parseInt(request.getParameter("id"));
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+
+        Usuario user = new Usuario(id,email, senha, nome, "medico");
+
+        userDAO.update(user);
+
+        String crm = request.getParameter("crm");
+        String especialidade = request.getParameter("especialidade");
+
+        Medico medico = new Medico(userDAO.get(email).getId(), email, senha, nome, "medico", crm, especialidade);
+
+        medicoDAO.update(medico);
+
+        HttpSession session = request.getSession();
+        session.removeAttribute("medicoEdit");
+
+        response.sendRedirect("/ClinicaMedica/admin");
+        request.setCharacterEncoding("UTF-8");
 
     }
 
