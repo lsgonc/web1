@@ -1,7 +1,10 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.MedicoDAO;
+import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Medico;
+import br.ufscar.dc.dsw.domain.Usuario;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -17,11 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 public class MedicoController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private MedicoDAO dao;
+    private MedicoDAO medicoDAO;
+    private UsuarioDAO userDAO;
 
     @Override
     public void init() {
-        dao = new MedicoDAO();
+        medicoDAO = new MedicoDAO();
+        userDAO = new UsuarioDAO();
     }
 
     @Override
@@ -57,14 +62,29 @@ public class MedicoController extends HttpServlet {
     }
 
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Medico> listaMedicos = dao.getAll();
+        List<Medico> listaMedicos = medicoDAO.getAll();
         request.setAttribute("listaMedicos", listaMedicos);
-        request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/medico/lista.jsp");
-        dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista/medico.jsp");
+        dispatcher.forward(request, response); 
     }
 
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+
+        Usuario user = new Usuario(email, senha, nome, "medico");
+
+        userDAO.insert(user);
+
+        String crm = request.getParameter("crm");
+        String especialidade = request.getParameter("especialidade");
+
+        Medico medico = new Medico(userDAO.get(email).getId(), email, senha, nome, "medico", crm, especialidade);
+
+        medicoDAO.insert(medico);
+
+        response.sendRedirect("lista");
         request.setCharacterEncoding("UTF-8");
 
     }

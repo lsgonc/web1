@@ -7,7 +7,21 @@ public class Usuario {
     private String nome;
     private String tipoUsuario;
 
+
     // Construtor
+    public Usuario(int id)
+    {
+        this.id = id;
+    }
+
+    public Usuario(String email, String senha, String nome, String tipoUsuario) {
+        this.email = email;
+        this.senha = senha;
+        this.nome = nome;
+        this.tipoUsuario = tipoUsuario;
+    }
+    
+
     public Usuario(int id, String email, String senha, String nome, String tipoUsuario) {
         super();
         this.id = id;

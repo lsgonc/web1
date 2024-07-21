@@ -75,7 +75,7 @@
         <header class="fixed-top">
             <nav class="navbar navbar-expand-sm navbar-dark blur-bg">
                 <div class="container">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/ClinicaMedica">
                         <fmt:message key="brand.name" />
                     </a>
 

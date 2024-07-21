@@ -122,57 +122,47 @@
                 </nav>
             </header>
 
-
-                <div class="row justify-content-center mt-5">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <h3>Login</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="container">
-                                <form action="/ClinicaMedica/login" method="post">
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email:</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu email">
-                                        
-                                        <c:if test="${mensagensEmail.existeErros}">
-                                            <div class="row" id="erro">
-                                                <ul style="list-style-type: none;">
-                                                    <c:forEach var="erro" items="${mensagensEmail.erros}">
-                                                        <li class="text-danger"> ${erro} </li>
-                                                        </c:forEach>
-                                                </ul>
-                                            </div>
-                                        </c:if>
-
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="senha" class="form-label">Senha:</label>
-                                        <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha">
-                                        
-                                        <c:if test="${mensagensSenha.existeErros}">
-                                            <div class="row" id="erro">
-                                                <ul style="list-style-type: none;">
-                                                    <c:forEach var="erro" items="${mensagensSenha.erros}">
-                                                        <li class="text-danger"> ${erro} </li>
-                                                        </c:forEach>
-                                                </ul>
-                                            </div>
-                                        </c:if>
-
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mb-3">Entrar</button>
-                                </form>
-                            </div>
-                            <div class="card-footer text-center">
-                                <a href="#">Esqueceu sua senha?</a>
+            <div class="col justify-content-center">
+                <h1 class="text-center">PAINEL DE ADMINISTRAÇÃO - ${sessionScope.usuarioLogado.nome}</h1>
+                
+                <div class="container">
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <h3>Cadastro de Médico</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form action="/ClinicaMedica/medico/insercao" method="post">
+                                        <div class="mb-3">
+                                            <label for="nome" class="form-label">Nome:</label>
+                                            <input type="text" class="form-control" id="nome" name="nome" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email:</label>
+                                            <input type="email" class="form-control" id="email" name="email" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="senha" class="form-label">Senha:</label>
+                                            <input type="password" class="form-control" id="senha" name="senha" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="crm" class="form-label">CRM:</label>
+                                            <input type="text" class="form-control" id="crm" name="crm" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="especialidade" class="form-label">Especialidade:</label>
+                                            <input type="text" class="form-control" id="especialidade" name="especialidade" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-        
 
             <footer class="bg-dark text-white text-center p-3 mt-4 w-100">
                 <div class="container">
