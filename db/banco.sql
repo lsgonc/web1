@@ -54,5 +54,20 @@ INSERT INTO usuario (email, senha, nome, tipo_usuario)
 VALUES ('paciente@clinica.com', '123', 'Paciente1', 'paciente');
 SET @usuario_id = LAST_INSERT_ID();
 INSERT INTO paciente (usuario_id, CPF, telefone, sexo, data_nascimento) 
-VALUES (@usuario_id, '12345678900', '00999999999', 'Masculino', '2000-01-01');
+VALUES (@usuario_id, '123.456.789.00', '00999999999', 'Masculino', '2000-01-01');
 
+-- Insere médicos pra teste
+INSERT INTO usuario (email, senha, nome, tipo_usuario) 
+VALUES 
+    ('medico1@clinica.com', '123', 'Medico1', 'medico'),
+    ('medico2@clinica.com', '123', 'Medico2', 'medico'),
+    ('medico3@clinica.com', '123', 'Medico3', 'medico');
+
+SET @usuario_id_medico1 = LAST_INSERT_ID();
+SET @usuario_id_medico2 = @usuario_id_medico1 + 1;
+SET @usuario_id_medico3 = @usuario_id_medico2 + 1;
+INSERT INTO medico (usuario_id, CRM, especialidade) 
+VALUES 
+    (@usuario_id_medico1, 'CRM001', 'Cardiologia'),
+    (@usuario_id_medico2, 'CRM002', 'Pediatria'),
+    (@usuario_id_medico3, 'CRM003', 'Neurologia');
