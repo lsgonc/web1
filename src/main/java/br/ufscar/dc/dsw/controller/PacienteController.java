@@ -101,7 +101,7 @@ public class PacienteController extends HttpServlet {
             throws ServletException, IOException {
         String cpf = request.getParameter("cpf");
 
-        Paciente paciente = pacienteDAO.get(cpf);
+        Paciente paciente = daoPaciente.get(cpf);
 
         HttpSession session = request.getSession();
         session.setAttribute("pacienteEdit", paciente);
@@ -120,7 +120,7 @@ public class PacienteController extends HttpServlet {
 
         Usuario user = new Usuario(id,email, senha, nome, "paciente");
 
-        userDAO.update(user);
+        daoUsuario.update(user);
 
         String cpf = request.getParameter("cpf");
         String telefone = request.getParameter("telefone");

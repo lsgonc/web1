@@ -325,6 +325,66 @@
             </div>
         </div>
 
+        <c:if test="${pacienteEdit != null}">
+            <div class="modal d-block" role="dialog" id="edicaoPacienteModal" tabindex="-1" aria-labelledby="edicaoPacienteModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="edicaoPacienteModal">Editar Paciente</h5>
+                            <button onclick="fechaModalPac()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/ClinicaMedica/paciente/atualizacao" method="post">
+                                <input type="hidden" value="${pacienteEdit.id}" name="id">
+        
+                                <div class="mb-3">
+                                    <label for="nome" class="form-label">Nome:</label>
+                                    <input value="${pacienteEdit.nome}" type="text" class="form-control" id="nome" name="nome" required>
+                                </div>
+        
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email:</label>
+                                    <input value="${pacienteEdit.email}" type="email" class="form-control" id="email" name="email" required>
+                                </div>
+        
+                                <div class="mb-3">
+                                    <label for="senha" class="form-label">Senha:</label>
+                                    <input value="${pacienteEdit.senha}" type="password" class="form-control" id="senha" name="senha" required>
+                                </div>
+        
+                                <div class="mb-3">
+                                    <label for="cpf" class="form-label">CPF:</label>
+                                    <input value="${pacienteEdit.cpf}" type="text" class="form-control" id="cpf" name="cpf" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite um CPF no formato: xxx.xxx.xxx-xx">
+                                </div>
+        
+                                <div class="mb-3">
+                                    <label for="telefone" class="form-label">Telefone:</label>
+                                    <input value="${pacienteEdit.telefone}" type="text" class="form-control" id="telefone" name="telefone" required>
+                                </div>
+        
+                                <div class="mb-3">
+                                    <label for="sexo" class="form-label">Sexo:</label>
+                                    <select class="form-select" id="sexo" name="sexo" required>
+                                        <option value="Masculino" ${pacienteEdit.sexo == 'Masculino' ? 'selected' : ''}>Masculino</option>
+                                        <option value="Feminino" ${pacienteEdit.sexo == 'Feminino' ? 'selected' : ''}>Feminino</option>
+                                        <option value="Outro" ${pacienteEdit.sexo == 'Outro' ? 'selected' : ''}>Outro</option>
+                                    </select>
+                                </div>
+        
+                                <div class="mb-3">
+                                    <label for="dataNascimento" class="form-label">Data de Nascimento:</label>
+                                    <input value="${pacienteEdit.dataNascimento}" type="date" class="form-control" id="dataNascimento" name="dataNascimento" required>
+                                </div>
+        
+                                <button type="submit" class="btn btn-primary">Editar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        
+
         <!-- Modal Cadastro Paciente -->
         <div class="modal fade" id="cadastroPacienteModal" tabindex="-1" aria-labelledby="cadastroPacienteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
