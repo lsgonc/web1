@@ -48,3 +48,11 @@ CREATE TABLE IF NOT EXISTS consulta (
 -- Insere um administrador padrão
 INSERT INTO usuario (email, senha, nome, tipo_usuario) 
 VALUES ('admin@clinica.com', 'admin', 'Administrador', 'admin');
+
+-- Inserir um paciente pra testes
+INSERT INTO usuario (email, senha, nome, tipo_usuario) 
+VALUES ('paciente@clinica.com', '123', 'Paciente1', 'paciente');
+SET @usuario_id = LAST_INSERT_ID();
+INSERT INTO paciente (usuario_id, CPF, telefone, sexo, data_nascimento) 
+VALUES (@usuario_id, '12345678900', '00999999999', 'Masculino', '2000-01-01');
+
