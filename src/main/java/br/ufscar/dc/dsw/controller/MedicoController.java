@@ -95,7 +95,12 @@ public class MedicoController extends HttpServlet {
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
 
+		Medico medico = new Medico(id);
+		medicoDAO.delete(medico);
+
+		response.sendRedirect("/ClinicaMedica/admin");
     }
 
 }

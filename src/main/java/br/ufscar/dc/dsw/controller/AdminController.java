@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.ufscar.dc.dsw.dao.MedicoDAO;
+import br.ufscar.dc.dsw.dao.UsuarioDAO;
+import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.utils.Erro;
 
@@ -16,6 +20,11 @@ import br.ufscar.dc.dsw.utils.Erro;
 public class AdminController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+	private MedicoDAO medicoDAO;
+
+	public void init() {
+        medicoDAO = new MedicoDAO();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,6 +40,9 @@ public class AdminController extends HttpServlet {
     	if (usuario == null) {
     		response.sendRedirect(request.getContextPath());
     	} else if (usuario.getTipoUsuario().equals("admin")) {
+			List<Medico> listaMedicos = medicoDAO.getAll();
+        	request.setAttribute("listaMedicos", listaMedicos);
+
     		RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/index.jsp");
             dispatcher.forward(request, response);
     	} else {
