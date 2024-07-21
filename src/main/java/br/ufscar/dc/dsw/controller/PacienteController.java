@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = {"/paciente/*"})
 public class PacienteController extends HttpServlet {
@@ -50,6 +51,9 @@ public class PacienteController extends HttpServlet {
                     break;
                 case "/remocao":
                     remove(request, response);
+                    break;
+                case "/edicao":
+                    apresentaFormEdicao(request, response);
                     break;
                 case "/atualizacao":
                     atualize(request, response);
@@ -93,8 +97,44 @@ public class PacienteController extends HttpServlet {
 
     }
 
+    private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String cpf = request.getParameter("cpf");
+
+        Paciente paciente = pacienteDAO.get(cpf);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("pacienteEdit", paciente);
+
+        response.sendRedirect("/ClinicaMedica/admin?showDocModal=true");
+    }
+
+
     private void atualize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        int id = Integer.parseInt(request.getParameter("id"));
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+
+        Usuario user = new Usuario(id,email, senha, nome, "paciente");
+
+        userDAO.update(user);
+
+        String cpf = request.getParameter("cpf");
+        String telefone = request.getParameter("telefone");
+        String sexo = request.getParameter("sexo");
+        Date dataNascimento = Date.valueOf(request.getParameter("dataNascimento"));
+
+        Paciente paciente = new Paciente(daoUsuario.get(email).getId(), email, senha, nome,"paciente", cpf, telefone, sexo, dataNascimento);
+
+        daoPaciente.insert(paciente);
+        HttpSession session = request.getSession();
+        session.removeAttribute("pacienteEdit");
+
+        response.sendRedirect("/ClinicaMedica/admin");
+        request.setCharacterEncoding("UTF-8");
 
     }
 
