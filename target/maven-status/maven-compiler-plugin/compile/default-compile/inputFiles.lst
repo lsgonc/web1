@@ -1,8 +1,10 @@
 C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\domain\Paciente.java
+C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\controller\SignOutController.java
 C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\controller\ConsultaController.java
 C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\controller\PacienteController.java
 C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\dao\MainDAO.java
 C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\dao\UsuarioDAO.java
+C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\controller\AdminController.java
 C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\domain\Medico.java
 C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\domain\Usuario.java
 C:\dsw\web1\src\main\java\br\ufscar\dc\dsw\domain\Consulta.java

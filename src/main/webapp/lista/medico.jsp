@@ -1,24 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page isELIgnored="false"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <fmt:bundle basename="message">
 
-	<head>
-<title><fmt:message key="page.title" /></title>
+    <head>
+        <title>
+            <fmt:message key="page.title" />
+        </title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+            rel="stylesheet">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous">
 
-</head>
+    </head>
 
-	<body>
+    <body>
 
         <div class="container">
             <div class="row justify-content-center">
@@ -35,10 +40,18 @@
                         <tbody>
                             <c:forEach var="medico" items="${requestScope.listaMedicos}">
                                 <tr>
-                                    <td><c:out value="${medico.nome}" /></td>
-                                    <td><c:out value="${medico.email}" /></td>
-                                    <td><c:out value="${medico.crm}" /></td>
-                                    <td><c:out value="${medico.especialidade}" /></td>
+                                    <td>
+                                        <c:out value="${medico.nome}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${medico.email}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${medico.crm}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${medico.especialidade}" />
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -47,7 +60,7 @@
             </div>
         </div>
 
-	</body>
+    </body>
 </fmt:bundle>
 
 </html>

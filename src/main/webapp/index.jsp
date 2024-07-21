@@ -109,11 +109,21 @@
                                 </a>
                             </li>
                     
-                            <li class="nav-item mx-2">
-                                <a href="login/" class="nav-link">
-                                    <fmt:message key="header.login" />
-                                </a>
-                            </li>
+                            <c:if test="${sessionScope.usuarioLogado == null}">
+                                <li class="nav-item mx-2">
+                                    <a href="login/" class="nav-link">
+                                        <fmt:message key="header.login" />
+                                    </a>
+                                </li>
+                            </c:if>
+                            <c:if test="${sessionScope.usuarioLogado != null}">
+                                <li class="nav-item mx-2">
+                                    <a href="signout" class="nav-link">
+                                        <fmt:message key="header.signout" />
+                                    </a>
+                                </li>
+                            </c:if>
+
 
                         </ul>
                     </div>
