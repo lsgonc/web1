@@ -8,6 +8,11 @@ public class Paciente extends Usuario{
     private String sexo;
     private Date dataNascimento;
 
+    public Paciente (int id)
+    {
+        super(id);
+    }
+
     // Construtor
     public Paciente(int id, String email, String senha, String nome, String tipoUsuario, String cpf, String telefone, String sexo, Date dataNascimento) {
         super(id, email, senha, nome, tipoUsuario);

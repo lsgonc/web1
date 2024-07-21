@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS usuario (
 -- Cria a tabela de paciente
 CREATE TABLE IF NOT EXISTS paciente (
     usuario_id INT NOT NULL,
-    CPF VARCHAR(11) PRIMARY KEY,
+    CPF VARCHAR(14) PRIMARY KEY,
     telefone VARCHAR(15),
     sexo ENUM('Masculino', 'Feminino', 'Outro'),
     data_nascimento DATE,

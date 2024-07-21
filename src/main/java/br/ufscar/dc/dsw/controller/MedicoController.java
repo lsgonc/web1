@@ -84,7 +84,7 @@ public class MedicoController extends HttpServlet {
 
         medicoDAO.insert(medico);
 
-        response.sendRedirect("lista");
+        response.sendRedirect("/ClinicaMedica/admin");
         request.setCharacterEncoding("UTF-8");
 
     }

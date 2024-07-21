@@ -2,10 +2,12 @@ package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.PacienteDAO;
 import br.ufscar.dc.dsw.dao.UsuarioDAO;
+import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Paciente;
 import br.ufscar.dc.dsw.domain.Usuario;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,12 +66,29 @@ public class PacienteController extends HttpServlet {
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Paciente> listaPacientes = daoPaciente.getAll();
         request.setAttribute("listaPacientes", listaPacientes);
-        request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/paciente/lista.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista/paciente.jsp");
         dispatcher.forward(request, response);
     }
 
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+
+        Usuario user = new Usuario(email, senha, nome, "paciente");
+
+        daoUsuario.insert(user);
+
+        String cpf = request.getParameter("cpf");
+        String telefone = request.getParameter("telefone");
+        String sexo = request.getParameter("sexo");
+        Date dataNascimento = Date.valueOf(request.getParameter("dataNascimento"));
+
+        Paciente paciente = new Paciente(daoUsuario.get(email).getId(), email, senha, nome,"paciente", cpf, telefone, sexo, dataNascimento);
+
+        daoPaciente.insert(paciente);
+
+        response.sendRedirect("/ClinicaMedica/admin");
         request.setCharacterEncoding("UTF-8");
 
     }
@@ -80,7 +99,12 @@ public class PacienteController extends HttpServlet {
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
 
+		Paciente paciente = new Paciente(id);
+		daoPaciente.delete(paciente);
+
+		response.sendRedirect("/ClinicaMedica/admin");
     }
 
 }

@@ -202,39 +202,45 @@
                                 <th>CPF</th>
                                 <th>Telefone</th>
                                 <th>Sexo</th>
-                                <th>Data_nascimento</th>
+                                <th>Data de nascimento</th>
+                                <th>Operações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="medico" items="${requestScope.listaMedicos}">
+                            <c:forEach var="paciente" items="${requestScope.listaPacientes}">
                                 <tr>
                                     <td>
-                                        <c:out value="${medico.nome}" />
+                                        <c:out value="${paciente.nome}" />
                                     </td>
                                     <td>
-                                        <c:out value="${medico.email}" />
+                                        <c:out value="${paciente.email}" />
                                     </td>
                                     <td>
-                                        <c:out value="${medico.crm}" />
+                                        <c:out value="${paciente.cpf}" />
                                     </td>
                                     <td>
-                                        <c:out value="${medico.especialidade}" />
+                                        <c:out value="${paciente.telefone}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${paciente.sexo}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${paciente.dataNascimento}" />
                                     </td>
                                     <td>
                                         <div class="row">
                                             <div class="col">
-                                                <form action="/ClinicaMedica/medico/atualizacao" method="post">
-                                                    <button name="id" value="${medico.id}" type="submit" class="btn btn-warning rounded-0 align-self-end">Editar Paciente</button>
+                                                <form action="/ClinicaMedica/paciente/atualizacao" method="post">
+                                                    <button name="id" value="${paciente.id}" type="submit" class="btn btn-warning rounded-0 align-self-end">Editar Paciente</button>
                                                 </form>
                                             </div>
                                             <div class="col">
-                                                <form action="/ClinicaMedica/medico/remocao" method="post">
-                                                    <button  name="id" value="${medico.id}" type="submit" class="btn btn-danger rounded-0 align-self-end">Deletar Paciente</button>
+                                                <form action="/ClinicaMedica/paciente/remocao" method="post">
+                                                    <button  name="id" value="${paciente.id}" type="submit" class="btn btn-danger rounded-0 align-self-end">Deletar Paciente</button>
                                                 </form>
                                             </div>
                                         </div>
                                     </td>
-                                    
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -305,7 +311,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="cpf" class="form-label">CPF:</label>
-                                <input type="text" class="form-control" id="cpf" name="cpf" required>
+                                <input type="text" class="form-control" id="cpf" name="cpf" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" \
+                                title="Digite um CPF no formato: xxx.xxx.xxx-xx">
                             </div>
                             <div class="mb-3">
                                 <label for="telefone" class="form-label">Telefone:</label>
