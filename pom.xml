@@ -73,7 +73,7 @@
 					<server>Tomcat9</server>
 					<path>/${project.artifactId}</path>
 					<username>admin</username>
-					<password>admin</password>
+					<password>123</password>
 				</configuration>
 			</plugin>
 		</plugins>

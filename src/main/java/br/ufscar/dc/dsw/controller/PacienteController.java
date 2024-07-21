@@ -129,7 +129,7 @@ public class PacienteController extends HttpServlet {
 
         Paciente paciente = new Paciente(daoUsuario.get(email).getId(), email, senha, nome,"paciente", cpf, telefone, sexo, dataNascimento);
 
-        daoPaciente.insert(paciente);
+        daoPaciente.update(paciente);
         HttpSession session = request.getSession();
         session.removeAttribute("pacienteEdit");
 

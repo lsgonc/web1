@@ -230,8 +230,8 @@
                                     <td>
                                         <div class="row">
                                             <div class="col">
-                                                <form action="/ClinicaMedica/paciente/atualizacao" method="post">
-                                                    <button name="id" value="${paciente.id}" type="submit" class="btn btn-warning rounded-0 align-self-end">Editar Paciente</button>
+                                                <form action="/ClinicaMedica/paciente/edicao" method="post">
+                                                    <button name="cpf" value="${paciente.cpf}" type="submit" class="btn btn-warning rounded-0 align-self-end">Editar Paciente</button>
                                                 </form>
                                             </div>
                                             <div class="col">
@@ -446,10 +446,15 @@
         <script>
             $(document).ready(function(){
                 $("#edicaoMedicoModal").modal('show');
+                $("#edicaoPacienteModal").modal('show');
             });
 
             function fechaModal() {
                var element = document.getElementById("edicaoMedicoModal");
+                element.classList.remove("d-block");
+            }
+            function fechaModalPac() {
+               var element = document.getElementById("edicaoPacienteModal");
                 element.classList.remove("d-block");
             }
         </script>
