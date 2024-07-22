@@ -1,6 +1,8 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -10,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.domain.Medico;
+import br.ufscar.dc.dsw.domain.Consulta;
 
 @WebServlet(urlPatterns = { "/SendEmail" })
 public class EmailController extends HttpServlet {
@@ -47,6 +50,7 @@ public class EmailController extends HttpServlet {
         Session sessao = Session.getInstance(propriedades, autenticador);
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
         Medico Medico = (Medico) request.getAttribute("MedicoEmail");
+        Consulta data_consulta = (Consulta) request.getAttribute("DataEmail");
 
         // Criação da mensagem de email
         final Message mensagem = new MimeMessage(sessao);
@@ -54,9 +58,9 @@ public class EmailController extends HttpServlet {
             mensagem.setFrom(new InternetAddress(username));
             mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(usuario.getEmail() + "," + Medico.getEmail()));
             mensagem.setSubject("Nova consulta agendada [Saúde Total]!");
-            mensagem.setText("Nome do paciente: " + usuario.getNome() + "\nEmail do paciente: " + usuario.getEmail()
-                    + "\n\nNome do Medico: " + Medico.getNome() + "\nEmail do Medico: " + Medico.getEmail()
-                    + "\n\n");
+            mensagem.setText("Nome do paciente: " + usuario.getNome() + " | Email do paciente: " + usuario.getEmail()
+                       + "\nNome do Medico: " + Medico.getNome() + " | Email do Medico: " + Medico.getEmail()
+                       + "\n\n Data: " + data_consulta.getData() + " | Horário: " + data_consulta.getHora());
         } catch (MessagingException e) {
             e.printStackTrace();
         }

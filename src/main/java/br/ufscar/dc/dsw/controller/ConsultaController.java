@@ -145,6 +145,7 @@ public class ConsultaController extends HttpServlet {
         consultaDAO.insert(novaConsulta);
 
         request.setAttribute("MedicoEmail", medico);
+        request.setAttribute("DataEmail", novaConsulta);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/SendEmail");
         dispatcher.forward(request, response);
 
