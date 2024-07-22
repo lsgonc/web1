@@ -63,9 +63,9 @@ SET @usuario_id3 = @usuario_id2 + 1;
 
 INSERT INTO paciente (usuario_id, CPF, telefone, sexo, data_nascimento) 
 VALUES 
-    (@usuario_id1, '123.456.789.00', '00999999999', 'Masculino', '2001-01-01'),
-    (@usuario_id2, '321.654.987.00', '00888888888', 'Feminino', '2002-02-02'),
-    (@usuario_id3, '213.546.879.00', '00777777777', 'Masculino', '2003-03-03');
+    (@usuario_id1, '123.456.789-00', '00999999999', 'Masculino', '2001-01-01'),
+    (@usuario_id2, '321.654.987-00', '00888888888', 'Feminino', '2002-02-02'),
+    (@usuario_id3, '213.546.879-00', '00777777777', 'Masculino', '2003-03-03');
 
 
 -- Insere médicos pra teste
