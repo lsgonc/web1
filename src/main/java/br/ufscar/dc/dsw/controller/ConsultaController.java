@@ -126,6 +126,16 @@ public class ConsultaController extends HttpServlet {
         Paciente paciente = pacienteDAO.get(paciente_cpf);
         Medico medico = medicoDAO.get(medico_crm);
 
+        if (consultaDAO.medicoTemConsulta(medico_crm, data_consulta, hora_consulta)) {
+            response.sendError(HttpServletResponse.SC_CONFLICT, "O médico já possui uma consulta neste horário.");
+            return;
+        }
+
+        if (consultaDAO.pacienteTemConsulta(paciente_cpf, data_consulta, hora_consulta)) {
+            response.sendError(HttpServletResponse.SC_CONFLICT, "O paciente já possui uma consulta neste horário.");
+            return;
+        }
+
         Consulta novaConsulta = new Consulta(paciente, medico, data_consulta, hora_consulta);
 
         consultaDAO.insert(novaConsulta);

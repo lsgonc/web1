@@ -102,6 +102,51 @@ public class ConsultaDAO extends MainDAO{
         }
     }
 
+    public boolean medicoTemConsulta(String medico_crm, Date dataConsulta, Time horaConsulta) {
+        String sql = "SELECT COUNT(*) FROM consulta WHERE medico_crm = ? AND data_consulta = ? AND hora_consulta = ?";
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, medico_crm);
+            statement.setDate(2, dataConsulta);
+            statement.setTime(3, horaConsulta);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+            
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public boolean pacienteTemConsulta(String paciente_cpf, Date dataConsulta, Time horaConsulta) {
+        String sql = "SELECT COUNT(*) FROM consulta WHERE paciente_cpf = ? AND data_consulta = ? AND hora_consulta = ?";
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, paciente_cpf);
+            statement.setDate(2, dataConsulta);
+            statement.setTime(3, horaConsulta);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+            
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+
     public void delete(Consulta consulta) {
         String sql = "DELETE FROM consulta WHERE id = ?";
 
