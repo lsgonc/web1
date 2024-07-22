@@ -180,14 +180,14 @@
                             <fmt:message key="doctors.specialty" />
                         </option>
     
-                        <option value="Cardiologia">Cardiologia</option>
-                        <option value="Dermatologia">Dermatologia</option>
-                        <option value="Ginecologia">Ginecologia</option>
-                        <option value="Neurologia">Neurologia</option>
-                        <option value="Ortopedia">Ortopedia</option>
-                        <option value="Oftalmologia">Oftalmologia</option>
-                        <option value="Pediatria">Pediatria</option>
-                        <option value="Psiquiatria">Psiquiatria</option>s
+                        <option value="Cardiologia"><fmt:message key="esp.cardiologia" /></option>
+                        <option value="Dermatologia"><fmt:message key="esp.dermatologia" /></option>
+                        <option value="Ginecologia"><fmt:message key="esp.ginecologia" /></option>
+                        <option value="Neurologia"><fmt:message key="esp.neurologia" /></option>
+                        <option value="Ortopedia"><fmt:message key="esp.ortopedia" /></option>
+                        <option value="Oftalmologia"><fmt:message key="esp.oftalmologia" /></option>
+                        <option value="Pediatria"><fmt:message key="esp.pediatria" /></option>
+                        <option value="Psiquiatria"><fmt:message key="esp.psiquiatria" /></option>
                     </select>
                 </div>
             </div>

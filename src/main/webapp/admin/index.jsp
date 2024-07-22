@@ -287,7 +287,7 @@
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email:</label>
-                                    <input value="${medicoEdit.email}" type="email" class="form-controlGerenciamento de pacientes" id="email" name="email" required>
+                                    <input value="${medicoEdit.email}" type="email" class="form-control" id="email" name="email" required>
                                 </div>
 
                                 <div class="mb-3">
