@@ -51,6 +51,10 @@
                 height: 25px;
             }
 
+            .title{
+                font-family: 'Inter';
+            }
+
             .opcoes{
                 display: flex;
                 align-items: center;
@@ -80,7 +84,7 @@
         <header class="fixed-top">
             <nav class="navbar navbar-expand-sm navbar-dark blur-bg">
                 <div class="container">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/ClinicaMedica/">
                         <fmt:message key="brand.name" />
                     </a>
 
@@ -131,29 +135,29 @@
         </section>
 
         <section id="about" class="py-5 mt-4 mb-5">
-            <div class=" text-center mb-2">
-                <h2 class="py-2 fs-3">
+            <div class="w-75 mx-auto mb-1 d-flex">
+                <h2 class="title py-2 fs-4">
                     <fmt:message key="doctors.subtitle" />
                 </h2>
-            </div>
-            
-            <div class="opcoes">
-                <select name="selectMedico" id="selectMedico" class="p-2" onchange="filterTable()">
-                    <option value="vazio" selected style="background-color: gray;">
-                        <fmt:message key="doctors.specialty" />
-                    </option>
 
-                    <option value="Cardiologia">Cardiologia</option>
-                    <option value="Dermatologia">Dermatologia</option>
-                    <option value="Ginecologia">Ginecologia</option>
-                    <option value="Neurologia">Neurologia</option>
-                    <option value="Ortopedia">Ortopedia</option>
-                    <option value="Oftalmologia">Oftalmologia</option>
-                    <option value="Pediatria">Pediatria</option>
-                    <option value="Psiquiatria">Psiquiatria</option>s
-                </select>
+                <div class="opcoes h-100 mx-4 mt-1">
+                    <select name="selectMedico" id="selectMedico" class="p-2" onchange="filterTable()">
+                        <option value="vazio" selected style="background-color: gray;">
+                            <fmt:message key="doctors.specialty" />
+                        </option>
+    
+                        <option value="Cardiologia">Cardiologia</option>
+                        <option value="Dermatologia">Dermatologia</option>
+                        <option value="Ginecologia">Ginecologia</option>
+                        <option value="Neurologia">Neurologia</option>
+                        <option value="Ortopedia">Ortopedia</option>
+                        <option value="Oftalmologia">Oftalmologia</option>
+                        <option value="Pediatria">Pediatria</option>
+                        <option value="Psiquiatria">Psiquiatria</option>s
+                    </select>
+                </div>
             </div>
-
+        
             <div class="d-flex flex-column align-items-center justify-content-center">
                 <div class="row w-75 p-1 border justify-content-center">
                     <div class="col-md-12 mt-3">
@@ -203,9 +207,9 @@
                     var specialty = row.getAttribute('data-specialty');
                     
                     if (selectedValue === 'vazio' || selectedValue === specialty) {
-                        row.style.display = ''; // Show the row
+                        row.style.display = ''; // Mostra o médico
                     } else {
-                        row.style.display = 'none'; // Hide the row
+                        row.style.display = 'none'; // Esconde o médico
                     }
                 });
             });
