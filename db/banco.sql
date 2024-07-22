@@ -73,20 +73,26 @@ INSERT INTO usuario (email, senha, nome, tipo_usuario)
 VALUES 
     ('medico1@clinica.com', '123', 'Medico1', 'medico'),
     ('medico2@clinica.com', '123', 'Medico2', 'medico'),
-    ('medico3@clinica.com', '123', 'Medico3', 'medico');
+    ('medico3@clinica.com', '123', 'Medico3', 'medico'),
+    ('medico4@clinica.com', '123', 'Medico4', 'medico');
+    
 
 SET @usuario_id_medico1 = LAST_INSERT_ID();
 SET @usuario_id_medico2 = @usuario_id_medico1 + 1;
 SET @usuario_id_medico3 = @usuario_id_medico2 + 1;
+SET @usuario_id_medico4 = @usuario_id_medico3 + 1;
 
 INSERT INTO medico (usuario_id, CRM, especialidade) 
 VALUES 
     (@usuario_id_medico1, 'CRM001', 'Cardiologia'),
     (@usuario_id_medico2, 'CRM002', 'Pediatria'),
-    (@usuario_id_medico3, 'CRM003', 'Neurologia');
+    (@usuario_id_medico3, 'CRM003', 'Neurologia'),
+    (@usuario_id_medico4, 'CRM004', 'Cardiologia');
 
 -- Insere consultas pra teste
 INSERT INTO consulta (paciente_cpf, medico_crm, data_consulta, hora_consulta) 
 VALUES 
     ('123.456.789-00', 'CRM001', '2024-08-01', '10:00:00'),
-    ('321.654.987-00', 'CRM001', '2024-08-02', '11:00:00');
+    ('321.654.987-00', 'CRM001', '2024-08-02', '11:00:00'),
+    ('123.456.789-00', 'CRM002', '2024-08-02', '17:00:00'),
+    ('213.546.879-00', 'CRM004', '2024-08-02', '12:00:00');
