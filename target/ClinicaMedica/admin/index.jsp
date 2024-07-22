@@ -434,19 +434,11 @@
         </div>
 
         <script>
-            $(document).ready(function() {
-                var showMedicoModal = <c:out value="${medicoEdit != null}" />;
-                var showPacienteModal = <c:out value="${pacienteEdit != null}" />;
-
-                if (showMedicoModal) {
-                    $("#edicaoMedicoModal").modal('show');
-                }
-
-                if (showPacienteModal) {
-                    $("#edicaoPacienteModal").modal('show');
-                }
+            $(document).ready(function(){
+                $("#edicaoMedicoModal").modal('show');
+                $("#edicaoPacienteModal").modal('show');
             });
-            
+
             function fechaModal() {
                 var element = document.getElementById("edicaoMedicoModal");
                 element.classList.remove("d-block");

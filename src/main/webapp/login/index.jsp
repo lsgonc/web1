@@ -111,7 +111,7 @@
                                             <fmt:message key="login.email" />
                                         </label>
                                         
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="<fmt:message key='login.placeholder.email'/>">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="<fmt:message key='placeholder.email'/>">
         
                                         <c:if test="${mensagensEmail.existeErros}">
                                             <div class="row mt-2" id="erro">
@@ -127,7 +127,7 @@
                                             <fmt:message key="login.password" />
                                         </label>
 
-                                        <input type="password" class="form-control" id="senha" name="senha" placeholder="<fmt:message key='login.placeholder.password'/>">
+                                        <input type="password" class="form-control" id="senha" name="senha" placeholder="<fmt:message key='placeholder.password'/>">
         
                                         <c:if test="${mensagensSenha.existeErros}">
                                             <div class="row mt-2" id="erro">
@@ -147,7 +147,7 @@
                             </div>
                             <div class="p-2 mx-1">
                                 <a href="#">
-                                    <fmt:message key="login.passwordmiss" />
+                                    <fmt:message key="login.acc" />
                                 </a>
                             </div>
                         </div>
