@@ -84,3 +84,9 @@ VALUES
     (@usuario_id_medico1, 'CRM001', 'Cardiologia'),
     (@usuario_id_medico2, 'CRM002', 'Pediatria'),
     (@usuario_id_medico3, 'CRM003', 'Neurologia');
+
+-- Insere consultas pra teste
+INSERT INTO consulta (paciente_cpf, medico_crm, data_consulta, hora_consulta) 
+VALUES 
+    ('123.456.789.00', 'CRM001', '2024-08-01', '10:00:00'),
+    ('321.654.987.00', 'CRM001', '2024-08-02', '11:00:00');

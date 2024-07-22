@@ -103,17 +103,13 @@ public class ConsultaDAO extends MainDAO{
     }
 
     public void delete(Consulta consulta) {
-        String sql = "DELETE FROM consulta WHERE paciente_cpf = ?, medico_crm = ?, data_consulta = ?, hora_consulta = ?";
+        String sql = "DELETE FROM consulta WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, consulta.getPaciente().getCpf());
-            statement.setString(2, consulta.getMedico().getCrm());
-            statement.setDate(3, consulta.getData());
-            statement.setTime(4, consulta.getHora());
-
+            statement.setInt(1, consulta.getId());
             statement.executeUpdate();
 
             statement.close();

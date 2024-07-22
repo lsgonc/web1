@@ -160,6 +160,6 @@ public class ConsultaController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Consulta consulta = new Consulta(id);
         consultaDAO.delete(consulta);
-        response.sendRedirect("lista");
+        response.sendRedirect("/ClinicaMedica/consulta");
     }
 }

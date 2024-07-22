@@ -126,6 +126,16 @@
                                         </td>
                                         <td>
                                             <c:out value="${consulta.hora}" />
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <form action="/ClinicaMedica/consulta/remocao" method="post">
+                                                        <button name="id" value="${consulta.id}" type="submit"
+                                                            class="btn btn-danger rounded-0 align-self-end">Finalizar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </td>        
                                     </tr>
                                 </c:forEach>
