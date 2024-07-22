@@ -113,7 +113,7 @@
     
                                 <c:if test="${sessionScope.usuarioLogado == null}">
                                 <li class="nav-item mx-2">
-                                    <a href="login/" class="nav-link">
+                                    <a href="" class="nav-link">
                                         <fmt:message key="header.login" />
                                     </a>
                                 </li>

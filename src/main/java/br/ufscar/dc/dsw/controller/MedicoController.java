@@ -6,9 +6,7 @@ import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Usuario;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,7 +66,7 @@ public class MedicoController extends HttpServlet {
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Medico> listaMedicos = medicoDAO.getAll();
         request.setAttribute("listaMedicos", listaMedicos);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista/medico.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/medicos/medico.jsp");
         dispatcher.forward(request, response); 
     }
 

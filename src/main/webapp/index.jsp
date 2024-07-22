@@ -16,6 +16,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/906fdf974e.js" crossorigin="anonymous"></script>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
@@ -47,10 +48,10 @@
                 backdrop-filter: blur(5px);
             }
 
-            .cartao{
-                width: 20%;
-                height: 180px;
-                background-color: black;
+            i{
+                font-size: 6rem;
+                padding: 12px;
+                color: #30cc00;
             }
 
             @media screen and (max-width: 768px) {
@@ -75,7 +76,7 @@
         <header class="fixed-top">
             <nav class="navbar navbar-expand-sm navbar-dark blur-bg">
                 <div class="container">
-                    <a class="navbar-brand" href="/ClinicaMedica">
+                    <a class="navbar-brand" href="#">
                         <fmt:message key="brand.name" />
                     </a>
 
@@ -96,35 +97,18 @@
                                     <fmt:message key="header.about" />
                                 </a>
                             </li>
-                    
-                            <li class="nav-item mx-2">
-                                <a href="#services" class="nav-link">
-                                    <fmt:message key="header.services" />
-                                </a>
-                            </li>
 
                             <li class="nav-item mx-2">
-                                <a href="#doctors" class="nav-link">
+                                <a href="medico/" class="nav-link">
                                     <fmt:message key="header.doctors" />
                                 </a>
                             </li>
                     
-                            <c:if test="${sessionScope.usuarioLogado == null}">
-                                <li class="nav-item mx-2">
-                                    <a href="login/" class="nav-link">
-                                        <fmt:message key="header.login" />
-                                    </a>
-                                </li>
-                            </c:if>
-                            <c:if test="${sessionScope.usuarioLogado != null}">
-                                <li class="nav-item mx-2">
-                                    <a href="signout" class="nav-link">
-                                        <fmt:message key="header.signout" />
-                                    </a>
-                                </li>
-                            </c:if>
-
-
+                            <li class="nav-item mx-2">
+                                <a href="login/" class="nav-link">
+                                    <fmt:message key="header.login" />
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -139,13 +123,13 @@
                 <p class="lead fs-4 pb-3">
                     <fmt:message key="banner.text" />
                 </p>
-                <a href="#services" class="btn btn-outline-light fw-medium btn-lg px-4 py-2">
+                <a href="medico/" class="btn btn-outline-light fw-medium btn-lg px-4 py-2">
                     <fmt:message key="banner.button" />
                 </a>
             </div>
         </section>
 
-        <section id="about" class="py-5">
+        <section id="about" class="py-5 mt-4">
             <div class="container d-flex flex-column align-items-center justify-content-center">
                 <div class="w-75 text-center mb-4">
                     <h2 class="py-2">
@@ -157,43 +141,59 @@
                     </p>
                 </div>
 
-                <div class="row">
+                <div class="row w-100">
                     <div class="col-md-3">
-                        <div class="card mb-3 border-0">
+                        <div class="card mb-3">  
                             <div class="card-body text-center">
-                                <h3 class="card-title">Consulta Médica</h3>
-                                <p class="card-text">Atendimento com médicos especialistas para diversas áreas
-                                    da saúde.</p>
+                                <i class="fas fa-stethoscope"></i>
+                                <h3 class="card-title fs-4 mt-3">
+                                    <fmt:message key="card.title1" />
+                                </h3>
+                                <p class="mt-2">
+                                    <fmt:message key="card.text1" />
+                                </p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="col-md-3">
-                        <div class="card mb-3 border-0">
+                        <div class="card mb-3">
                             <div class="card-body text-center">
-                                <h3 class="card-title">Consulta Médica</h3>
-                                <p class="card-text">Atendimento com médicos especialistas para diversas áreas
-                                    da saúde.</p>
+                                <i class="fas fa-flask"></i>
+                                <h3 class="card-title fs-4 mt-3">
+                                    <fmt:message key="card.title2" />
+                                </h3>
+                                <p class="mt-2">
+                                    <fmt:message key="card.text2" />
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-3">
-                        <div class="card mb-3 border-0">
+                        <div class="card mb-3">
                             <div class="card-body text-center">
-                                <h3 class="card-title">Consulta Médica</h3>
-                                <p class="card-text">Atendimento com médicos especialistas para diversas áreas
-                                    da saúde.</p>
+                                <i class="fas fa-procedures"></i>
+                                <h3 class="card-title fs-4 mt-3">
+                                    <fmt:message key="card.title3" />
+                                </h3>
+                                <p class="mt-2">
+                                    <fmt:message key="card.text3" />
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-3">
-                        <div class="card mb-3 border-0">
+                        <div class="card mb-3">
                             <div class="card-body text-center">
-                                <h3 class="card-title">Consulta Médica</h3>
-                                <p class="card-text">Atendimento com médicos especialistas para diversas áreas
-                                    da saúde.</p>
+                                <i class="fas fa-search"></i>
+                                <h3 class="card-title fs-4 mt-3">
+                                    <fmt:message key="card.title4" />
+                                </h3>
+                                <p class="mt-2">
+                                    <fmt:message key="card.text4" />
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -201,79 +201,7 @@
             </div>
         </section>
 
-        <section id="services" class="py-5 bg-light">
-            <div class="container">
-                <h2 class="py-2">Nossos Serviços</h2>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h3 class="card-title">Consulta Médica</h3>
-                                <p class="card-text">Atendimento com médicos especialistas para diversas áreas
-                                    da saúde.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h3 class="card-title">Exames Laboratoriais</h3>
-                                <p class="card-text">Realizamos uma variedade de exames laboratoriais com
-                                    precisão e rapidez.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h3 class="card-title">Emergências</h3>
-                                <p class="card-text">Atendimento de emergências médicas 24 horas por dia, 7 dias
-                                    por semana.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="doctors" class="py-5 bg-light">
-            <div class="container">
-                <h2>Nossos Médicos</h2>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-12">
-                            <table class="table table-light table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>CRM</th>
-                                        <th>Especialidade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:if test="${empty listaMedicos}">
-                                        <tr>
-                                            <td colspan="4">Nenhum médico cadastrado.</td>
-                                        </tr>
-                                    </c:if>
-                                    <c:forEach var="medico" items="${listaMedicos}">
-                                        <tr>
-                                            <td><c:out value="${medico.nome}" /></td>
-                                            <td><c:out value="${medico.email}" /></td>
-                                            <td><c:out value="${medico.crm}" /></td>
-                                            <td><c:out value="${medico.especialidade}" /></td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>               
-            </div>
-        </section>
-
-        <footer class="bg-dark text-white text-center p-3 mt-4">
+        <footer class="bg-dark text-white text-center p-3">
             <div class="container">
                 <p class="mb-0">
                     <fmt:message key="footer.text" />
