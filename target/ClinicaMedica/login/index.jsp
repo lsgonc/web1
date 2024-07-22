@@ -77,7 +77,7 @@
                             </li>
 
                             <li class="nav-item mx-2">
-                                <a href="medico" class="nav-link">
+                                <a href="/ClinicaMedica/medico" class="nav-link">
                                     <fmt:message key="header.doctors" />
                                 </a>
                             </li>

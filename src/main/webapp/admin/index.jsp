@@ -108,7 +108,9 @@
         <div class="manager-container container mb-5">
             <div class="row justify-content-between mb-2">
                 <div class="col col-auto">
-                    <h2>Gerenciamento de médicos</h2>
+                    <h2>
+                        <fmt:message key="crud.doctor.title" />
+                    </h2>
                 </div>
         
                 <div class="col col-auto">
@@ -120,11 +122,21 @@
                 <table class="table table-light table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>CRM</th>
-                            <th>Especialidade</th>
-                            <th>Operações</th>
+                            <th>
+                                <fmt:message key="signin.name" />
+                            </th>
+                            <th>
+                                <fmt:message key="signin.email" />
+                            </th>
+                            <th>
+                                CRM
+                            </th>
+                            <th>
+                                <fmt:message key="signin.specialty" />
+                            </th>
+                            <th>
+                                <fmt:message key="crud.operations" />
+                            </th>
                         </tr>
                     </thead>
 
@@ -169,7 +181,9 @@
         <div class="container mt-5">
             <div class="row justify-content-between mb-2">
                 <div class="col col-auto">
-                    <h2>Gerenciamento de pacientes</h2>
+                    <h2>
+                        <fmt:message key="crud.patient.title" />
+                    </h2>
                     <c:if test="${errosPaciente.existeErros}">
                         <c:forEach var="erro" items="${errosPaciente.erros}">
                             <li class="text-danger"> ${erro} </li>
@@ -186,13 +200,27 @@
                 <table class="table table-light table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>CPF</th>
-                            <th>Telefone</th>
-                            <th>Sexo</th>
-                            <th>Data de nascimento</th>
-                            <th>Operações</th>
+                            <th>
+                                <fmt:message key="signin.name" />
+                            </th>
+                            <th>
+                                <fmt:message key="signin.email" />
+                            </th>
+                            <th>
+                                <fmt:message key="signin.cpf" />
+                            </th>
+                            <th>
+                                <fmt:message key="signin.phone" />
+                            </th>
+                            <th>
+                                <fmt:message key="signin.gender" />
+                            </th>
+                            <th>
+                                <fmt:message key="signin.date" />
+                            </th>
+                            <th>
+                                <fmt:message key="crud.operations" />
+                            </th>
                         </tr>
                     </thead>
 
@@ -259,7 +287,7 @@
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email:</label>
-                                    <input value="${medicoEdit.email}" type="email" class="form-control" id="email" name="email" required>
+                                    <input value="${medicoEdit.email}" type="email" class="form-controlGerenciamento de pacientes" id="email" name="email" required>
                                 </div>
 
                                 <div class="mb-3">

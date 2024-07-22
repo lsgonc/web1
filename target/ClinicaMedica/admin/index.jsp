@@ -108,7 +108,9 @@
         <div class="manager-container container mb-5">
             <div class="row justify-content-between mb-2">
                 <div class="col col-auto">
-                    <h2>Gerenciamento de médicos</h2>
+                    <h2>
+                        <fmt:message key="crud.doctor.title" />
+                    </h2>
                 </div>
         
                 <div class="col col-auto">
@@ -169,7 +171,9 @@
         <div class="container mt-5">
             <div class="row justify-content-between mb-2">
                 <div class="col col-auto">
-                    <h2>Gerenciamento de pacientes</h2>
+                    <h2>
+                        <fmt:message key="crud.patient.title" />
+                    </h2>
                     <c:if test="${errosPaciente.existeErros}">
                         <c:forEach var="erro" items="${errosPaciente.erros}">
                             <li class="text-danger"> ${erro} </li>
@@ -259,7 +263,7 @@
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email:</label>
-                                    <input value="${medicoEdit.email}" type="email" class="form-control" id="email" name="email" required>
+                                    <input value="${medicoEdit.email}" type="email" class="form-controlGerenciamento de pacientes" id="email" name="email" required>
                                 </div>
 
                                 <div class="mb-3">
