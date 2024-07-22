@@ -88,5 +88,5 @@ VALUES
 -- Insere consultas pra teste
 INSERT INTO consulta (paciente_cpf, medico_crm, data_consulta, hora_consulta) 
 VALUES 
-    ('123.456.789.00', 'CRM001', '2024-08-01', '10:00:00'),
-    ('321.654.987.00', 'CRM001', '2024-08-02', '11:00:00');
+    ('123.456.789-00', 'CRM001', '2024-08-01', '10:00:00'),
+    ('321.654.987-00', 'CRM001', '2024-08-02', '11:00:00');
