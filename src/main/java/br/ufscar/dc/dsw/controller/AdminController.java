@@ -12,11 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.ufscar.dc.dsw.dao.MedicoDAO;
 import br.ufscar.dc.dsw.dao.PacienteDAO;
-import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Paciente;
 import br.ufscar.dc.dsw.domain.Usuario;
-import br.ufscar.dc.dsw.utils.Erro;
 
 @WebServlet(urlPatterns = "/admin")
 public class AdminController extends HttpServlet {
@@ -39,7 +37,6 @@ public class AdminController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
-    	Erro erros = new Erro();
     	
     	if (usuario == null) {
     		response.sendRedirect(request.getContextPath());

@@ -2,16 +2,13 @@ package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.PacienteDAO;
 import br.ufscar.dc.dsw.dao.UsuarioDAO;
-import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Paciente;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.utils.Erro;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
