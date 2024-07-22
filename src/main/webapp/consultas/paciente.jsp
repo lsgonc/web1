@@ -191,7 +191,29 @@
                             </div>
                             <div class="mb-3">
                                 <label for="horaConsulta">Hora da Consulta</label>
-                                <input name="horaConsulta" type="time" class="form-control" id="horaConsulta">
+                                <label for="horaConsulta">Hora da Consulta</label>
+                                <select name="horaConsulta" class="form-select" id="horaConsulta" required>
+                                    <option value="08:00">08:00</option>
+                                    <option value="08:30">08:30</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="09:30">09:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                </select>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Agendar</button>
