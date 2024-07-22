@@ -184,14 +184,16 @@
             <div class="row justify-content-center">
                 <div class="row justify-content-between">
                     <div class="col col-auto">
-                        <h2>Gerenciamento de pacientes</h2>    
+                        <h2>Gerenciamento de pacientes</h2> 
+                        <c:if test="${errosPaciente.existeErros}">
+                            <c:forEach var="erro" items="${errosPaciente.erros}">
+                                <li class="text-danger"> ${erro} </li>
+                            </c:forEach>
+                        </c:if>   
                     </div>
                     <div class="col col-auto">
                         <button type="button" class="btn btn-dark rounded-0 align-self-end" data-bs-toggle="modal" data-bs-target="#cadastroPacienteModal">Cadastrar Paciente</button>
-                    </div>
-
-                                
-                    
+                    </div>                 
                 </div>
                 <div class="col-md-12">
                     <table class="table table-light table-hover">
@@ -394,6 +396,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        
                         <form action="/ClinicaMedica/paciente/insercao" method="post">
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Nome:</label>

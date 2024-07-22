@@ -4,6 +4,7 @@ import br.ufscar.dc.dsw.dao.ConsultaDAO;
 import br.ufscar.dc.dsw.dao.PacienteDAO;
 import br.ufscar.dc.dsw.dao.MedicoDAO;
 import br.ufscar.dc.dsw.domain.Paciente;
+import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Consulta;
 import java.io.IOException;
@@ -20,16 +21,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/consulta/*")
 public class ConsultaController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private ConsultaDAO dao;
+    private ConsultaDAO consultaDAO;
+    private PacienteDAO pacienteDAO;
+    private MedicoDAO medicoDAO;
+
+    private Usuario usuario;
 
     @Override
     public void init() {
-        dao = new ConsultaDAO();
+        consultaDAO = new ConsultaDAO();
+        pacienteDAO = new PacienteDAO();
+        medicoDAO = new MedicoDAO();
     }
 
     @Override
@@ -40,6 +48,15 @@ public class ConsultaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getPathInfo();
+
+        usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+
+        if (usuario == null)
+        {
+            response.sendRedirect("/ClinicaMedica/login");
+            return;
+        }
+
         if (action == null) {
             action = "";
         }
@@ -55,13 +72,8 @@ public class ConsultaController extends HttpServlet {
                 case "/atualizacao":
                     atualize(request, response);
                     break;
-                case "/listaPaciente":
-                    listaPaciente(request, response);
-                    break;
-                case "listaConsultaMedico":
-                    listaMedico(request, response);
-                    break;
                 default:
+                    lista(request, response);
                     break;
             }
         } catch (RuntimeException | IOException | ServletException e) {
@@ -69,42 +81,55 @@ public class ConsultaController extends HttpServlet {
         }
     }
 
-    private void listaPaciente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String cpf = request.getParameter("cpf");
-        List<Consulta> listaConsultas = dao.getAllPaciente(cpf);
-        request.setAttribute("listaConsultasPaciente", listaConsultas);
-        request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/consulta/lista.jsp");
-        dispatcher.forward(request, response);
-    }
+    private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    private void listaMedico(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String crm = request.getParameter("crm");
-        List<Consulta> listaConsultas = dao.getAllMedicos(crm);
-        request.setAttribute("listaConsultasMedico", listaConsultas);
-        request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/consulta/lista.jsp");
-        dispatcher.forward(request, response);
+        if(usuario.getTipoUsuario().equals("paciente"))
+        {
+            Paciente paciente = pacienteDAO.getById(usuario.getId()) ;
+
+            List<Consulta> listaConsultas = consultaDAO.getAllPaciente(paciente.getCpf());
+            request.setAttribute("listaConsultas", listaConsultas);
+            request.setAttribute("pacienteInf", paciente);
+            request.setAttribute("listaMedicos", medicoDAO.getAll());
+            request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/consultas/paciente.jsp");
+            dispatcher.forward(request, response);
+        }
+        else if (usuario.getTipoUsuario().equals("medico"))
+        {
+            Medico medico = medicoDAO.getById(usuario.getId());
+
+            List<Consulta> listaConsultas = consultaDAO.getAllMedicos(medico.getCrm());
+            request.setAttribute("listaConsultas", listaConsultas);
+            request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/consultas/medico.jsp");
+            dispatcher.forward(request, response);
+        }
+
+
+        
     }
 
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String paciente_cpf = request.getParameter("paciente_cpf");
-        String medico_crm = request.getParameter("medico_crm");
-        String stringData = request.getParameter("data_consulta");
-        String stringHora = request.getParameter("hora_consulta");
+        String paciente_cpf = request.getParameter("cpfPaciente");
+        String medico_crm = request.getParameter("crmMedico");
+        String stringData = request.getParameter("dataConsulta");
+        String stringHora = request.getParameter("horaConsulta");
 
         LocalDate dataLocalDate = LocalDate.parse(stringData);
         LocalTime horaLocalTime = LocalTime.parse(stringHora);
         Date data_consulta = Date.valueOf(dataLocalDate);
         Time hora_consulta = Time.valueOf(horaLocalTime);
 
-        Paciente paciente = new PacienteDAO().get(paciente_cpf);
-        Medico medico = new MedicoDAO().get(medico_crm);
+        Paciente paciente = pacienteDAO.get(paciente_cpf);
+        Medico medico = medicoDAO.get(medico_crm);
+
         Consulta novaConsulta = new Consulta(paciente, medico, data_consulta, hora_consulta);
 
-        dao.insert(novaConsulta);
+        consultaDAO.insert(novaConsulta);
+
         response.sendRedirect("lista");
     }
 
@@ -126,7 +151,7 @@ public class ConsultaController extends HttpServlet {
         Medico medico = new MedicoDAO().get(medico_crm);
         Consulta consulta = new Consulta(id, paciente, medico, data_consulta, hora_consulta);
 
-        dao.update(consulta);
+        consultaDAO.update(consulta);
 
         response.sendRedirect("lista");
     }
@@ -134,7 +159,7 @@ public class ConsultaController extends HttpServlet {
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Consulta consulta = new Consulta(id);
-        dao.delete(consulta);
+        consultaDAO.delete(consulta);
         response.sendRedirect("lista");
     }
 }

@@ -5,6 +5,7 @@ import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Medico;
 import br.ufscar.dc.dsw.domain.Paciente;
 import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.utils.Erro;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -26,10 +27,13 @@ public class PacienteController extends HttpServlet {
     private PacienteDAO daoPaciente;
     private UsuarioDAO daoUsuario;
 
+    private Erro erros;
+
     @Override
     public void init() {
         daoPaciente = new PacienteDAO();
         daoUsuario = new UsuarioDAO();
+        erros = new Erro();
     }
 
     @Override
@@ -79,20 +83,35 @@ public class PacienteController extends HttpServlet {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
 
-        Usuario user = new Usuario(email, senha, nome, "paciente");
+        Usuario user;
 
-        daoUsuario.insert(user);
+        if(daoUsuario.get(email) == null) {
+            user = new Usuario(email, senha, nome, "paciente");
+            daoUsuario.insert(user);
 
-        String cpf = request.getParameter("cpf");
-        String telefone = request.getParameter("telefone");
-        String sexo = request.getParameter("sexo");
-        Date dataNascimento = Date.valueOf(request.getParameter("dataNascimento"));
+            String cpf = request.getParameter("cpf");
+            String telefone = request.getParameter("telefone");
+            String sexo = request.getParameter("sexo");
+            Date dataNascimento = Date.valueOf(request.getParameter("dataNascimento"));
 
-        Paciente paciente = new Paciente(daoUsuario.get(email).getId(), email, senha, nome,"paciente", cpf, telefone, sexo, dataNascimento);
+            Paciente paciente = new Paciente(daoUsuario.get(email).getId(), email, senha, nome,"paciente", cpf, telefone, sexo, dataNascimento);
 
-        daoPaciente.insert(paciente);
+            daoPaciente.insert(paciente);
 
-        response.sendRedirect("/ClinicaMedica/admin");
+            response.sendRedirect("/ClinicaMedica/admin");
+            return;
+        } 
+        else 
+        {
+            erros.add("Email já cadastrado!");
+        }
+        
+        request.setAttribute("errosPaciente", erros);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/admin");
+		rd.forward(request, response);
+
+        
         request.setCharacterEncoding("UTF-8");
 
     }

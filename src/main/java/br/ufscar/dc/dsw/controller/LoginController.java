@@ -46,10 +46,10 @@ public class LoginController extends HttpServlet {
                         response.sendRedirect("/ClinicaMedica/admin");
                     } else if (user.getTipoUsuario().equals("paciente"))
                     {
-                        response.sendRedirect("/ClinicaMedica/paciente");
+                        response.sendRedirect("/ClinicaMedica/consulta");
                     }
                     else{
-                        response.sendRedirect("/ClinicaMedica/medico");
+                        response.sendRedirect("/ClinicaMedica/consulta");
                     } 
 
                     return;

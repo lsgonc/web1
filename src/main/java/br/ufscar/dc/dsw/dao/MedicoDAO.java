@@ -44,6 +44,38 @@ public class MedicoDAO extends MainDAO {
         return med;
     }
 
+    public Medico getById(int id) {
+        Medico med = null;
+
+        String sql = "SELECT u.id, u.email, u.senha, u.nome, u.tipo_usuario, m.CRM, m.especialidade FROM medico m JOIN usuario u ON m.usuario_id = u.id WHERE u.id = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int idMedico = resultSet.getInt("id");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String nome = resultSet.getString("nome");
+                String tipoUsuario = resultSet.getString("tipo_usuario");
+                String CRM = resultSet.getString("CRM");
+                String especialidade = resultSet.getString("especialidade");
+                med = new Medico(idMedico, email, senha, nome, tipoUsuario, CRM, especialidade);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return med;
+    }
+
     public List<Medico> getAll() {
 
         List<Medico> listaMedicos = new ArrayList<>();

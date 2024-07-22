@@ -45,6 +45,39 @@ public class PacienteDAO extends MainDAO {
         return paciente;
     }
 
+    public Paciente getById(int ID) {
+        Paciente paciente = null;
+        String sql = "SELECT u.id, u.email, u.senha, u.nome, u.tipo_usuario, p.CPF, p.telefone, p.sexo, p.data_nascimento FROM paciente p JOIN usuario u ON p.usuario_id = u.id WHERE u.id = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, ID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String nome = resultSet.getString("nome");
+                String tipoUsuario = resultSet.getString("tipo_usuario");
+                String cpf = resultSet.getString("CPF");
+                String telefone = resultSet.getString("telefone");
+                String sexo = resultSet.getString("sexo");
+                Date dataNascimento = resultSet.getDate("data_nascimento");
+
+                paciente = new Paciente(id, email, senha, nome, tipoUsuario, cpf, telefone, sexo, dataNascimento);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return paciente;
+    }
+
     public List<Paciente> getAll() {
         List<Paciente> listaPacientes = new ArrayList<>();
         String sql = "SELECT u.id, u.email, u.senha, u.nome, u.tipo_usuario, p.CPF, p.telefone, p.sexo, p.data_nascimento FROM paciente p JOIN usuario u ON p.usuario_id = u.id";

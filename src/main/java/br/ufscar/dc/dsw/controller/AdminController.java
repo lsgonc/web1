@@ -54,11 +54,7 @@ public class AdminController extends HttpServlet {
     		RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/index.jsp");
             dispatcher.forward(request, response);
     	} else {
-    		erros.add("Acesso não autorizado!");
-    		erros.add("Apenas Papel [ADMIN] tem acesso a essa página");
-    		request.setAttribute("mensagens", erros);
-    		RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
-    		rd.forward(request, response);
+    		response.sendRedirect("/ClinicaMedica/");
     	}
     }
 }

@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS medico (
 -- Cria a tabela de consulta
 CREATE TABLE IF NOT EXISTS consulta (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    paciente_cpf VARCHAR(11) NOT NULL,
+    paciente_cpf VARCHAR(14) NOT NULL,
     medico_crm VARCHAR(20) NOT NULL,
     data_consulta DATE NOT NULL,
     hora_consulta TIME NOT NULL,

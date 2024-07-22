@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufscar.dc.dsw.domain.Consulta;
+import br.ufscar.dc.dsw.domain.Medico;
+import br.ufscar.dc.dsw.domain.Paciente;
 
 public class ConsultaDAO extends MainDAO{
     
@@ -30,9 +32,11 @@ public class ConsultaDAO extends MainDAO{
                 String crm = resultSet.getString("medico_crm");
                 Date data_consulta = resultSet.getDate("data_consulta");
                 Time hora_consulta = resultSet.getTime("hora_consulta");
+                
+                Paciente paciente = new PacienteDAO().get(cpf);
+                Medico medico = new MedicoDAO().get(crm);
 
-
-                Consulta consulta = new Consulta(id, new PacienteDAO().get(cpf), new MedicoDAO().get(crm), data_consulta, hora_consulta);
+                Consulta consulta = new Consulta(id, paciente, medico, data_consulta, hora_consulta);
                 listaConsultas.add(consulta);
             }
 
