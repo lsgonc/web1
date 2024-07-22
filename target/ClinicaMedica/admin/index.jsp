@@ -64,18 +64,6 @@
                                 </a>
                             </li>
                     
-                            <li class="nav-item mx-2">
-                                <a href="/ClinicaMedica/#about" class="nav-link">
-                                    <fmt:message key="header.about" />
-                                </a>
-                            </li>
-
-                            <li class="nav-item mx-2">
-                                <a href="medico" class="nav-link">
-                                    <fmt:message key="header.doctors" />
-                                </a>
-                            </li>
-                    
                             <c:if test="${sessionScope.usuarioLogado == null}">
                                 <li class="nav-item mx-2">
                                     <a href="login" class="nav-link">
