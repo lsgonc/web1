@@ -127,21 +127,29 @@ public class ConsultaController extends HttpServlet {
         Medico medico = medicoDAO.get(medico_crm);
 
         if (consultaDAO.medicoTemConsulta(medico_crm, data_consulta, hora_consulta)) {
-            response.sendError(HttpServletResponse.SC_CONFLICT, "O médico já possui uma consulta neste horário.");
+            request.setAttribute("mensagemErro", "O médico já possui uma consulta neste horário.");
+            request.setAttribute("pacienteInf", paciente);
+            request.setAttribute("listaConsultas", consultaDAO.getAllPaciente(paciente_cpf));
+            request.setAttribute("listaMedicos", medicoDAO.getAll()); 
+            request.getRequestDispatcher("/consultas/paciente.jsp").forward(request, response);
             return;
         }
 
         if (consultaDAO.pacienteTemConsulta(paciente_cpf, data_consulta, hora_consulta)) {
-            response.sendError(HttpServletResponse.SC_CONFLICT, "O paciente já possui uma consulta neste horário.");
+            request.setAttribute("mensagemErro", "O paciente já possui uma consulta neste horário.");
+            request.setAttribute("pacienteInf", paciente);
+            request.setAttribute("listaConsultas", consultaDAO.getAllPaciente(paciente_cpf)); 
+            request.setAttribute("listaMedicos", medicoDAO.getAll()); 
+            request.getRequestDispatcher("/consultas/paciente.jsp").forward(request, response);
             return;
         }
 
         Consulta novaConsulta = new Consulta(paciente, medico, data_consulta, hora_consulta);
-
         consultaDAO.insert(novaConsulta);
 
-        response.sendRedirect("lista");
+        response.sendRedirect(request.getContextPath() + "/consulta/lista");
     }
+
 
     private void atualize(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

@@ -218,11 +218,26 @@
 
                             <button type="submit" class="btn btn-primary">Agendar</button>
                         </form>
+
+                        <c:if test="${not empty requestScope.mensagemErro}">
+                            <div class="alert alert-danger" role="alert">
+                                <c:out value="${requestScope.mensagemErro}" />
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
         </div>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var mensagemErro = '${requestScope.mensagemErro}';
+                if (mensagemErro) {
+                    var cadastroConsultaModal = new bootstrap.Modal(document.getElementById('cadastroConsultaModal'));
+                    cadastroConsultaModal.show();
+                }
+            });
+        </script>
 
         <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
