@@ -97,7 +97,6 @@ public class MedicoController extends HttpServlet {
 
             Medico medico = medicoDAO.get(crm);
 
-
             HttpSession session = request.getSession();
 
             session.setAttribute("medicoEdit", medico);

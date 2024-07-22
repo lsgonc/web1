@@ -70,7 +70,6 @@ public class LoginController extends HttpServlet {
         String URL = "/login/";
         RequestDispatcher rd = request.getRequestDispatcher(URL);
 		rd.forward(request, response);
-
     }
 
     @Override
@@ -89,7 +88,5 @@ public class LoginController extends HttpServlet {
         {
             request.getRequestDispatcher("/login/index.jsp").forward(request, response);
         }
-            
-
     }
 }

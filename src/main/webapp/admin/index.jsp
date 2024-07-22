@@ -20,51 +20,33 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
         <style>
-            #about, #services {
-                padding: 60px 0;
-            }
-
-            .welcome-section {
-                width: 100%;
-                height: 640px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-image: url('https://images.unsplash.com/photo-1633084002199-bb289c1d2624?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-
-            .welcome-title {
-                font-family: 'Inter';
-                font-weight: bold;
-                color: white;
-            }
-
-            .blur-bg {
-                background-color: rgba(0, 0, 0, 0.5);
+            .blur-bg{
+                background-color: rgba(233, 233, 233, 0.4);
                 -webkit-backdrop-filter: blur(5px);
                 backdrop-filter: blur(5px);
             }
 
-            .card-custom {
-                width: 20%;
-                height: 180px;
-                background-color: black;
+            footer{
+                position: fixed;
+                bottom: 0;
+                width: 100%;
             }
 
-            @media screen and (max-width: 768px) {
-                .welcome-section {
-                    height: 400px;
-                }
+            .manager-container{
+                margin-top: 140px;
+                margin-bottom: 50px;
+            }
+
+            tr {
+                text-align: start; 
+                vertical-align: middle;
             }
         </style>
     </head>
 
     <body>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-dark blur-bg">
+        <header class="fixed-top">
+            <nav class="navbar navbar-expand-sm navbar-light blur-bg">
                 <div class="container">
                     <a class="navbar-brand" href="/ClinicaMedica">
                         <fmt:message key="brand.name" />
@@ -75,34 +57,41 @@
                     </button>
                   
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto">
+                        <ul class="navbar-nav">
                             <li class="nav-item mx-2">
-                                <a href="#home" class="nav-link">
+                                <a href="/ClinicaMedica" class="nav-link">
                                     <fmt:message key="header.home" />
                                 </a>
                             </li>
+                    
                             <li class="nav-item mx-2">
-                                <a href="#about" class="nav-link">
+                                <a href="/ClinicaMedica/#about" class="nav-link">
                                     <fmt:message key="header.about" />
                                 </a>
                             </li>
+
                             <li class="nav-item mx-2">
-                                <a href="#services" class="nav-link">
-                                    <fmt:message key="header.services" />
-                                </a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a href="#doctors" class="nav-link">
+                                <a href="medico" class="nav-link">
                                     <fmt:message key="header.doctors" />
                                 </a>
                             </li>
+                    
                             <c:if test="${sessionScope.usuarioLogado == null}">
-                            <li class="nav-item mx-2">
-                                <a href="login/" class="nav-link">
-                                    <fmt:message key="header.login" />
-                                </a>
-                            </li>
+                                <li class="nav-item mx-2">
+                                    <a href="login" class="nav-link">
+                                        <fmt:message key="header.login" />
+                                    </a>
+                                </li>
                             </c:if>
+
+                            <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'admin'}">
+                                <li class="nav-item mx-2">
+                                    <a href="admin" class="nav-link">
+                                        <fmt:message key="header.admin" />
+                                    </a>
+                                </li>
+                            </c:if>
+
                             <c:if test="${sessionScope.usuarioLogado != null}">
                                 <li class="nav-item mx-2">
                                     <a href="signout" class="nav-link">
@@ -116,138 +105,138 @@
             </nav>
         </header>
 
-        <h1 class="text-center mb-5">PAINEL DE ADMINISTRAÇÃO - ${sessionScope.usuarioLogado.nome}</h1>
+        <div class="manager-container container mb-5">
+            <div class="row justify-content-between mb-2">
+                <div class="col col-auto">
+                    <h2>Gerenciamento de médicos</h2>
+                </div>
         
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="row justify-content-between">
-                    <div class="col col-auto">
-                        <h2>Gerenciamento de médicos</h2>    
-                    </div>
-                    <div class="col col-auto">
-                        <button type="button" class="btn btn-dark rounded-0 align-self-end" data-bs-toggle="modal" data-bs-target="#cadastroMedicoModal">Cadastrar Médico</button>
-                    </div>
+                <div class="col col-auto">
+                    <button type="button" class="btn btn-outline-dark rounded-0 align-self-end" data-bs-toggle="modal" data-bs-target="#cadastroMedicoModal">Cadastrar Médico</button>
+                </div>
+            </div>
 
-                                
-                    
-                </div>
-                <div class="col-md-12">
-                    <table class="table table-light table-hover">
-                        <thead class="">
+            <div class="col-md-12">
+                <table class="table table-light table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>CRM</th>
+                            <th>Especialidade</th>
+                            <th>Operações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <c:forEach var="medico" items="${requestScope.listaMedicos}">
                             <tr>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>CRM</th>
-                                <th>Especialidade</th>
-                                <th>Operações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="medico" items="${requestScope.listaMedicos}">
-                                <tr>
-                                    <td>
-                                        <c:out value="${medico.nome}" />
-                                    </td>
-                                    <td>
-                                        <c:out value="${medico.email}" />
-                                    </td>
-                                    <td>
-                                        <c:out value="${medico.crm}" />
-                                    </td>
-                                    <td>
-                                        <c:out value="${medico.especialidade}" />
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col">
-                                                <form action="/ClinicaMedica/medico/edicao" method="post">
-                                                    <button name="crm" value="${medico.crm}" type="submit" class="btn btn-warning rounded-0 align-self-end">Editar Médico</button>
-                                                </form>
-                                            </div>
-                                            <div class="col">
-                                                <form action="/ClinicaMedica/medico/remocao" method="post">
-                                                    <button  name="id" value="${medico.id}" type="submit" class="btn btn-danger rounded-0 align-self-end">Deletar Médico</button>
-                                                </form>
-                                            </div>
+                                <td>
+                                    <c:out value="${medico.nome}" />
+                                </td>
+                                <td>
+                                    <c:out value="${medico.email}" />
+                                </td>
+                                <td>
+                                    <c:out value="${medico.crm}" />
+                                </td>
+                                <td>
+                                    <c:out value="${medico.especialidade}" />
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">
+                                            <form action="/ClinicaMedica/medico/edicao" method="post">
+                                                <button name="crm" value="${medico.crm}" type="submit"
+                                                    class="btn btn-warning rounded-0 align-self-end">Editar Médico</button>
+                                            </form>
                                         </div>
-                                    </td>
-                                    
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+                                        <div class="col">
+                                            <form action="/ClinicaMedica/medico/remocao" method="post">
+                                                <button name="id" value="${medico.id}" type="submit"
+                                                    class="btn btn-danger rounded-0 align-self-end">Deletar Médico</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="row justify-content-between">
-                    <div class="col col-auto">
-                        <h2>Gerenciamento de pacientes</h2> 
-                        <c:if test="${errosPaciente.existeErros}">
-                            <c:forEach var="erro" items="${errosPaciente.erros}">
-                                <li class="text-danger"> ${erro} </li>
-                            </c:forEach>
-                        </c:if>   
-                    </div>
-                    <div class="col col-auto">
-                        <button type="button" class="btn btn-dark rounded-0 align-self-end" data-bs-toggle="modal" data-bs-target="#cadastroPacienteModal">Cadastrar Paciente</button>
-                    </div>                 
+        <div class="container mt-5">
+            <div class="row justify-content-between mb-2">
+                <div class="col col-auto">
+                    <h2>Gerenciamento de pacientes</h2>
+                    <c:if test="${errosPaciente.existeErros}">
+                        <c:forEach var="erro" items="${errosPaciente.erros}">
+                            <li class="text-danger"> ${erro} </li>
+                        </c:forEach>
+                    </c:if>
                 </div>
-                <div class="col-md-12">
-                    <table class="table table-light table-hover">
-                        <thead class="">
+
+                <div class="col col-auto">
+                    <button type="button" class="btn btn-outline-dark rounded-0 align-self-end" data-bs-toggle="modal" data-bs-target="#cadastroPacienteModal">Cadastrar Paciente</button>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <table class="table table-light table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Sexo</th>
+                            <th>Data de nascimento</th>
+                            <th>Operações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <c:forEach var="paciente" items="${requestScope.listaPacientes}">
                             <tr>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>CPF</th>
-                                <th>Telefone</th>
-                                <th>Sexo</th>
-                                <th>Data de nascimento</th>
-                                <th>Operações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="paciente" items="${requestScope.listaPacientes}">
-                                <tr>
-                                    <td>
-                                        <c:out value="${paciente.nome}" />
-                                    </td>
-                                    <td>
-                                        <c:out value="${paciente.email}" />
-                                    </td>
-                                    <td>
-                                        <c:out value="${paciente.cpf}" />
-                                    </td>
-                                    <td>
-                                        <c:out value="${paciente.telefone}" />
-                                    </td>
-                                    <td>
-                                        <c:out value="${paciente.sexo}" />
-                                    </td>
-                                    <td>
-                                        <c:out value="${paciente.dataNascimento}" />
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col">
-                                                <form action="/ClinicaMedica/paciente/edicao" method="post">
-                                                    <button name="cpf" value="${paciente.cpf}" type="submit" class="btn btn-warning rounded-0 align-self-end">Editar Paciente</button>
-                                                </form>
-                                            </div>
-                                            <div class="col">
-                                                <form action="/ClinicaMedica/paciente/remocao" method="post">
-                                                    <button  name="id" value="${paciente.id}" type="submit" class="btn btn-danger rounded-0 align-self-end">Deletar Paciente</button>
-                                                </form>
-                                            </div>
+                                <td>
+                                    <c:out value="${paciente.nome}" />
+                                </td>
+                                <td>
+                                    <c:out value="${paciente.email}" />
+                                </td>
+                                <td>
+                                    <c:out value="${paciente.cpf}" />
+                                </td>
+                                <td>
+                                    <c:out value="${paciente.telefone}" />
+                                </td>
+                                <td>
+                                    <c:out value="${paciente.sexo}" />
+                                </td>
+                                <td>
+                                    <c:out value="${paciente.dataNascimento}" />
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">
+                                            <form action="/ClinicaMedica/paciente/edicao" method="post">
+                                                <button name="cpf" value="${paciente.cpf}" type="submit"
+                                                    class="btn btn-warning rounded-0 align-self-end">Editar Paciente</button>
+                                            </form>
                                         </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+                                        <div class="col">
+                                            <form action="/ClinicaMedica/paciente/remocao" method="post">
+                                                <button name="id" value="${paciente.id}" type="submit"
+                                                    class="btn btn-danger rounded-0 align-self-end">Deletar Paciente</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -259,6 +248,7 @@
                             <h5 class="modal-title" id="edicaoMedicoModal">Editar médico</h5>
                             <button onclick="fechaModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+
                         <div class="modal-body">
                             <form action="/ClinicaMedica/medico/atualizacao" method="post">
                                 <input type="hidden" value="${medicoEdit.id}" name="id">
@@ -266,22 +256,27 @@
                                     <label for="nome" class="form-label">Nome:</label>
                                     <input value="${medicoEdit.nome}" type="text" class="form-control" id="nome" name="nome" required>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email:</label>
                                     <input value="${medicoEdit.email}" type="email" class="form-control" id="email" name="email" required>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="senha" class="form-label">Senha:</label>
                                     <input value="${medicoEdit.senha}"  type="password" class="form-control" id="senha" name="senha" required>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="crm" class="form-label">CRM:</label>
                                     <input value="${medicoEdit.crm}" type="text" class="form-control" id="crm" name="crm" required>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="especialidade" class="form-label">Especialidade:</label>
                                     <input value="${medicoEdit.especialidade}" type="text" class="form-control" id="especialidade" name="especialidade" required>
                                 </div>
+
                                 <button type="submit" class="btn btn-primary">Editar</button>
                             </form>
                         </div>
@@ -438,26 +433,27 @@
             </div>
         </div>
 
-        <footer class="bg-dark text-white text-center p-3 mt-4 w-100">
-            <div class="container">
-                <p class="mb-0">
-                    <fmt:message key="footer.text" />
-                </p>
-            </div>
-        </footer>
-
         <script>
-            $(document).ready(function(){
-                $("#edicaoMedicoModal").modal('show');
-                $("#edicaoPacienteModal").modal('show');
-            });
+            $(document).ready(function() {
+                var showMedicoModal = <c:out value="${medicoEdit != null}" />;
+                var showPacienteModal = <c:out value="${pacienteEdit != null}" />;
 
+                if (showMedicoModal) {
+                    $("#edicaoMedicoModal").modal('show');
+                }
+
+                if (showPacienteModal) {
+                    $("#edicaoPacienteModal").modal('show');
+                }
+            });
+            
             function fechaModal() {
-               var element = document.getElementById("edicaoMedicoModal");
+                var element = document.getElementById("edicaoMedicoModal");
                 element.classList.remove("d-block");
             }
+
             function fechaModalPac() {
-               var element = document.getElementById("edicaoPacienteModal");
+                var element = document.getElementById("edicaoPacienteModal");
                 element.classList.remove("d-block");
             }
         </script>

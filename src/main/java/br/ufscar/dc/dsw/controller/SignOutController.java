@@ -30,10 +30,7 @@ public class SignOutController extends HttpServlet {
             HttpSession ses = request.getSession();
             ses.invalidate();
 
-
             response.sendRedirect(request.getContextPath());
         }
-
-        
     }
 }

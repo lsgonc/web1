@@ -99,16 +99,34 @@
                             </li>
 
                             <li class="nav-item mx-2">
-                                <a href="medico/" class="nav-link">
+                                <a href="medico" class="nav-link">
                                     <fmt:message key="header.doctors" />
                                 </a>
                             </li>
-                    
-                            <li class="nav-item mx-2">
-                                <a href="login/" class="nav-link">
-                                    <fmt:message key="header.login" />
-                                </a>
-                            </li>
+
+                            <c:if test="${sessionScope.usuarioLogado == null}">
+                                <li class="nav-item mx-2">
+                                    <a href="login" class="nav-link">
+                                        <fmt:message key="header.login" />
+                                    </a>
+                                </li>
+                            </c:if>
+
+                            <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'admin'}">
+                                <li class="nav-item mx-2">
+                                    <a href="admin" class="nav-link">
+                                        <fmt:message key="header.admin" />
+                                    </a>
+                                </li>
+                            </c:if>
+
+                            <c:if test="${sessionScope.usuarioLogado != null}">
+                                <li class="nav-item mx-2">
+                                    <a href="signout" class="nav-link">
+                                        <fmt:message key="header.signout" />
+                                    </a>
+                                </li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
@@ -129,7 +147,7 @@
             </div>
         </section>
 
-        <section id="about" class="py-5 mt-4">
+        <section id="about" class="py-5 mt-4 mb-4">
             <div class="container d-flex flex-column align-items-center justify-content-center">
                 <div class="w-75 text-center mb-4">
                     <h2 class="py-2">

@@ -112,11 +112,29 @@
                                 </a>
                             </li>
                     
-                            <li class="nav-item mx-2">
-                                <a href="/ClinicaMedica/login/" class="nav-link">
-                                    <fmt:message key="header.login" />
-                                </a>
-                            </li>
+                            <c:if test="${sessionScope.usuarioLogado == null}">
+                                <li class="nav-item mx-2">
+                                    <a href="login" class="nav-link">
+                                        <fmt:message key="header.login" />
+                                    </a>
+                                </li>
+                            </c:if>
+
+                            <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'admin'}">
+                                <li class="nav-item mx-2">
+                                    <a href="admin" class="nav-link">
+                                        <fmt:message key="header.admin" />
+                                    </a>
+                                </li>
+                            </c:if>
+
+                            <c:if test="${sessionScope.usuarioLogado != null}">
+                                <li class="nav-item mx-2">
+                                    <a href="signout" class="nav-link">
+                                        <fmt:message key="header.signout" />
+                                    </a>
+                                </li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
@@ -134,7 +152,7 @@
             </div>
         </section>
 
-        <section id="about" class="py-5 mt-4 mb-5">
+        <section id="about" class="py-5 mt-4 mb-4">
             <div class="w-75 mx-auto mb-1 d-flex">
                 <h2 class="title py-2 fs-4">
                     <fmt:message key="doctors.subtitle" />
@@ -190,7 +208,7 @@
             </div>
         </section>
 
-        <footer class="fixed-bottom bg-dark text-white text-center p-3">
+        <footer class="bg-dark text-white text-center p-3">
             <div class="container">
                 <p class="mb-0">
                     <fmt:message key="footer.text" />
