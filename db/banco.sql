@@ -49,12 +49,24 @@ CREATE TABLE IF NOT EXISTS consulta (
 INSERT INTO usuario (email, senha, nome, tipo_usuario) 
 VALUES ('admin@clinica.com', 'admin', 'Administrador', 'admin');
 
--- Inserir um paciente pra testes
+
+-- Inserir pacientes pra testes
 INSERT INTO usuario (email, senha, nome, tipo_usuario) 
-VALUES ('paciente@clinica.com', '123', 'Paciente1', 'paciente');
-SET @usuario_id = LAST_INSERT_ID();
+VALUES 
+    ('paciente1@clinica.com', 'paciente1', 'Paciente1', 'paciente'),
+    ('paciente2@clinica.com', 'paciente2', 'Paciente2', 'paciente'),
+    ('paciente3@clinica.com', 'paciente3', 'Paciente3', 'paciente');
+
+SET @usuario_id1 = LAST_INSERT_ID();
+SET @usuario_id2 = @usuario_id1 + 1;
+SET @usuario_id3 = @usuario_id2 + 1;
+
 INSERT INTO paciente (usuario_id, CPF, telefone, sexo, data_nascimento) 
-VALUES (@usuario_id, '123.456.789.00', '00999999999', 'Masculino', '2000-01-01');
+VALUES 
+    (@usuario_id1, '123.456.789.00', '00999999999', 'Masculino', '2001-01-01'),
+    (@usuario_id2, '321.654.987.00', '00888888888', 'Feminino', '2002-02-02'),
+    (@usuario_id3, '213.546.879.00', '00777777777', 'Masculino', '2003-03-03');
+
 
 -- Insere médicos pra teste
 INSERT INTO usuario (email, senha, nome, tipo_usuario) 
@@ -66,6 +78,7 @@ VALUES
 SET @usuario_id_medico1 = LAST_INSERT_ID();
 SET @usuario_id_medico2 = @usuario_id_medico1 + 1;
 SET @usuario_id_medico3 = @usuario_id_medico2 + 1;
+
 INSERT INTO medico (usuario_id, CRM, especialidade) 
 VALUES 
     (@usuario_id_medico1, 'CRM001', 'Cardiologia'),
