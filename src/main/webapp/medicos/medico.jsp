@@ -128,6 +128,22 @@
                                 </li>
                             </c:if>
 
+                            <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'medico'}">
+                                <li class="nav-item mx-2">
+                                    <a href="consulta" class="nav-link">
+                                        <fmt:message key="header.consulta" />
+                                    </a>
+                                </li>
+                            </c:if>
+
+                            <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'paciente'}">
+                                <li class="nav-item mx-2">
+                                    <a href="consulta" class="nav-link">
+                                        <fmt:message key="header.consulta" />
+                                    </a>
+                                </li>
+                            </c:if>
+
                             <c:if test="${sessionScope.usuarioLogado != null}">
                                 <li class="nav-item mx-2">
                                     <a href="signout" class="nav-link">

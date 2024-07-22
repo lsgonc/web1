@@ -20,51 +20,33 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
         <style>
-            #about, #services {
-                padding: 60px 0;
-            }
-
-            .welcome-section {
-                width: 100%;
-                height: 640px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-image: url('https://images.unsplash.com/photo-1633084002199-bb289c1d2624?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-
-            .welcome-title {
-                font-family: 'Inter';
-                font-weight: bold;
-                color: white;
-            }
-
-            .blur-bg {
-                background-color: rgba(0, 0, 0, 0.5);
+            .blur-bg{
+                background-color: rgba(233, 233, 233, 0.4);
                 -webkit-backdrop-filter: blur(5px);
                 backdrop-filter: blur(5px);
             }
 
-            .card-custom {
-                width: 20%;
-                height: 180px;
-                background-color: black;
+            footer{
+                position: fixed;
+                bottom: 0;
+                width: 100%;
             }
 
-            @media screen and (max-width: 768px) {
-                .welcome-section {
-                    height: 400px;
-                }
+            .manager-container{
+                margin-top: 140px;
+                margin-bottom: 50px;
+            }
+
+            tr {
+                text-align: start; 
+                vertical-align: middle;
             }
         </style>
     </head>
 
     <body>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-dark blur-bg">
+        <header class="fixed-top">
+            <nav class="navbar navbar-expand-sm navbar-light blur-bg">
                 <div class="container">
                     <a class="navbar-brand" href="/ClinicaMedica">
                         <fmt:message key="brand.name" />
@@ -75,34 +57,41 @@
                     </button>
                   
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto">
+                        <ul class="navbar-nav">
                             <li class="nav-item mx-2">
-                                <a href="#home" class="nav-link">
+                                <a href="/ClinicaMedica/#home" class="nav-link">
                                     <fmt:message key="header.home" />
                                 </a>
                             </li>
+                    
                             <li class="nav-item mx-2">
-                                <a href="#about" class="nav-link">
+                                <a href="/ClinicaMedica/#about" class="nav-link">
                                     <fmt:message key="header.about" />
                                 </a>
                             </li>
+
                             <li class="nav-item mx-2">
-                                <a href="#services" class="nav-link">
-                                    <fmt:message key="header.services" />
-                                </a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a href="#doctors" class="nav-link">
+                                <a href="medico" class="nav-link">
                                     <fmt:message key="header.doctors" />
                                 </a>
                             </li>
+
                             <c:if test="${sessionScope.usuarioLogado == null}">
-                            <li class="nav-item mx-2">
-                                <a href="login/" class="nav-link">
-                                    <fmt:message key="header.login" />
-                                </a>
-                            </li>
+                                <li class="nav-item mx-2">
+                                    <a href="login" class="nav-link">
+                                        <fmt:message key="header.login" />
+                                    </a>
+                                </li>
                             </c:if>
+
+                            <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'paciente'}">
+                                <li class="nav-item mx-2">
+                                    <a href="consulta" class="nav-link">
+                                        <fmt:message key="header.consulta" />
+                                    </a>
+                                </li>
+                            </c:if>
+
                             <c:if test="${sessionScope.usuarioLogado != null}">
                                 <li class="nav-item mx-2">
                                     <a href="signout" class="nav-link">
@@ -116,64 +105,78 @@
             </nav>
         </header>
 
-        <h1 class="text-center">Minhas consultas - ${sessionScope.usuarioLogado.nome}</h1>
-
-        <div class="container">
-            <div class="row justify-content-center">
-                
-                <div>
-                    <!-- Botão para abrir a modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cadastroConsultaModal">
-                        Agendar Consulta
+        <div class="manager-container container mb-5">
+            <div class="row justify-content-between mb-2">
+                <div class="col col-auto">
+                    <h1 class="text-center">${sessionScope.usuarioLogado.nome} - <fmt:message key="appointment.title" /></h1>
+                </div>
+        
+                <div class="col col-auto">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cadastroConsultaModal">
+                        <fmt:message key="scheduling.done" />
                     </button>
                 </div>
+            </div>
 
-                <div class="col-md-12">
-                    <table class="table table-light table-hover">
-                        <thead class="">
-                            <tr>
-                                <th>Nome do paciente</th>
-                                <th>Nome do medico</th>
-                                <th>Data da consulta</th>
-                                <th>Horario da consulta</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:if test="${requestScope.listaConsultas==null}">
-                                <td colspan="4">Nenhuma consulta no momento.</td>
-                            </c:if>
-                            <c:if test="${requestScope.listaConsultas!=null}">
-                                <c:forEach var="consulta" items="${requestScope.listaConsultas}">
-                                    <tr>
-                                        <td>
-                                            <c:out value="${consulta.paciente.nome}" />
-                                        </td>   
-                                        <td>
-                                            <c:out value="${consulta.medico.nome}" />
-                                        </td>   
-                                        <td>
-                                            <c:out value="${consulta.data}" />
-                                        </td>
-                                        <td>
-                                            <c:out value="${consulta.hora}" />
-                                        </td>        
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                            
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-md-12">
+                <table class="table table-light table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>
+                                <fmt:message key="patient.name" />
+                            </th>
+                            <th>
+                                <fmt:message key="doctor.name" />
+                            </th>
+                            <th>
+                                <fmt:message key="appointment.date" />
+                            </th>
+                            <th>
+                                <fmt:message key="appointment.time" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:if test="${requestScope.listaConsultas==null}">
+                            <td colspan="4">
+                                <fmt:message key="appointment.none" />
+                            </td>
+                        </c:if>
+                        <c:if test="${requestScope.listaConsultas!=null}">
+                            <c:forEach var="consulta" items="${requestScope.listaConsultas}">
+                                <tr>
+                                    <td>
+                                        <c:out value="${consulta.paciente.nome}" />
+                                    </td>
+                                    
+                                    <td>
+                                        <c:out value="${consulta.medico.nome}" />
+                                    </td>
+    
+                                    <td>
+                                        <c:out value="${consulta.data}" />
+                                    </td>
+    
+                                    <td>
+                                        <c:out value="${consulta.hora}" />
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
+                    </tbody>
+                </table>
             </div>
         </div>
-
+        
         <div class="modal fade" id="cadastroConsultaModal" tabindex="-1" aria-labelledby="cadastroConsultaModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="cadastroConsultaModal">Agendamento de Consulta</h5>
+                        <h5 class="modal-title" id="cadastroConsultaModal">
+                            <c:out value="${appointment.scheduling}" />
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>>
+                    </div>
                     <div class="modal-body">
                         <form action="/ClinicaMedica/consulta/insercao" method="post">
                             <input type="hidden" value="${requestScope.pacienteInf.cpf}" name="cpfPaciente" id="cpfPaciente">
@@ -183,15 +186,18 @@
                                         <option value="${medico.crm}">${medico.nome}</option>
                                     </c:forEach>
                                 </select>
-
+        
                             </div>
                             <div class="mb-3">
-                                <label for="dataConsulta">Data da Consulta</label>
-                                <input name="dataConsulta"  type="date" class="form-control" id="dataConsulta">
+                                <label for="dataConsulta">
+                                    <fmt:message key="appointment.date" />
+                                </label>
+                                <input name="dataConsulta" type="date" class="form-control" id="dataConsulta">
                             </div>
                             <div class="mb-3">
-                                <label for="horaConsulta">Hora da Consulta</label>
-                                <label for="horaConsulta">Hora da Consulta</label>
+                                <label for="horaConsulta">
+                                    <fmt:message key="appointment.time" />
+                                </label>
                                 <select name="horaConsulta" class="form-select" id="horaConsulta" required>
                                     <option value="08:00">08:00</option>
                                     <option value="08:30">08:30</option>
@@ -215,10 +221,12 @@
                                     <option value="17:30">17:30</option>
                                 </select>
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Agendar</button>
+        
+                            <button type="submit" class="btn btn-success">
+                                <fmt:message key="scheduling.done" />
+                            </button>
                         </form>
-
+        
                         <c:if test="${not empty requestScope.mensagemErro}">
                             <div class="alert alert-danger" role="alert">
                                 <c:out value="${requestScope.mensagemErro}" />

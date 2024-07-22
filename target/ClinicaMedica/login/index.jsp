@@ -146,7 +146,7 @@
                                 </form>
                             </div>
                             <div class="p-2 mx-1">
-                                <a href="signin">
+                                <a href="#">
                                     <fmt:message key="login.acc" />
                                 </a>
                             </div>

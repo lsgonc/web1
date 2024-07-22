@@ -59,22 +59,39 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav">
                             <li class="nav-item mx-2">
-                                <a href="/ClinicaMedica" class="nav-link">
+                                <a href="/ClinicaMedica/#home" class="nav-link">
                                     <fmt:message key="header.home" />
                                 </a>
                             </li>
+                    
                             <li class="nav-item mx-2">
-                                <a href="consulta" class="nav-link">
-                                    <fmt:message key="header.schedule" />
+                                <a href="/ClinicaMedica/#about" class="nav-link">
+                                    <fmt:message key="header.about" />
                                 </a>
                             </li>
+
+                            <li class="nav-item mx-2">
+                                <a href="medico" class="nav-link">
+                                    <fmt:message key="header.doctors" />
+                                </a>
+                            </li>
+
                             <c:if test="${sessionScope.usuarioLogado == null}">
-                            <li class="nav-item mx-2">
-                                <a href="login/" class="nav-link">
-                                    <fmt:message key="header.login" />
-                                </a>
-                            </li>
+                                <li class="nav-item mx-2">
+                                    <a href="login" class="nav-link">
+                                        <fmt:message key="header.login" />
+                                    </a>
+                                </li>
                             </c:if>
+
+                            <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'medico'}">
+                                <li class="nav-item mx-2">
+                                    <a href="consulta" class="nav-link">
+                                        <fmt:message key="header.consulta" />
+                                    </a>
+                                </li>
+                            </c:if>
+
                             <c:if test="${sessionScope.usuarioLogado != null}">
                                 <li class="nav-item mx-2">
                                     <a href="signout" class="nav-link">
@@ -91,60 +108,68 @@
         <div class="manager-container container mb-5">
             <div class="row justify-content-between mb-2">
                 <div class="col col-auto">
-                    <h2 class="text-center">Minhas consultas - ${sessionScope.usuarioLogado.nome}</h2>
+                    <h2 class="text-center">${sessionScope.usuarioLogado.nome} - <fmt:message key="appointment.title" /></h2>
                 </div>
             </div>
-
-        <div class="container">
-            <div class="row justify-content-center">
-
-                <div class="col-md-12">
-                    <table class="table table-light table-hover">
-                        <thead class="">
-                            <tr>
-                                <th>Nome do medico</th>
-                                <th>Nome do paciente</th>
-                                <th>Data da consulta</th>
-                                <th>Horario da consulta</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:if test="${requestScope.listaConsultas==null}">
-                                <td colspan="4">Nenhuma consulta no momento.</td>
-                            </c:if>
-                            <c:if test="${requestScope.listaConsultas!=null}">
-                                <c:forEach var="consulta" items="${requestScope.listaConsultas}">
-                                    <tr>
-                                        <td>
-                                            <c:out value="${consulta.medico.nome}" />
-                                        </td>   
-                                        <td>
-                                            <c:out value="${consulta.paciente.nome}" />
-                                        </td>   
-                                        <td>
-                                            <c:out value="${consulta.data}" />
-                                        </td>
-                                        <td>
-                                            <c:out value="${consulta.hora}" />
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <form action="/ClinicaMedica/consulta/remocao" method="post">
-                                                        <button name="id" value="${consulta.id}" type="submit"
-                                                            class="btn btn-danger rounded-0 align-self-end">Finalizar</button>
-                                                    </form>
-                                                </div>
+            
+            <div class="col-md-12">
+                <table class="table table-light table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>
+                                <fmt:message key="doctor.name" />
+                            </th>
+                            <th>
+                                <fmt:message key="patient.name" />
+                            </th>
+                            <th>
+                                <fmt:message key="appointment.date" />
+                            </th>
+                            <th>
+                                <fmt:message key="appointment.time" />
+                            </th>
+                            <th>
+                                <fmt:message key="appointment.finish" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:if test="${requestScope.listaConsultas==null}">
+                            <td colspan="4">
+                                <fmt:message key="appointment.none" />
+                            </td>
+                        </c:if>
+                        <c:if test="${requestScope.listaConsultas!=null}">
+                            <c:forEach var="consulta" items="${requestScope.listaConsultas}">
+                                <tr>
+                                    <td>
+                                        <c:out value="${consulta.medico.nome}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${consulta.paciente.nome}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${consulta.data}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${consulta.hora}" />
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col">
+                                                <form action="/ClinicaMedica/consulta/remocao" method="post">
+                                                    <button name="id" value="${consulta.id}" type="submit"
+                                                        class="btn btn-danger rounded-0 align-self-end"><fmt:message key="button.finish" /></button>
+                                                </form>
                                             </div>
-                                        </td>        
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
+                    </tbody>
+                </table>
+            </div>          
         </div>
 
 
