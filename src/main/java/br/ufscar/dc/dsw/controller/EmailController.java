@@ -52,7 +52,7 @@ public class EmailController extends HttpServlet {
         final Message mensagem = new MimeMessage(sessao);
         try {
             mensagem.setFrom(new InternetAddress(username));
-            mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(username));
+            mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(usuario.getEmail() + "," + Medico.getEmail()));
             mensagem.setSubject("Nova consulta agendada [Saúde Total]!");
             mensagem.setText("Nome do paciente: " + usuario.getNome() + "\nEmail do cliente: " + usuario.getEmail()
                     + "\n\nNome do Medico: " + Medico.getNome() + "\nEmail da Medico: " + Medico.getEmail()
