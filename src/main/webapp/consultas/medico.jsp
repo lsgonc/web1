@@ -71,14 +71,14 @@
                             </li>
 
                             <li class="nav-item mx-2">
-                                <a href="medico" class="nav-link">
+                                <a href="/ClinicaMedica/medico" class="nav-link">
                                     <fmt:message key="header.doctors" />
                                 </a>
                             </li>
 
                             <c:if test="${sessionScope.usuarioLogado == null}">
                                 <li class="nav-item mx-2">
-                                    <a href="login" class="nav-link">
+                                    <a href="/ClinicaMedica/login" class="nav-link">
                                         <fmt:message key="header.login" />
                                     </a>
                                 </li>
@@ -86,7 +86,7 @@
 
                             <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'medico'}">
                                 <li class="nav-item mx-2">
-                                    <a href="consulta" class="nav-link">
+                                    <a href="/ClinicaMedica/consulta" class="nav-link">
                                         <fmt:message key="header.consulta" />
                                     </a>
                                 </li>
@@ -94,7 +94,7 @@
 
                             <c:if test="${sessionScope.usuarioLogado != null}">
                                 <li class="nav-item mx-2">
-                                    <a href="signout" class="nav-link">
+                                    <a href="/ClinicaMedica/signout" class="nav-link">
                                         <fmt:message key="header.signout" />
                                     </a>
                                 </li>
