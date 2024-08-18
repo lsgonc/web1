@@ -4,7 +4,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.ufscar.dc.dsw.ClinicaMedica.domain.*;
 import br.ufscar.dc.dsw.ClinicaMedica.dao.*;
@@ -12,7 +11,7 @@ import br.ufscar.dc.dsw.ClinicaMedica.dao.*;
 import java.sql.Date;
 import java.sql.Time;
 
-@SpringBootApplication()
+@SpringBootApplication
 public class ClinicaMedicaApplication {
 
     public static void main(String[] args) {
@@ -20,15 +19,16 @@ public class ClinicaMedicaApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO, IConsultaDAO consultaDAO, BCryptPasswordEncoder encoder) {
+    public CommandLineRunner demo(IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO, IConsultaDAO consultaDAO) {
         return (args) -> {
-            Medico m1 = new Medico("123456", "medico1@gmail.com", encoder.encode("medico"), Usuario.TipoUsuario.MEDICO, "Dr. João", "Cardiologia");
-            Medico m2 = new Medico("654321", "medico2@gmail.com", encoder.encode("medico"), Usuario.TipoUsuario.MEDICO, "Dr. Maria", "Neurologia");
+            // Removido BCryptPasswordEncoder e a codificação das senhas
+            Medico m1 = new Medico("123456", "medico1@gmail.com", "medico", Usuario.TipoUsuario.MEDICO, "Dr. João", "Cardiologia");
+            Medico m2 = new Medico("654321", "medico2@gmail.com", "medico", Usuario.TipoUsuario.MEDICO, "Dr. Maria", "Neurologia");
             medicoDAO.save(m1);
             medicoDAO.save(m2);
 
-            Paciente p1 = new Paciente("111.222.333-44", "paciente1@gmail.com", encoder.encode("paciente"), Usuario.TipoUsuario.PACIENTE, "Ana", "(33) 77777-7777", Paciente.Sexo.Masculino, "1990-03-03");
-            Paciente p2 = new Paciente("555.666.777-88", "paciente2@gmail.com", encoder.encode("paciente"), Usuario.TipoUsuario.PACIENTE, "Carlos", "(44) 66666-6666", Paciente.Sexo.Masculino, "1985-04-04");
+            Paciente p1 = new Paciente("111.222.333-44", "paciente1@gmail.com", "paciente", Usuario.TipoUsuario.PACIENTE, "Ana", "(33) 77777-7777", Paciente.Sexo.Masculino, "1990-03-03");
+            Paciente p2 = new Paciente("555.666.777-88", "paciente2@gmail.com", "paciente", Usuario.TipoUsuario.PACIENTE, "Carlos", "(44) 66666-6666", Paciente.Sexo.Masculino, "1985-04-04");
             pacienteDAO.save(p1);
             pacienteDAO.save(p2);
 
@@ -37,6 +37,6 @@ public class ClinicaMedicaApplication {
             consultaDAO.save(c1);
             consultaDAO.save(c2);
         };
-
     }
 }
+
