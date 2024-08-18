@@ -1,5 +1,6 @@
 package br.ufscar.dc.dsw.ClinicaMedica.dao;
 
+import java.util.Optional;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import br.ufscar.dc.dsw.ClinicaMedica.domain.Consulta;
@@ -7,7 +8,7 @@ import br.ufscar.dc.dsw.ClinicaMedica.domain.Consulta;
 @SuppressWarnings("unchecked")
 public interface ConsultaDAO extends CrudRepository<Consulta, Integer> {
     
-    Consulta findById(Integer id);
+    Optional<Consulta> findById(Integer id);
     List<Consulta> findAll();
     Consulta save(Consulta consulta);
     void deleteById(Integer id);
