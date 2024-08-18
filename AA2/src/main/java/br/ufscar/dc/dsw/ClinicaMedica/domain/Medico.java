@@ -3,11 +3,11 @@ package br.ufscar.dc.dsw.ClinicaMedica.domain;
 import jakarta.persistence.*;
 
 @Entity
-@DiscriminatorValue("medico")
+@DiscriminatorValue("MEDICO")
 
 public class Medico extends Usuario {
 
-    @Id
+    
    @Column(nullable = false, length = 20,unique=true)
     private String CRM;
 

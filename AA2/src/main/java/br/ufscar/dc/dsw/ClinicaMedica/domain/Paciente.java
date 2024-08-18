@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 
 
 @Entity
-@DiscriminatorValue("paciente")
+@DiscriminatorValue("PACIENTE")
 
 public class Paciente extends Usuario {
 
-    @Id
+    
     @Column(nullable = false, length = 14, unique=true)
     private String CPF;
 
