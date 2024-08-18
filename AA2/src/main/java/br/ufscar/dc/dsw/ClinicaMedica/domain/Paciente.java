@@ -1,27 +1,23 @@
 package br.ufscar.dc.dsw.ClinicaMedica.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import java.sql.Date;
+import jakarta.persistence.*;
+
 
 @Entity
-@Table(name = "Paciente")
+@DiscriminatorValue("paciente")
+
 public class Paciente extends Usuario {
 
-    @Column(nullable = false, length = 14)
-    private String cpf;
+    @Id
+    @Column(nullable = false, length = 14, unique=true)
+    private String CPF;
 
     @Column(nullable = false, length = 15)
     private String telefone;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 1)
-    private String sexo;
+    private Sexo sexo;
 
     @Column(nullable = false)
     private String dataNascimento;
@@ -32,21 +28,21 @@ public class Paciente extends Usuario {
     }
 
     // Construtor com argumentos
-    public Paciente(String cpf, String email, String senha, TipoUsuario tipoUsuario, String nome, String telefone, String sexo, String dataNascimento) {
+    public Paciente(String CPF, String email, String senha, TipoUsuario tipoUsuario, String nome, String telefone, Sexo sexo, String dataNascimento) {
         super(email, senha, nome, tipoUsuario);
-        this.cpf = cpf;
+        this.CPF = CPF;
         this.telefone = telefone;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
     }
 
     // Getters e Setters
-    public String getCpf() {
-        return cpf;
+    public String getCPF() {
+        return CPF;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
     }
 
     public String getTelefone() {
@@ -57,11 +53,11 @@ public class Paciente extends Usuario {
         this.telefone = telefone;
     }
 
-    public String getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
 
@@ -71,6 +67,10 @@ public class Paciente extends Usuario {
 
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public enum Sexo {
+        Masculino, Feminino, Outro
     }
 }
 

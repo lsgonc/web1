@@ -1,18 +1,18 @@
 package br.ufscar.dc.dsw.ClinicaMedica.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.sql.Date;
 import java.sql.Time;
 
 @Entity
-@Table(name = "Consulta")
+@Table(name = "consulta")
 public class Consulta {
 
     @Id
@@ -20,29 +20,29 @@ public class Consulta {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_id", nullable = false)
+    @JoinColumn(name = "paciente_cpf", referencedColumnName = "CPF", nullable = false)
     private Paciente paciente;
 
     @ManyToOne
-    @JoinColumn(name = "medico_id", nullable = false)
+    @JoinColumn(name = "medico_crm", referencedColumnName = "CRM", nullable = false)
     private Medico medico;
 
-    @Column(nullable = false)
-    private Date data;
+    @Column(name="data_consulta", nullable = false)
+    private Date dataConsulta;
 
-    @Column(nullable = false)
-    private Time hora;
+    @Column(name="hora_consulta", nullable = false)
+    private Time horaConsulta;
 
     // Construtor padrão
     public Consulta() {
     }
 
     // Construtor com argumentos
-    public Consulta(Paciente paciente, Medico medico, Date data, Time hora) {
+    public Consulta(Paciente paciente, Medico medico, Date dataConsulta, Time horaConsulta) {
         this.paciente = paciente;
         this.medico = medico;
-        this.data = data;
-        this.hora = hora;
+        this.dataConsulta = dataConsulta;
+        this.horaConsulta = horaConsulta;
     }
 
     // Getters e Setters
@@ -71,20 +71,20 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public Date getData() {
-        return data;
+    public Date getdataConsulta() {
+        return dataConsulta;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setdataConsulta(Date dataConsulta) {
+        this.dataConsulta = dataConsulta;
     }
 
-    public Time getHora() {
-        return hora;
+    public Time gethoraConsulta() {
+        return horaConsulta;
     }
 
-    public void setHora(Time hora) {
-        this.hora = hora;
+    public void sethoraConsulta(Time horaConsulta) {
+        this.horaConsulta = horaConsulta;
     }
 }
 

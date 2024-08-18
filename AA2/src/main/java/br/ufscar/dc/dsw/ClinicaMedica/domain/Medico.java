@@ -1,19 +1,15 @@
 package br.ufscar.dc.dsw.ClinicaMedica.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Medico")
+@DiscriminatorValue("medico")
+
 public class Medico extends Usuario {
 
-
-   @Column(nullable = false, length = 20)
-    private String crm;
+    @Id
+   @Column(nullable = false, length = 20,unique=true)
+    private String CRM;
 
     @Column(nullable = false, length = 100)
     private String especialidade;
@@ -24,19 +20,19 @@ public class Medico extends Usuario {
     }
 
     // Construtor com argumentos
-    public Medico(String crm, String email, String senha, TipoUsuario tipoUsuario, String nome, String especialidade) {
+    public Medico(String CRM, String email, String senha, TipoUsuario tipoUsuario, String nome, String especialidade) {
         super(email, senha, nome, tipoUsuario);
-        this.crm = crm;
+        this.CRM = CRM;
         this.especialidade = especialidade;
     }
 
     // Getters e Setters
-    public String getCrm() {
-        return crm;
+    public String getCRM() {
+        return CRM;
     }
 
-    public void setCrm(String crm) {
-        this.crm = crm;
+    public void setCRM(String CRM) {
+        this.CRM = CRM;
     }
 
     public String getEspecialidade() {

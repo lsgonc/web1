@@ -6,9 +6,9 @@ import br.ufscar.dc.dsw.ClinicaMedica.domain.Paciente;
 
 @SuppressWarnings("unchecked")
 public interface IPacienteDAO extends CrudRepository<Paciente, String> {
-    Paciente findByCpf(String cpf);
+    Paciente findByCPF(String CPF);
     List<Paciente> findAll();
     Paciente save(Paciente paciente);
-    void deleteById(String cpf);
+    void deleteById(String CPF);
 }
 

@@ -13,13 +13,14 @@ public interface IConsultaDAO extends CrudRepository<Consulta, Integer> {
     Consulta save(Consulta consulta);
     void deleteById(Integer id);
 
-    List<Consulta> findByPacienteCpf(String cpf);
+    List<Consulta> findByPacienteCPF(String CPF);
 
-    List<Consulta> findByMedicoCrm(String crm);
+    List<Consulta> findByMedicoCRM(String CRM);
 
-    boolean existsByMedicoCrmAndDataConsultaAndHoraConsulta(String crm, java.sql.Date dataConsulta, java.sql.Time horaConsulta);
 
-    boolean existsByPacienteCpfAndDataConsultaAndHoraConsulta(String cpf, java.sql.Date dataConsulta, java.sql.Time horaConsulta);
+    boolean existsByMedicoCRMAndDataConsultaAndHoraConsulta(String CRM, java.sql.Date dataConsulta, java.sql.Time horaConsulta);
+
+    boolean existsByPacienteCPFAndDataConsultaAndHoraConsulta(String CPF, java.sql.Date dataConsulta, java.sql.Time horaConsulta);
 
 }
 

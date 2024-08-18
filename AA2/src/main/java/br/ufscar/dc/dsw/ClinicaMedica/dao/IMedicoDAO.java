@@ -6,10 +6,10 @@ import br.ufscar.dc.dsw.ClinicaMedica.domain.Medico;
 
 @SuppressWarnings("unchecked")
 public interface IMedicoDAO extends CrudRepository<Medico, String> {
-    Medico findByCrm(String crm);
+    Medico findByCRM(String CRM);
     List<Medico> findAll();
     Medico save(Medico medico);
-    void deleteById(String crm);
+    void deleteById(String CRM);
 
     List<Medico> findByEspecialidade(String especialidade);
 }
