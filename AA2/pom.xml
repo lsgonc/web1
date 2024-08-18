@@ -14,7 +14,7 @@
 	<name>Clinica Medica</name>
 	<description>Projeto de Clinica Medica</description>
 	<url/>
-
+	
 	<licenses>
 		<license/>
 	</licenses>
@@ -34,11 +34,12 @@
 		<java.version>22</java.version>
 	</properties>
 
-		<dependencies>
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -55,13 +56,59 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.8.Final</version>
+			<scope>compile</scope>
+			<exclusions>
+                <exclusion>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+
+		<!-- Implementação de EntityManager da JPA -->
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.8.Final</version>
+			<scope>compile</scope>
+			<exclusions>
+                <exclusion>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+
+		<!-- Driver JDBC (banco de dados MySQL) -->
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.21</version>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
-	
+
+
 	<build>
 		<plugins>
 			<plugin>
