@@ -8,10 +8,10 @@ import jakarta.persistence.*;
 public class Medico extends Usuario {
 
     
-   @Column(nullable = false, length = 20,unique=true)
+   @Column(nullable = true, length = 20,unique=true)
     private String CRM;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = true, length = 100)
     private String especialidade;
 
     // Construtor padrão
