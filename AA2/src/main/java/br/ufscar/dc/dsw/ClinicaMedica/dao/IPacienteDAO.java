@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import br.ufscar.dc.dsw.ClinicaMedica.domain.Paciente;
 
 @SuppressWarnings("unchecked")
-public interface PacienteDAO extends CrudRepository<Paciente, String> {
+public interface IPacienteDAO extends CrudRepository<Paciente, String> {
     Paciente findByCpf(String cpf);
     List<Paciente> findAll();
     Paciente save(Paciente paciente);

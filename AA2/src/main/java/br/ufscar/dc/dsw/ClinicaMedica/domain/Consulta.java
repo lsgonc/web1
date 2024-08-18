@@ -20,19 +20,32 @@ public class Consulta {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_cpf", nullable = false)
+    @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 
     @ManyToOne
-    @JoinColumn(name = "medico_crm", nullable = false)
+    @JoinColumn(name = "medico_id", nullable = false)
     private Medico medico;
 
-    @Column(name = "data_consulta", nullable = false)
-    private java.sql.Date dataConsulta;
+    @Column(nullable = false)
+    private Date data;
 
-    @Column(name = "hora_consulta", nullable = false)
-    private java.sql.Time horaConsulta;
+    @Column(nullable = false)
+    private Time hora;
 
+    // Construtor padrão
+    public Consulta() {
+    }
+
+    // Construtor com argumentos
+    public Consulta(Paciente paciente, Medico medico, Date data, Time hora) {
+        this.paciente = paciente;
+        this.medico = medico;
+        this.data = data;
+        this.hora = hora;
+    }
+
+    // Getters e Setters
 
     public Integer getId() {
         return id;
@@ -58,20 +71,20 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public java.sql.Date getDataConsulta() {
-        return dataConsulta;
+    public Date getData() {
+        return data;
     }
 
-    public void setDataConsulta(java.sql.Date dataConsulta) {
-        this.dataConsulta = dataConsulta;
+    public void setData(Date data) {
+        this.data = data;
     }
 
-    public java.sql.Time getHoraConsulta() {
-        return horaConsulta;
+    public Time getHora() {
+        return hora;
     }
 
-    public void setHoraConsulta(java.sql.Time horaConsulta) {
-        this.horaConsulta = horaConsulta;
+    public void setHora(Time hora) {
+        this.hora = hora;
     }
 }
 

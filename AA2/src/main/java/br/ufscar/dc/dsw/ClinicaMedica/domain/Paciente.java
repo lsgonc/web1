@@ -12,42 +12,41 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "Paciente")
-public class Paciente {
+public class Paciente extends Usuario {
 
-    @Id
-    @Column(name = "CPF", length = 14)
+    @Column(nullable = false, length = 14)
     private String cpf;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
-    @Column(length = 15)
+    @Column(nullable = false, length = 15)
     private String telefone;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 10)
-    private Sexo sexo;
+    @Column(nullable = false, length = 1)
+    private String sexo;
 
-    @Column(name = "data_nascimento")
-    private java.sql.Date dataNascimento;
+    @Column(nullable = false)
+    private String dataNascimento;
+
+    // Construtor padrão
+    public Paciente() {
+        super();
+    }
+
+    // Construtor com argumentos
+    public Paciente(String cpf, String email, String senha, TipoUsuario tipoUsuario, String nome, String telefone, String sexo, String dataNascimento) {
+        super(email, senha, nome, tipoUsuario);
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.sexo = sexo;
+        this.dataNascimento = dataNascimento;
+    }
 
     // Getters e Setters
-
     public String getCpf() {
         return cpf;
     }
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public String getTelefone() {
@@ -58,25 +57,20 @@ public class Paciente {
         this.telefone = telefone;
     }
 
-    public Sexo getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(Sexo sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
-    public java.sql.Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(java.sql.Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    // Enum para sexo
-    public enum Sexo {
-        MASCULINO, FEMININO, OUTRO
     }
 }
 

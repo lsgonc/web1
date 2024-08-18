@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import br.ufscar.dc.dsw.ClinicaMedica.domain.Consulta;
 
 @SuppressWarnings("unchecked")
-public interface ConsultaDAO extends CrudRepository<Consulta, Integer> {
+public interface IConsultaDAO extends CrudRepository<Consulta, Integer> {
     
     Optional<Consulta> findById(Integer id);
     List<Consulta> findAll();

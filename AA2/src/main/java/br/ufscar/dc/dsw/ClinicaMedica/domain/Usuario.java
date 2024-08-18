@@ -15,7 +15,7 @@ import javax.persistence.Enumerated;
 @Entity
 @Table(name = "Usuario")
 public class Usuario {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -33,7 +33,19 @@ public class Usuario {
     @Column(name = "tipo_usuario", nullable = false)
     private TipoUsuario tipoUsuario;
 
+    // Construtor padrão
+    public Usuario() {
+    }
 
+    // Construtor com argumentos
+    public Usuario(String email, String senha, String nome, TipoUsuario tipoUsuario) {
+        this.email = email;
+        this.senha = senha;
+        this.nome = nome;
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    // Getters e Setters
     public Integer getId() {
         return id;
     }

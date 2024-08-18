@@ -9,34 +9,34 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Medico")
-public class Medico {
+public class Medico extends Usuario {
 
-    @Id
-    @Column(name = "CRM", length = 20)
+
+   @Column(nullable = false, length = 20)
     private String crm;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 100)
     private String especialidade;
 
+    // Construtor padrão
+    public Medico() {
+        super();
+    }
 
+    // Construtor com argumentos
+    public Medico(String crm, String email, String senha, TipoUsuario tipoUsuario, String nome, String especialidade) {
+        super(email, senha, nome, tipoUsuario);
+        this.crm = crm;
+        this.especialidade = especialidade;
+    }
+
+    // Getters e Setters
     public String getCrm() {
         return crm;
     }
 
     public void setCrm(String crm) {
         this.crm = crm;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public String getEspecialidade() {
