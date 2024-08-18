@@ -9,17 +9,17 @@ import jakarta.persistence.*;
 public class Paciente extends Usuario {
 
     
-    @Column(nullable = false, length = 14, unique=true)
+    @Column(nullable = true, length = 14, unique=true)
     private String CPF;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = true, length = 15)
     private String telefone;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 1)
+    @Column(nullable = true, length = 1)
     private Sexo sexo;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String dataNascimento;
 
     // Construtor padrão
