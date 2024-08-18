@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Enumerated;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "Usuario")
 public class Usuario {
 
     @Id

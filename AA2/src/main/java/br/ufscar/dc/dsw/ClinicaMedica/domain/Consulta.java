@@ -12,7 +12,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 @Entity
-@Table(name = "consulta")
+@Table(name = "Consulta")
 public class Consulta {
 
     @Id
