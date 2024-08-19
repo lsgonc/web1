@@ -9,7 +9,7 @@ public interface IMedicoDAO extends CrudRepository<Medico, String> {
     Medico findByCRM(String CRM);
     List<Medico> findAll();
     Medico save(Medico medico);
-    void deleteById(String CRM);
+    void deleteByCRM(String CRM);
 
     List<Medico> findByEspecialidade(String especialidade);
 }

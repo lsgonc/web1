@@ -1,30 +1,48 @@
 package br.ufscar.dc.dsw.ClinicaMedica.controller;
 
-import java.util.List;
-import java.util.Locale;
-
+import br.ufscar.dc.dsw.ClinicaMedica.dao.IConsultaDAO;
 import br.ufscar.dc.dsw.ClinicaMedica.dao.IMedicoDAO;
-import br.ufscar.dc.dsw.ClinicaMedica.dao.IPacienteDAO;
-import br.ufscar.dc.dsw.ClinicaMedica.domain.Medico;
+import br.ufscar.dc.dsw.ClinicaMedica.dao.IUsuarioDAO;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import br.ufscar.dc.dsw.ClinicaMedica.dao.IPacienteDAO;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class MedicoController {
 
-    private final IMedicoDAO medicoDAO;
+    @Autowired
 
-    public MedicoController(IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO) {
+    private IConsultaDAO consultaDAO;
+    private IMedicoDAO medicoDAO;
+
+    public MedicoController(IConsultaDAO consultaDAO, IMedicoDAO medicoDAO) {
+
+        this.consultaDAO = consultaDAO;
         this.medicoDAO = medicoDAO;
     }
 
-    @GetMapping("/medico")
-    public String index(Model model, Locale locale) {
-        List<Medico> listaMedicos = medicoDAO.findAll();
+    @Transactional
+    @PostMapping("/medico/remocao")
+    public RedirectView removerMedico(@RequestParam("CRM") String CRM, RedirectAttributes redirectAttributes) {
 
-        model.addAttribute("listaMedicos", listaMedicos);
+        try {
+            consultaDAO.deleteByMedicoCRM(CRM);
 
-        return "medicos/index";
+
+            medicoDAO.deleteByCRM(CRM);
+
+
+            redirectAttributes.addFlashAttribute("message", "removeu.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "erro.");
+        }
+
+        return new RedirectView("/admin");
     }
 }

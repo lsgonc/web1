@@ -114,9 +114,12 @@
                                 </form>                                
                             </div>
                             <div class="col">
-                                <form action="/ClinicaMedica/medico/remocao" method="post">
-                                    <button name="id" value="${medico.id}" type="submit"
-                                            class="btn btn-danger rounded-0 align-self-end">Deletar Médico</button>
+                                <form th:action="@{/medico/remocao}" method="post">
+                                    <input id="crm_medico" name="CRM" th:type="hidden" th:value="${medico.CRM}" >
+                                    <button type="submit"
+                                            class="btn btn-danger rounded-0 align-self-end">
+                                        Deletar Medico
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -172,15 +175,19 @@
                                     </form>
                                 </div>
                                 <div class="col">
-                                    <form action="/paciente/remocao" method="post">
-                                        <button name="id" value="${paciente.id}" type="submit"
-                                                class="btn btn-danger rounded-0 align-self-end">Deletar Paciente</button>
+                                    <form th:action="@{/paciente/remocao}" method="post">
+                                        <input id="cpf_user" name="CPF" th:type="hidden" th:value="${paciente.CPF}" >
+                                        <button type="submit"
+                                               class="btn btn-danger rounded-0 align-self-end">
+                                            Deletar Paciente
+                                        </button>
                                     </form>
+
                                 </div>
                             </div>
                         </td>
                     </tr>
-                </th:block>
+
                 </tbody>
             </table>
         </div>
