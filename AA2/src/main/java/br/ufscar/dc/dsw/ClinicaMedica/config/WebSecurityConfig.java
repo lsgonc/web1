@@ -40,21 +40,19 @@ public class WebSecurityConfig {
                         .requestMatchers("/", "/index", "/error", "/medico").permitAll()
                         .requestMatchers("/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**").permitAll()
                         .requestMatchers("/admin/**", "/adm/**").hasRole("ADMIN")
+                        .requestMatchers("/medico/**", "/med/**").hasRole("ADMIN")
                         .requestMatchers("/paciente/remocao").hasRole("ADMIN")
                         .requestMatchers("/consultas/medico/").hasRole("MEDICO")
                         .requestMatchers("/consultas/paciente/").hasRole("PACIENTE")
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
                         .usernameParameter("email")
-                        .defaultSuccessUrl("/")
-                )
+                        .defaultSuccessUrl("/"))
                 .logout(logout -> logout
                         .logoutSuccessUrl("/")
-                        .permitAll()
-                );
+                        .permitAll());
 
         return http.build();
     }
