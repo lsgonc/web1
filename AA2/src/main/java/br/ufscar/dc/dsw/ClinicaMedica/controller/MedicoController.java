@@ -3,6 +3,7 @@ package br.ufscar.dc.dsw.ClinicaMedica.controller;
 import br.ufscar.dc.dsw.ClinicaMedica.dao.IConsultaDAO;
 import br.ufscar.dc.dsw.ClinicaMedica.dao.IMedicoDAO;
 import br.ufscar.dc.dsw.ClinicaMedica.domain.Medico;
+import br.ufscar.dc.dsw.ClinicaMedica.domain.Usuario;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,5 +53,26 @@ public class MedicoController {
         }
 
         return "medicos/index"; 
+    }
+
+    @PostMapping("/medico/insercao")
+    public RedirectView inserirMedico(@RequestParam("CRM") String CRM,
+                                      @RequestParam("nome") String nome,
+                                      @RequestParam("email") String email,
+                                      @RequestParam("senha") String senha,
+                                      @RequestParam("especialidade") String especialidade,
+                                      RedirectAttributes redirectAttributes) {
+
+        try {
+            Medico medico = new Medico(CRM, email,senha, Usuario.TipoUsuario.MEDICO,nome,especialidade);
+
+            medicoDAO.save(medico);
+
+            redirectAttributes.addFlashAttribute("message", "Medico inserido com sucesso.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Erro ao inserir medico.");
+        }
+
+        return new RedirectView("/admin");
     }
 }
