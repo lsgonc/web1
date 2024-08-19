@@ -5,8 +5,12 @@ import java.util.Locale;
 
 import br.ufscar.dc.dsw.ClinicaMedica.dao.IConsultaDAO;
 import br.ufscar.dc.dsw.ClinicaMedica.dao.IMedicoDAO;
+import br.ufscar.dc.dsw.ClinicaMedica.dao.IPacienteDAO;
+
 import br.ufscar.dc.dsw.ClinicaMedica.domain.Consulta;
 import br.ufscar.dc.dsw.ClinicaMedica.domain.Medico;
+import br.ufscar.dc.dsw.ClinicaMedica.domain.Paciente;
+
 import br.ufscar.dc.dsw.ClinicaMedica.domain.Usuario;
 import br.ufscar.dc.dsw.ClinicaMedica.security.UsuarioDetails;
 
@@ -21,11 +25,13 @@ public class ConsultaController {
 
     private final IConsultaDAO consultaDAO;
     private final IMedicoDAO medicoDAO;
+    private final IPacienteDAO pacienteDAO;
 
     @Autowired
-    public ConsultaController(IConsultaDAO consultaDAO, IMedicoDAO medicoDAO) {
+    public ConsultaController(IConsultaDAO consultaDAO, IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO) {
         this.consultaDAO = consultaDAO;
         this.medicoDAO = medicoDAO;
+        this.pacienteDAO = pacienteDAO;
     }
 
     private Usuario getUser() {
@@ -51,8 +57,17 @@ public class ConsultaController {
     @GetMapping("/consultaPaciente")
     public String listarConsultasPaciente(Model model, Locale locale) {
         Usuario usuario = getUser();
-        model.addAttribute("usuario", usuario.getNome());
+        if (usuario instanceof Paciente) {
+            Paciente paciente = (Paciente) usuario;
+            List<Consulta> consultas = consultaDAO.findByPacienteCPF(paciente.getCPF());
+            model.addAttribute("consultas", consultas);
+            model.addAttribute("usuario", usuario.getNome());
+        } else {
+            model.addAttribute("error", "Acesso negado. Apenas pacientes podem visualizar essa página.");
+            return "error/403";
+        }
         return "consultas/paciente";
     }
+
 }
 
