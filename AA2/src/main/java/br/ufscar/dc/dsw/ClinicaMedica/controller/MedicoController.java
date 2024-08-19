@@ -44,27 +44,27 @@ public class MedicoController {
     }
 
     @GetMapping("/medico")
-    public String listarMedicos(Model model) { 
+    public String listarMedicos(Model model) {
         try {
-            List<Medico> medicos = medicoDAO.findAll(); 
+            List<Medico> medicos = medicoDAO.findAll();
             model.addAttribute("listaMedicos", medicos);
         } catch (Exception e) {
             model.addAttribute("error", "Erro ao listar médicos.");
         }
 
-        return "medicos/index"; 
+        return "medicos/index";
     }
 
     @PostMapping("/medico/insercao")
     public RedirectView inserirMedico(@RequestParam("CRM") String CRM,
-                                      @RequestParam("nome") String nome,
-                                      @RequestParam("email") String email,
-                                      @RequestParam("senha") String senha,
-                                      @RequestParam("especialidade") String especialidade,
-                                      RedirectAttributes redirectAttributes) {
+            @RequestParam("nome") String nome,
+            @RequestParam("email") String email,
+            @RequestParam("senha") String senha,
+            @RequestParam("especialidade") String especialidade,
+            RedirectAttributes redirectAttributes) {
 
         try {
-            Medico medico = new Medico(CRM, email,senha, Usuario.TipoUsuario.MEDICO,nome,especialidade);
+            Medico medico = new Medico(CRM, email, senha, Usuario.TipoUsuario.MEDICO, nome, especialidade);
 
             medicoDAO.save(medico);
 
@@ -77,15 +77,11 @@ public class MedicoController {
     }
 
     @PostMapping("/medico/editar")
-    public String editarMedico(Model model, @RequestParam("CRM") String CRM
-                                    ) {
+    public String editarMedico(Model model, @RequestParam("CRM") String CRM) {
 
+        Medico medicoEdit = medicoDAO.findByCRM(CRM);
 
-
-            Medico medicoEdit = medicoDAO.findByCRM(CRM);
-
-            model.addAttribute("medico", medicoEdit);
-
+        model.addAttribute("medico", medicoEdit);
 
         return "/admin/editar/medico";
     }
@@ -93,15 +89,14 @@ public class MedicoController {
     @Transactional
     @PostMapping("/medico/editarMedico")
     public RedirectView editarReal(Model model, @RequestParam("CRM") String CRM,
-                                    @RequestParam("email") String email,
-                                    @RequestParam("nome") String nome,
-                                    @RequestParam("especialidade") String especialidade,
-                                    @RequestParam("NOVO_CRM") String novoCrm,
-                                      
-                                      RedirectAttributes redirectAttributes) {
+            @RequestParam("email") String email,
+            @RequestParam("nome") String nome,
+            @RequestParam("especialidade") String especialidade,
+            @RequestParam("NOVO_CRM") String novoCrm,
+
+            RedirectAttributes redirectAttributes) {
 
         try {
-
 
             Medico medicoEdit = medicoDAO.findByCRM(CRM);
 
@@ -109,8 +104,6 @@ public class MedicoController {
             medicoEdit.setNome(nome);
             medicoEdit.setEspecialidade(especialidade);
             medicoEdit.setCRM(novoCrm);
-
-            
 
             redirectAttributes.addFlashAttribute("message", "Medico inserido com sucesso.");
         } catch (Exception e) {

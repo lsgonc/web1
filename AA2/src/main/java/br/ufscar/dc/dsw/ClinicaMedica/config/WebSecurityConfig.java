@@ -44,18 +44,15 @@ public class WebSecurityConfig {
                         .requestMatchers("/paciente/remocao").hasRole("ADMIN")
                         .requestMatchers("/consultas/medico/").hasRole("MEDICO")
                         .requestMatchers("/consultas/paciente/").hasRole("PACIENTE")
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
                         .usernameParameter("email")
-                        .defaultSuccessUrl("/")
-                )
+                        .defaultSuccessUrl("/"))
                 .logout(logout -> logout
                         .logoutSuccessUrl("/")
-                        .permitAll()
-                );
+                        .permitAll());
 
         return http.build();
     }
