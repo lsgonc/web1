@@ -75,8 +75,8 @@
 <body>
 
     <div th:replace="~{fragments/header.html}"></div>
-    <div class="d-flex flex-column vh-100 align-items-center">
-        <form th:action="@{/paciente/editarPaciente}" method="post">
+    <div class="d-flex flex-column justify-content-center align-items-center vh-100">
+        <form th:action="@{/paciente/editarPaciente}" method="post" class="p-4 border rounded shadow">
             <input type="hidden" th:value="${paciente.CPF}" name="CPF">
 
             <div class="mb-3">
