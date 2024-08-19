@@ -2,6 +2,9 @@ package br.ufscar.dc.dsw.ClinicaMedica.controller;
 
 import br.ufscar.dc.dsw.ClinicaMedica.dao.IConsultaDAO;
 import br.ufscar.dc.dsw.ClinicaMedica.dao.IUsuarioDAO;
+import br.ufscar.dc.dsw.ClinicaMedica.domain.Medico;
+import br.ufscar.dc.dsw.ClinicaMedica.domain.Paciente;
+import br.ufscar.dc.dsw.ClinicaMedica.domain.Usuario;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.ClinicaMedica.dao.IPacienteDAO;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Objects;
 
 @Controller
 public class PacienteController {
@@ -44,4 +49,41 @@ public class PacienteController {
 
         return new RedirectView("/admin");
     }
+
+    @PostMapping("/paciente/insercao")
+    public RedirectView inserirPaciente(@RequestParam("CPF") String CPF,
+                                        @RequestParam("nome") String nome,
+                                        @RequestParam("email") String email,
+                                        @RequestParam("senha") String senha,
+                                        @RequestParam("telefone") String telefone,
+                                        @RequestParam("sexo") String sexo,
+                                        @RequestParam("dataNascimento") String dataNascimento,
+                                        RedirectAttributes redirectAttributes) {
+
+        try {
+            Paciente.Sexo sexoEnum;
+
+            if(Objects.equals(sexo, "Masculino")){
+                sexoEnum=Paciente.Sexo.Masculino;
+            }
+            else if(Objects.equals(sexo, "Feminino")){
+                sexoEnum=Paciente.Sexo.Feminino;
+            }
+            else
+            {
+                sexoEnum=Paciente.Sexo.Outro;
+            }
+
+            Paciente paciente = new Paciente(CPF,email,senha,Usuario.TipoUsuario.PACIENTE,nome,telefone, sexoEnum,dataNascimento);
+
+            pacienteDAO.save(paciente);
+
+            redirectAttributes.addFlashAttribute("message", "inseriu.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "erro.");
+        }
+
+        return new RedirectView("/admin");
+    }
 }
+
