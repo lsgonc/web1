@@ -71,19 +71,19 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public Date getdataConsulta() {
+    public Date getDataConsulta() {
         return dataConsulta;
     }
 
-    public void setdataConsulta(Date dataConsulta) {
+    public void setDataConsulta(Date dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
 
-    public Time gethoraConsulta() {
+    public Time getHoraConsulta() {
         return horaConsulta;
     }
 
-    public void sethoraConsulta(Time horaConsulta) {
+    public void setHoraConsulta(Time horaConsulta) {
         this.horaConsulta = horaConsulta;
     }
 }

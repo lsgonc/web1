@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import br.ufscar.dc.dsw.ClinicaMedica.domain.Consulta;
+import br.ufscar.dc.dsw.ClinicaMedica.domain.Medico;
 
 @SuppressWarnings("unchecked")
 public interface IConsultaDAO extends CrudRepository<Consulta, Integer> {
@@ -16,7 +17,6 @@ public interface IConsultaDAO extends CrudRepository<Consulta, Integer> {
     List<Consulta> findByPacienteCPF(String CPF);
 
     List<Consulta> findByMedicoCRM(String CRM);
-
 
     boolean existsByMedicoCRMAndDataConsultaAndHoraConsulta(String CRM, java.sql.Date dataConsulta, java.sql.Time horaConsulta);
 
