@@ -1,0 +1,35 @@
+<form th:action="@{/medico/editarMedico}" method="post">
+    <input type="hidden" th:value="${medico.CRM}" id="" name="CRM">
+
+    <div class="mb-3">
+        <label for="nomeMedico" class="form-label">Nome:</label>
+        <input th:value="${medico.nome}" type="text" class="form-control" id="nomeMedico" name="nome" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="emailMedico" class="form-label">Email:</label>
+        <input th:value="${medico.email}" type="email" class="form-control" id="emailMedico" name="email" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="crmMedico" class="form-label">CRM:</label>
+        <input th:value="${medico.CRM}"type="text" class="form-control" id="crmMedico" name="NOVO_CRM" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="especialidade" class="form-label">Especialidade:</label>
+        <select th:value="${medico.especialidade}" name="especialidade" id="especialidade" class="form-select" required>
+            <option value="" disabled selected>Selecione uma especialidade</option>
+            <option value="Cardiologia">Cardiologia</option>
+            <option value="Dermatologia">Dermatologia</option>
+            <option value="Ginecologia">Ginecologia</option>
+            <option value="Neurologia">Neurologia</option>
+            <option value="Ortopedia">Ortopedia</option>
+            <option value="Oftalmologia">Oftalmologia</option>
+            <option value="Pediatria">Pediatria</option>
+            <option value="Psiquiatria">Psiquiatria</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>

@@ -1,0 +1,40 @@
+<form th:action="@{/paciente/editarPaciente}" method="post">
+    <input type="hidden" th:value="${paciente.CPF}" name="CPF">
+
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome:</label>
+        <input th:value="${paciente.nome}" type="text" class="form-control" id="nome" name="nome" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input th:value="${paciente.email}" type="email" class="form-control" id="email" name="email" required>
+    </div>
+
+  
+    <div class="mb-3">
+        <label for="cpf" class="form-label">CPF:</label>
+        <input th:value="${paciente.CPF}" type="text" class="form-control" id="cpf" name="NOVO_CPF" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite um CPF no formato: xxx.xxx.xxx-xx">
+    </div>
+
+    <div class="mb-3">
+        <label for="telefone" class="form-label">Telefone:</label>
+        <input th:value="${paciente.telefone}" type="text" class="form-control" id="telefone" name="telefone" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="sexo" class="form-label">Sexo:</label>
+        <select class="form-select" id="sexo" name="sexo" required>
+            <option value="Masculino" ${pacienteEdit.sexo == 'Masculino' ? 'selected' : ''}>Masculino</option>
+            <option value="Feminino" ${pacienteEdit.sexo == 'Feminino' ? 'selected' : ''}>Feminino</option>
+            <option value="Outro" ${pacienteEdit.sexo == 'Outro' ? 'selected' : ''}>Outro</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="dataNascimento" class="form-label">Data de Nascimento:</label>
+        <input value="${pacienteEdit.dataNascimento}" type="date" class="form-control" id="dataNascimento" name="dataNascimento" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
