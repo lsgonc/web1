@@ -14,4 +14,7 @@ public interface IUsuarioDAO extends CrudRepository<Usuario, Integer> {
     Usuario save(Usuario usuario);
     void deleteById(Integer id);
 
+
 }
+
+

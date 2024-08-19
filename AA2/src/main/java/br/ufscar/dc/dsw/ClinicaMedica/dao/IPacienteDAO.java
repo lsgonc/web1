@@ -9,6 +9,6 @@ public interface IPacienteDAO extends CrudRepository<Paciente, String> {
     Paciente findByCPF(String CPF);
     List<Paciente> findAll();
     Paciente save(Paciente paciente);
-    void deleteById(String CPF);
+    void deleteByCPF(String CPF);
 }
 

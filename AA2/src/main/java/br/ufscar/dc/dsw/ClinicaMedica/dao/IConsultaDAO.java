@@ -7,7 +7,7 @@ import br.ufscar.dc.dsw.ClinicaMedica.domain.Consulta;
 
 @SuppressWarnings("unchecked")
 public interface IConsultaDAO extends CrudRepository<Consulta, Integer> {
-    
+
     Optional<Consulta> findById(Integer id);
     List<Consulta> findAll();
     Consulta save(Consulta consulta);
@@ -21,6 +21,7 @@ public interface IConsultaDAO extends CrudRepository<Consulta, Integer> {
     boolean existsByMedicoCRMAndDataConsultaAndHoraConsulta(String CRM, java.sql.Date dataConsulta, java.sql.Time horaConsulta);
 
     boolean existsByPacienteCPFAndDataConsultaAndHoraConsulta(String CPF, java.sql.Date dataConsulta, java.sql.Time horaConsulta);
+    void deleteByPacienteCPF(String CPF);
+    void deleteByMedicoCRM(String CRM);
 
 }
-
