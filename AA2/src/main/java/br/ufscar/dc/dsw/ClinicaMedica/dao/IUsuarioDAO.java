@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import br.ufscar.dc.dsw.ClinicaMedica.domain.Usuario;
 
-import javax.swing.text.html.Option;
-
 @SuppressWarnings("unchecked")
 public interface IUsuarioDAO extends CrudRepository<Usuario, Integer> {
     Optional<Usuario> findById(Integer id);

@@ -17,6 +17,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/admin").setViewName("admin/index");
+        registry.addViewController("/medicos").setViewName("medicos/index");
         registry.addViewController("/user").setViewName("user/index");
         registry.addViewController("/login").setViewName("login");
     }
@@ -24,7 +25,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(new Locale("pt","BR"));
+        slr.setDefaultLocale(Locale.of("pt","BR"));
         return slr;
     }
 

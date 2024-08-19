@@ -37,12 +37,11 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/", "/index", "/error").permitAll()
+                        .requestMatchers("/", "/index", "/error", "/medico").permitAll()
                         .requestMatchers("/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**", "/adm/**").hasRole("ADMIN")
                         .requestMatchers("/consultas/medico/").hasRole("MEDICO")
                         .requestMatchers("/consultas/paciente/").hasRole("PACIENTE")
-                        .requestMatchers("/").authenticated()  // Require authentication for the root URL
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
