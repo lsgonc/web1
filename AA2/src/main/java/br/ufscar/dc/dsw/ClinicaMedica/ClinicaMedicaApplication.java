@@ -20,8 +20,11 @@ public class ClinicaMedicaApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO, IConsultaDAO consultaDAO,BCryptPasswordEncoder encoder) {
+    public CommandLineRunner demo(IUsuarioDAO usuarioDAO, IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO, IConsultaDAO consultaDAO,BCryptPasswordEncoder encoder) {
         return (args) -> {
+            Usuario admin = new Usuario("admin@gmail.com",encoder.encode("admin"),"admin",Usuario.TipoUsuario.ADMIN);
+            usuarioDAO.save(admin);
+
             Medico m1 = new Medico("123456", "medico1@gmail.com", encoder.encode("medico1"), Usuario.TipoUsuario.MEDICO, "Dr. João", "Cardiologia");
             Medico m2 = new Medico("654321", "medico2@gmail.com", encoder.encode("medico2"), Usuario.TipoUsuario.MEDICO, "Dr. Maria", "Neurologia");
             medicoDAO.save(m1);

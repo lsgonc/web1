@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class UsuarioDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -18,20 +19,14 @@ public class UsuarioDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        Usuario user = dao.findByEmail(email);
+        Optional<Usuario> optionalUser = Optional.ofNullable(dao.findByEmail(email));
+
+        Usuario user = optionalUser.orElseThrow(() ->
+                new UsernameNotFoundException("Could not find user with email: " + email));
 
 
-        if (user == null){
-            throw new UsernameNotFoundException("Could not find user");
-        }
-
-        UsuarioDetails userDetails = new UsuarioDetails(user);
-
-        System.out.println(userDetails.getUsername());
-        System.out.println(userDetails.getPassword());
-        System.out.println(userDetails.getAuthorities());
-
-        return userDetails;
+        return new UsuarioDetails(user);
     }
+
 
 }
