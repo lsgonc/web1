@@ -80,7 +80,8 @@ public class ConsultaController {
     }
 
     @PostMapping("/consulta/insercao")
-    public RedirectView inserirConsulta(@RequestParam("cpfPaciente") String cpfPaciente,
+    public String inserirConsulta(Model model,
+                                        @RequestParam("cpfPaciente") String cpfPaciente,
                                       @RequestParam("crmMedico") String crmMedico,
                                       @RequestParam("dataConsulta") Date dataConsulta,
                                       @RequestParam("horaConsulta") String horaConsulta,
@@ -91,16 +92,22 @@ public class ConsultaController {
             long ms = sdf.parse(horaConsulta).getTime();
             Time hora = new Time(ms);
 
-            Consulta consulta = new Consulta(pacienteDAO.findByCPF(cpfPaciente), medicoDAO.findByCRM(crmMedico), dataConsulta, hora);
+            if (consultaDAO.existsByMedicoCRMAndDataConsultaAndHoraConsulta(crmMedico, dataConsulta, hora)
+                || consultaDAO.existsByPacienteCPFAndDataConsultaAndHoraConsulta(cpfPaciente, dataConsulta, hora))
+                {
+                    redirectAttributes.addFlashAttribute("error", "Já existe uma consulta agendada no horário");
+                } else {
+                    Consulta consulta = new Consulta(pacienteDAO.findByCPF(cpfPaciente), medicoDAO.findByCRM(crmMedico), dataConsulta, hora);
 
-            consultaDAO.save(consulta);
+                    consultaDAO.save(consulta);
 
-            redirectAttributes.addFlashAttribute("message", "Medico inserido com sucesso.");
+                    redirectAttributes.addFlashAttribute("message", "Consulta agendada com sucesso.");
+                }
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Erro ao inserir medico.");
         }
 
-        return new RedirectView("/consultaPaciente");
+        return "redirect:/consultaPaciente";
     }
 }
 
