@@ -105,9 +105,9 @@ public class MedicoController {
             medicoEdit.setEspecialidade(especialidade);
             medicoEdit.setCRM(novoCrm);
 
-            redirectAttributes.addFlashAttribute("message", "Medico inserido com sucesso.");
+            redirectAttributes.addFlashAttribute("message", "Medico editado com sucesso.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Erro ao inserir medico.");
+            redirectAttributes.addFlashAttribute("error", "Erro ao editar medico.");
         }
 
         return new RedirectView("/admin");

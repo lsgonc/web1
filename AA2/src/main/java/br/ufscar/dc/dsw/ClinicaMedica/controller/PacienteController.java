@@ -41,9 +41,9 @@ public class PacienteController {
 
             pacienteDAO.deleteByCPF(CPF);
 
-            redirectAttributes.addFlashAttribute("message", "removeu.");
+            redirectAttributes.addFlashAttribute("message", "Paciente removido com sucesso.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "erro.");
+            redirectAttributes.addFlashAttribute("error", "Erro ao remover paciente.");
         }
 
         return new RedirectView("/admin");
@@ -76,9 +76,9 @@ public class PacienteController {
             pacienteDAO.save(paciente);                                       
                                       
 
-            redirectAttributes.addFlashAttribute("message", "inseriu.");
+            redirectAttributes.addFlashAttribute("message", "Paciente inserido.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "erro.");
+            redirectAttributes.addFlashAttribute("error", "Erro ao inserir paciente.");
         }
 
         return new RedirectView("/admin");

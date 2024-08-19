@@ -74,11 +74,16 @@
 <div th:replace="~{fragments/header.html}"></div>
 
 <div class="manager-container container mb-5">
+    <h2 class="text-danger" th:text="${error}">
+
+    </h2>
+
     <div class="row justify-content-between mb-2">
         <div class="col col-auto">
             <h2 th:text="#{crud.doctor.title}"></h2>
         </div>
 
+        
         <div class="col col-auto">
             <button type="button" class="btn btn-outline-dark rounded-0 align-self-end" data-bs-toggle="modal" data-bs-target="#cadastroMedicoModal">Cadastrar Médico</button>
         </div>
