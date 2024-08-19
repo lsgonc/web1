@@ -60,9 +60,11 @@
                     </li>
 
                     <li sec:authorize="isAuthenticated()" class="nav-item mx-2">
-                        <a th:href="@{/}" class="nav-link">
-                            <span th:text="#{header.signout}"></span>
-                        </a>
+                        <form th:action="@{/logout}" method="post" class="nav-link">
+                            <button type="submit" class="bg-transparent btn btn-outline-warning border-0" style="padding: 0; border: none;">
+                                <span th:text="#{header.signout}"></span>
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>
