@@ -5,7 +5,6 @@ import br.ufscar.dc.dsw.ClinicaMedica.security.UsuarioDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,31 +30,30 @@ public class WebSecurityConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
-    }
-
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/", "/index", "error").permitAll()
+                .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/", "/index", "/error").permitAll()
                         .requestMatchers("/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/consultas/medico/").hasRole("MEDICO")
+                        .requestMatchers("/consultas/paciente/").hasRole("PACIENTE")
+                        .requestMatchers("/").authenticated()  // Require authentication for the root URL
                         .anyRequest().authenticated()
-                ).formLogin((form) -> form
+                )
+                .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
                         .usernameParameter("email")
                         .defaultSuccessUrl("/")
-                ).logout((logout) -> logout
-                        .logoutSuccessUrl("/").
-                        permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/")
+                        .permitAll()
                 );
 
         return http.build();

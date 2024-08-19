@@ -1,4 +1,4 @@
-<header th:fragment="header" class="fixed-top">
+<header th:fragment="header" class="fixed-top" xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <nav class="navbar navbar-expand-sm navbar-dark blur-bg">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -29,45 +29,38 @@
                         </a>
                     </li>
 
-                    <c:if test="${sessionScope.usuarioLogado == null}">
-                        <li class="nav-item mx-2">
+                        <li sec:authorize="!isAuthenticated()" class="nav-item mx-2">
                             <a href="login" class="nav-link">
                                 <span th:text="#{header.login}"></span>
                             </a>
                         </li>
-                    </c:if>
 
-                    <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'admin'}">
-                        <li class="nav-item mx-2">
+
+                        <li sec:authorize="isAuthenticated() && hasRole('ADMIN')" class="nav-item mx-2">
                             <a href="admin" class="nav-link">
                                 <span th:text="#{header.admin}"></span>
                             </a>
                         </li>
-                    </c:if>
 
-                    <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'medico'}">
-                        <li class="nav-item mx-2">
+
+                        <li sec:authorize="hasRole('MEDICO')"  class="nav-item mx-2">
+                            <a th:href="@{/consulta-medico}" href="consulta" class="nav-link">
+                                <span th:text="#{header.consulta}"></span>
+                            </a>
+                        </li>
+
+
+                        <li sec:authorize="hasRole('PACIENTE')" class="nav-item mx-2">
                             <a href="consulta" class="nav-link">
                                 <span th:text="#{header.consulta}"></span>
                             </a>
                         </li>
-                    </c:if>
 
-                    <c:if test="${sessionScope.usuarioLogado != null && sessionScope.usuarioLogado.tipoUsuario == 'paciente'}">
-                        <li class="nav-item mx-2">
-                            <a href="consulta" class="nav-link">
-                                <span th:text="#{header.consulta}"></span>
-                            </a>
-                        </li>
-                    </c:if>
-
-                    <c:if test="${sessionScope.usuarioLogado != null}">
-                        <li class="nav-item mx-2">
-                            <a href="signout" class="nav-link">
-                                <span th:text="#{header.signout}"></span>
-                            </a>
-                        </li>
-                    </c:if>
+                    <li sec:authorize="isAuthenticated()" class="nav-item mx-2">
+                        <a href="login" class="nav-link">
+                            <span th:text="#{header.signout}"></span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
