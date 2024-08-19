@@ -20,15 +20,15 @@ public class ClinicaMedicaApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO, IConsultaDAO consultaDAO) {
+    public CommandLineRunner demo(IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO, IConsultaDAO consultaDAO,BCryptPasswordEncoder encoder) {
         return (args) -> {
-            Medico m1 = new Medico("123456", "medico1@gmail.com", "senha", Usuario.TipoUsuario.MEDICO, "Dr. João", "Cardiologia");
-            Medico m2 = new Medico("654321", "medico2@gmail.com", "senha", Usuario.TipoUsuario.MEDICO, "Dr. Maria", "Neurologia");
+            Medico m1 = new Medico("123456", "medico1@gmail.com", encoder.encode("medico1"), Usuario.TipoUsuario.MEDICO, "Dr. João", "Cardiologia");
+            Medico m2 = new Medico("654321", "medico2@gmail.com", encoder.encode("medico2"), Usuario.TipoUsuario.MEDICO, "Dr. Maria", "Neurologia");
             medicoDAO.save(m1);
             medicoDAO.save(m2);
 
-            Paciente p1 = new Paciente("111.222.333-44", "paciente1@gmail.com", "senha", Usuario.TipoUsuario.PACIENTE, "Ana", "(33) 77777-7777", Paciente.Sexo.Masculino, "1990-03-03");
-            Paciente p2 = new Paciente("555.666.777-88", "paciente2@gmail.com", "senha", Usuario.TipoUsuario.PACIENTE, "Carlos", "(44) 66666-6666", Paciente.Sexo.Masculino, "1985-04-04");
+            Paciente p1 = new Paciente("111.222.333-44", "paciente1@gmail.com", encoder.encode("paciente1"), Usuario.TipoUsuario.PACIENTE, "Ana", "(33) 77777-7777", Paciente.Sexo.Masculino, "1990-03-03");
+            Paciente p2 = new Paciente("555.666.777-88", "paciente2@gmail.com", encoder.encode("paciente2"), Usuario.TipoUsuario.PACIENTE, "Carlos", "(44) 66666-6666", Paciente.Sexo.Masculino, "1985-04-04");
             pacienteDAO.save(p1);
             pacienteDAO.save(p2);
 
