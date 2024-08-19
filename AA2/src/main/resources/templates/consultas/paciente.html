@@ -84,37 +84,34 @@
     </div>
 
     <!-- Modal para cadastro de consultas -->
-    <div class="modal fade" id="cadastroConsultaModal" tabindex="-1" aria-labelledby="cadastroConsultaModal"
-        aria-hidden="true">
+    <div class="modal fade" id="cadastroConsultaModal" tabindex="-1" aria-labelledby="cadastroConsultaModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="cadastroConsultaModal">
-                        <c:out value="${appointment.scheduling}" />
-                    </h5>
+                    <h5 th:text="#{appointment.scheduling}" class="modal-title" id="cadastroConsultaModal"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
-                    <form action="/ClinicaMedica/consulta/insercao" method="post">
-                        <input type="hidden" value="${requestScope.pacienteInf.cpf}" name="cpfPaciente"
-                            id="cpfPaciente">
+                    <form th:action="@{/consulta/insercao}" method="post">
+                        <input type="hidden" th:value="${paciente.CPF}" name="cpfPaciente" id="cpfPaciente">
+
                         <div class="mb-3">
                             <select class="form-select" id="crmMedico" name="crmMedico" required>
-                                <c:forEach var="medico" items="${requestScope.listaMedicos}">
-                                    <option value="${medico.crm}">${medico.nome}</option>
-                                </c:forEach>
+                                <th:block th:each="medico: ${listaMedicos}">
+                                    <option th:text="${medico.nome}" th:value="${medico.CRM}"></option>
+                                </th:each>
                             </select>
-
                         </div>
+
                         <div class="mb-3">
-                            <label for="dataConsulta">
-                                <fmt:message key="appointment.date" />
+                            <label th:text="#{appointment.date}" for="dataConsulta">
                             </label>
                             <input name="dataConsulta" type="date" class="form-control" id="dataConsulta">
                         </div>
+
                         <div class="mb-3">
-                            <label for="horaConsulta">
-                                <fmt:message key="appointment.time" />
+                            <label th:text="#{appointment.time}" for="horaConsulta">
                             </label>
                             <select name="horaConsulta" class="form-select" id="horaConsulta" required>
                                 <option value="08:00">08:00</option>
@@ -140,16 +137,9 @@
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-success">
-                            <fmt:message key="scheduling.done" />
+                        <button th:text="#{scheduling.done}" type="submit" class="btn btn-success">
                         </button>
                     </form>
-
-                    <c:if test="${not empty requestScope.mensagemErro}">
-                        <div class="alert alert-danger" role="alert">
-                            <c:out value="${requestScope.mensagemErro}" />
-                        </div>
-                    </c:if>
                 </div>
             </div>
         </div>

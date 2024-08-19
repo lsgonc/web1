@@ -22,7 +22,7 @@ public class AdminController {
         this.pacienteDAO = pacienteDAO;
     }
 
-    @GetMapping({ "/adm","/admin"})
+    @GetMapping({ "/adm","/admin", "/admin/**"})
     public String index(Model model, Locale locale) {
         List<Medico> listaMedicos = medicoDAO.findAll();
         List<Paciente> listaPacientes = pacienteDAO.findAll();

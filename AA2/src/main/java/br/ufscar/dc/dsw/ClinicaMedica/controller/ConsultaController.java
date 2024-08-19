@@ -1,5 +1,8 @@
 package br.ufscar.dc.dsw.ClinicaMedica.controller;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,6 +22,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class ConsultaController {
@@ -60,8 +67,11 @@ public class ConsultaController {
         if (usuario instanceof Paciente) {
             Paciente paciente = (Paciente) usuario;
             List<Consulta> consultas = consultaDAO.findByPacienteCPF(paciente.getCPF());
+            List<Medico> medicos = medicoDAO.findAll();
             model.addAttribute("consultas", consultas);
             model.addAttribute("usuario", usuario.getNome());
+            model.addAttribute("paciente", paciente);
+            model.addAttribute("listaMedicos", medicos);
         } else {
             model.addAttribute("error", "Acesso negado. Apenas pacientes podem visualizar essa página.");
             return "error/403";
@@ -69,5 +79,28 @@ public class ConsultaController {
         return "consultas/paciente";
     }
 
+    @PostMapping("/consulta/insercao")
+    public RedirectView inserirConsulta(@RequestParam("cpfPaciente") String cpfPaciente,
+                                      @RequestParam("crmMedico") String crmMedico,
+                                      @RequestParam("dataConsulta") Date dataConsulta,
+                                      @RequestParam("horaConsulta") String horaConsulta,
+                                      RedirectAttributes redirectAttributes) {
+ 
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            long ms = sdf.parse(horaConsulta).getTime();
+            Time hora = new Time(ms);
+
+            Consulta consulta = new Consulta(pacienteDAO.findByCPF(cpfPaciente), medicoDAO.findByCRM(crmMedico), dataConsulta, hora);
+
+            consultaDAO.save(consulta);
+
+            redirectAttributes.addFlashAttribute("message", "Medico inserido com sucesso.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Erro ao inserir medico.");
+        }
+
+        return new RedirectView("/consultaPaciente");
+    }
 }
 
