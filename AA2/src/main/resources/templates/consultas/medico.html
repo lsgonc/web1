@@ -66,40 +66,32 @@
                         <td th:text="#{appointment.none}" colspan="4"></td>
                     </c:if>
                     <c:if test="${requestScope.listaConsultas!=null}">
-                        <c:forEach var="consulta" items="${requestScope.listaConsultas}">
+                        <th:block th:each="consulta : ${listaConsultas}">
                             <tr>
-                                <td>
-                                    <c:out value="${consulta.medico.nome}" />
-                                </td>
-                                <td>
-                                    <c:out value="${consulta.paciente.nome}" />
-                                </td>
-                                <td>
-                                    <c:out value="${consulta.data}" />
-                                </td>
-                                <td>
-                                    <c:out value="${consulta.hora}" />
-                                </td>
+                                <td th:text="${consulta.medico.nome}"></td>
+                                <td th:text="${consulta.paciente.nome}"></td>
+                                <td th:text="${consulta.data}"></td>
+                                <td th:text="${consulta.hora}"></td>
+
                                 <td>
                                     <div class="row">
                                         <div class="col">
                                             <form action="/ClinicaMedica/consulta/remocao" method="post">
-                                                <button name="id" value="${consulta.id}" type="submit"
+                                                <button th:text="#{button.finish}" name="id"
+                                                    th:attr="value=${consulta.id}" type="submit"
                                                     class="btn btn-danger rounded-0 align-self-end">
-                                                    <fmt:message key="button.finish" />
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                        </c:forEach>
+                        </th:block>
                     </c:if>
                 </tbody>
             </table>
         </div>
     </div>
-
 
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

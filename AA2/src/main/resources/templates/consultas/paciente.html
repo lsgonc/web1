@@ -70,32 +70,23 @@
                     <c:if test="${requestScope.listaConsultas==null}">
                         <td th:text="#{appointment.none}" colspan="4"></td>
                     </c:if>
+
                     <c:if test="${requestScope.listaConsultas!=null}">
-                        <c:forEach var="consulta" items="${requestScope.listaConsultas}">
+                        <th:block th:each="consulta : ${listaConsultas}">
                             <tr>
-                                <td>
-                                    <c:out value="${consulta.paciente.nome}" />
-                                </td>
-
-                                <td>
-                                    <c:out value="${consulta.medico.nome}" />
-                                </td>
-
-                                <td>
-                                    <c:out value="${consulta.data}" />
-                                </td>
-
-                                <td>
-                                    <c:out value="${consulta.hora}" />
-                                </td>
+                                <td th:text="${consulta.paciente.nome}"></td>
+                                <td th:text="${consulta.medico.nome}"></td>
+                                <td th:text="${consulta.data}"></td>
+                                <td th:text="${consulta.hora}"></td>
                             </tr>
-                        </c:forEach>
+                        </th:block>
                     </c:if>
                 </tbody>
             </table>
         </div>
     </div>
 
+    <!-- Modal para cadastro de consultas -->
     <div class="modal fade" id="cadastroConsultaModal" tabindex="-1" aria-labelledby="cadastroConsultaModal"
         aria-hidden="true">
         <div class="modal-dialog">
