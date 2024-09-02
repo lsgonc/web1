@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{page.title}"> Clínica Médica Saúde Total </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/906fdf974e.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        #about, #services {
+            padding: 60px 0;
+        }
+
+        .welcome-section{
+            width: 100%;
+            height: 640px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('https://images.unsplash.com/photo-1633084002199-bb289c1d2624?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: 30% 80%;
+            background-repeat: no-repeat;
+        }
+
+        .welcome-title{
+            font-family: 'Inter';
+            font-weight: bold;
+        }
+
+        .blur-bg{
+            background-color: rgba(0, 0, 0, 0.5);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        i{
+            font-size: 6rem;
+            padding: 12px;
+            color: #30cc00;
+        }
+
+        /* Certifique-se de que o corpo tem padding para não sobrepor o header */
+        body {
+            padding-top: 80px; /* Ajuste conforme a altura do seu header */
+        }
+
+        @media screen and (max-width: 768px) {
+
+            .welcome-section{
+                width: 100%;
+                height: 400px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-image: url('https://images.unsplash.com/photo-1633084002199-bb289c1d2624?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                background-size: cover;
+                background-position: 30% 80%;
+                background-repeat: no-repeat;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header.html}"></div>
+
+<div class="manager-container container mb-5">
+    <h2 class="text-danger" th:text="${error}">
+
+    </h2>
+
+    <div class="row justify-content-between mb-2">
+        <div class="col col-auto">
+            <h2 th:text="#{crud.doctor.title}"></h2>
+        </div>
+
+        
+        <div class="col col-auto">
+            <button type="button" class="btn btn-outline-dark rounded-0 align-self-end" data-bs-toggle="modal" data-bs-target="#cadastroMedicoModal">Cadastrar Médico</button>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <table class="table table-light table-hover table-bordered">
+            <thead>
+            <tr>
+                <th th:text="#{signin.name}"></th>
+                <th th:text="#{signin.email}"></th>
+                <th> CRM </th>
+                <th th:text="#{signin.specialty}"></th>
+                <th th:text="#{crud.operations}"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <th:block th:each="medico : ${listaMedicos}">
+                <tr>
+                    <td th:text="${medico.getNome()}"></td>
+                    <td th:text="${medico.getEmail()}"></td>
+                    <td th:text="${medico.getCRM()}"></td>
+                    <td th:text="${medico.especialidade}"></td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <form th:action="@{/medico/editar}" method="post">
+                                    <input th:type="hidden" name="CRM" th:value="${medico.CRM}" >
+                                    <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edicaoMedicoModal"
+                                            >
+                                        Editar Médico
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form th:action="@{/medico/remocao}" method="post">
+                                    <input id="crm_medico" name="CRM" th:type="hidden" th:value="${medico.CRM}" >
+                                    <button type="submit"
+                                            class="btn btn-danger rounded-0 align-self-end">
+                                        Deletar Medico
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="manager-container container mb-5">
+    <div class="row justify-content-between mb-2">
+        <div class="col col-auto">
+            <h2 th:text="#{crud.patient.title}"></h2>
+        </div>
+
+        <div class="col col-auto">
+            <button type="button" class="btn btn-outline-dark rounded-0 align-self-end" data-bs-toggle="modal" data-bs-target="#cadastroPacienteModal">Cadastrar Paciente</button>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <table class="table table-light table-hover table-bordered">
+            <thead>
+            <tr>
+                <th th:text="#{signin.name}">Name</th>
+                <th th:text="#{signin.email}">Email</th>
+                <th th:text="#{signin.cpf}">CPF</th>
+                <th th:text="#{signin.phone}">Phone</th>
+                <th th:text="#{signin.gender}">Gender</th>
+                <th th:text="#{signin.date}">Date of Birth</th>
+                <th th:text="#{crud.operations}">Operations</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="paciente : ${listaPacientes}">
+                <td th:text="${paciente.nome}">Name</td>
+                <td th:text="${paciente.email}">Email</td>
+                <td th:text="${paciente.CPF}">CPF</td>
+                <td th:text="${paciente.telefone}">Phone</td>
+                <td th:text="${paciente.sexo}">Gender</td>
+                <td th:text="${paciente.dataNascimento}">Date of Birth</td>
+                <td>
+                    <div class="row">
+                        <div class="col">
+                            <form th:action="@{/paciente/editar}" method="post">
+                                <input th:type="hidden" name="CPF" th:value="${paciente.CPF}">
+                                <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edicaoPacienteModal"
+                                        >
+                                    Editar Paciente
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col">
+                            <form th:action="@{/paciente/remocao}" method="post">
+                                <input id="cpf_user" name="CPF" th:type="hidden" th:value="${paciente.CPF}" >
+                                <button type="submit"
+                                        class="btn btn-danger rounded-0 align-self-end">
+                                    Deletar Paciente
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal fade" id="cadastroMedicoModal" tabindex="-1" aria-labelledby="cadastroMedicoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cadastroMedicoModalLabel">Cadastrar Médico</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/medico/insercao}" method="post">
+                    <div class="mb-3">
+                        <label for="crm" class="form-label">CRM:</label>
+                        <input type="text" class="form-control" id="crm" name="CRM" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Senha:</label>
+                        <input type="password" class="form-control" id="senha" name="senha" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="especialidade" class="form-label">Especialidade:</label>
+                        <select id="especialidade" name="especialidade" class="form-select" required>
+                            <option value="" selected>Selecione uma especialidade</option>
+                            <option value="Cardiologia">Cardiologia</option>
+                            <option value="Dermatologia">Dermatologia</option>
+                            <option value="Ginecologia">Ginecologia</option>
+                            <option value="Neurologia">Neurologia</option>
+                            <option value="Ortopedia">Ortopedia</option>
+                            <option value="Oftalmologia">Oftalmologia</option>
+                            <option value="Pediatria">Pediatria</option>
+                            <option value="Psiquiatria">Psiquiatria</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Cadastrar Médico</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="cadastroPacienteModal" tabindex="-1" aria-labelledby="cadastroPacienteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cadastroPacienteModalLabel">Cadastrar Paciente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/paciente/insercao}" method="post">
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Senha:</label>
+                        <input type="password" class="form-control" id="senha" name="senha" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cpf" class="form-label">CPF:</label>
+                        <input type="text" class="form-control" id="cpf" name="CPF" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite um CPF no formato: xxx.xxx.xxx-xx">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefone" class="form-label">Telefone:</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sexo" class="form-label">Sexo:</label>
+                        <select id="sexo" name="sexo" class="form-select" required>
+                            <option value="" selected>Selecione o sexo</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dataNascimento" class="form-label">Data de Nascimento:</label>
+                        <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Cadastrar Paciente</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function setMedicoData(id, nome, email, crm, especialidade) {
+
+        console.log('ID:', id);
+        console.log('Nome:', nome);
+        console.log('Email:', email);
+        console.log('CRM:', crm);
+        console.log('Especialidade:', especialidade);
+
+        document.getElementById('medicoId').value = id;
+        document.getElementById('nomeMedico').value = nome;
+        document.getElementById('emailMedico').value = email;
+        document.getElementById('crmMedico').value = crm;
+        document.getElementById('especialidadeMedico').value = especialidade;
+    }
+</script>
+
+<script>
+    function setPacienteData(id, nome, email, senha, cpf, telefone, sexo, dataNascimento) {
+        document.getElementById('pacienteId').value = id;
+        document.getElementById('nome').value = nome;
+        document.getElementById('email').value = email;
+        document.getElementById('senha').value = senha;
+        document.getElementById('cpf').value = cpf;
+        document.getElementById('telefone').value = telefone;
+        document.getElementById('sexo').value = sexo;
+        document.getElementById('dataNascimento').value = dataNascimento;
+    }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#edicaoMedicoModal").modal('show');
+        $("#edicaoPacienteModal").modal('show');
+    });
+
+    function fechaModal() {
+        var element = document.getElementById("edicaoMedicoModal");
+        element.classList.remove("d-block");
+    }
+
+    function fechaModalPac() {
+        var element = document.getElementById("edicaoPacienteModal");
+        element.classList.remove("d-block");
+    }
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+</html>
