@@ -36,23 +36,32 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/", "/index", "/error", "/medico").permitAll()
-                        .requestMatchers("/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**").permitAll()
-                        .requestMatchers("/admin/**", "/adm/**").hasRole("ADMIN")
-                        .requestMatchers("/medico/**", "/med/**").hasRole("ADMIN")
-                        .requestMatchers("/paciente/remocao").hasRole("ADMIN")
-                        .requestMatchers("/consultas/medico/").hasRole("MEDICO")
-                        .requestMatchers("/consultas/paciente/").hasRole("PACIENTE")
-                        .anyRequest().authenticated())
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .permitAll()
-                        .usernameParameter("email")
-                        .defaultSuccessUrl("/"))
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/")
-                        .permitAll());
+            .csrf().disable()
+            .authorizeHttpRequests(authz -> authz
+            // Permissões para controladores REST
+                .requestMatchers("/pacientes", "/medicos", "/consultas").permitAll()
+                .requestMatchers("/pacientes/{\\d+}", "/medicos/{\\d+}").permitAll()
+                .requestMatchers("/consultas/{\\d+}").permitAll()
+                .requestMatchers("/medicos/especialidades/{\\w+}").permitAll()
+                .requestMatchers("/consultas/pacientes/{\\d+}").permitAll()
+                .requestMatchers("/consultas/medicos/{\\d+}").permitAll()
+            // Outras permissões já definidas
+                // .requestMatchers("/", "/index", "/error", "/medico").permitAll()
+                // .requestMatchers("/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**").permitAll()
+                // .requestMatchers("/admin/**", "/adm/**").hasRole("ADMIN")
+                // .requestMatchers("/medico/**", "/med/**").hasRole("ADMIN")
+                // .requestMatchers("/paciente/remocao").hasRole("ADMIN")
+                // .requestMatchers("/consultas/medico/").hasRole("MEDICO")
+                // .requestMatchers("/consultas/paciente/").hasRole("PACIENTE")
+                .anyRequest().authenticated())
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()
+                .usernameParameter("email")
+                .defaultSuccessUrl("/"))
+            .logout(logout -> logout
+                .logoutSuccessUrl("/")
+                .permitAll());
 
         return http.build();
     }
