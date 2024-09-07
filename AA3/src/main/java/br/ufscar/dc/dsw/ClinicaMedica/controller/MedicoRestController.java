@@ -15,7 +15,7 @@ public class MedicoRestController {
     @Autowired
     private IMedicoService service;
 
-    @GetMapping(path = "/api/medicos")
+    @GetMapping(path = "/medicos")
     public ResponseEntity<List<Medico>> lista() {
         List<Medico> lista = service.buscarTodos();
         if (lista.isEmpty()) {
@@ -24,7 +24,7 @@ public class MedicoRestController {
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping(path = "/api/medicos/{crm}")
+    @GetMapping(path = "/medicos/{crm}")
     public ResponseEntity<Medico> lista(@PathVariable("crm") String crm) {
         Medico Medico = service.buscaPorCrm(crm);
         if (Medico == null) {
@@ -33,7 +33,7 @@ public class MedicoRestController {
         return ResponseEntity.ok(Medico);
     }
 
-    @PostMapping(path = "/api/medicos")
+    @PostMapping(path = "/medicos")
     @ResponseBody
     public ResponseEntity<Medico> cria(@RequestBody Medico Medico, BindingResult result) {
 
@@ -45,7 +45,7 @@ public class MedicoRestController {
         }
     }
 
-    @PutMapping(path = "/api/medicos/{crm}")
+    @PutMapping(path = "/medicos/{crm}")
     public ResponseEntity<Medico> atualiza(@PathVariable("crm") String crm, @RequestBody Medico Medico,
                                              BindingResult result) {
         Medico e = service.buscaPorCrm(crm);
@@ -59,7 +59,7 @@ public class MedicoRestController {
         }
     }
 
-    @DeleteMapping(path = "/api/medicos/{crm}")
+    @DeleteMapping(path = "/medicos/{crm}")
     public ResponseEntity<Boolean> remove(@PathVariable("crm") String crm) {
 
         Medico Medico = service.buscaPorCrm(crm);

@@ -24,7 +24,7 @@ public class ConsultaRestController {
     @Autowired
     private ConsultaService consultaService;
 
-    @GetMapping(path = "/api/consultas")
+    @GetMapping(path = "/consultas")
     public ResponseEntity<List<Consulta>> lista() {
         List<Consulta> lista = service.buscarTodos();
         if (lista.isEmpty()) {
@@ -33,7 +33,7 @@ public class ConsultaRestController {
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping(path = "/api/consultas/{id}")
+    @GetMapping(path = "/consultas/{id}")
     public ResponseEntity<Consulta> lista(@PathVariable("id") Integer id) {
         Optional<Consulta> Consulta = service.buscaPorId(id);
         if (Consulta == null) {
@@ -43,7 +43,7 @@ public class ConsultaRestController {
         return ResponseEntity.ok(Consulta.orElse(null));
     }
 
-    @GetMapping(path = "/api/consultas/pacientes/{cpf}")
+    @GetMapping(path = "/consultas/pacientes/{cpf}")
     public ResponseEntity<List<Consulta>> listaPaciente(@PathVariable("cpf") String cpf) {
         List<Consulta> list = service.buscarPeloCpf(cpf);
         if (list == null) {
@@ -53,7 +53,7 @@ public class ConsultaRestController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping(path = "/api/consultas/medicos/{crm}")
+    @GetMapping(path = "/consultas/medicos/{crm}")
     public ResponseEntity<List<Consulta>> listaMedico(@PathVariable("crm") String crm) {
         List<Consulta> list = service.buscarPeloCrm(crm);
         if (list == null) {
@@ -65,7 +65,7 @@ public class ConsultaRestController {
 
 
 
-    @PostMapping(path = "/api/consultas")
+    @PostMapping(path = "/consultas")
     @ResponseBody
     public ResponseEntity<Consulta> cria(@RequestBody Consulta consulta, BindingResult result) {
 
@@ -77,7 +77,7 @@ public class ConsultaRestController {
         }
     }
 
-    @PutMapping(path = "/api/consultas/{id}")
+    @PutMapping(path = "/consultas/{id}")
     public ResponseEntity<Consulta> atualiza(@PathVariable("id") Integer id, @RequestBody Consulta consulta,
                                             BindingResult result) {
         Optional<Consulta> e = service.buscaPorId(id);
@@ -91,7 +91,7 @@ public class ConsultaRestController {
         }
     }
 
-    @DeleteMapping(path = "/api/consultas/{id}")
+    @DeleteMapping(path = "/consultas/{id}")
     public ResponseEntity<Boolean> remove(@PathVariable("id") Integer id) {
 
         Optional<Consulta> consulta = service.buscaPorId(id);
@@ -103,7 +103,7 @@ public class ConsultaRestController {
         }
     }
 
-    @DeleteMapping(path = "/api/consultas/pacientes/exlcuirTodas/{cpf}")
+    @DeleteMapping(path = "/consultas/pacientes/exlcuirTodas/{cpf}")
     public ResponseEntity<Boolean> removePaciente(@PathVariable("cpf") String cpf) {
 
         List<Consulta> consulta = service.buscarPeloCpf(cpf);
@@ -115,7 +115,7 @@ public class ConsultaRestController {
         }
     }
 
-    @DeleteMapping(path = "/api/consultas/medicos/excluirTodas/{crm}")
+    @DeleteMapping(path = "/consultas/medicos/excluirTodas/{crm}")
     public ResponseEntity<Boolean> removeMedico(@PathVariable("crm") String crm) {
 
         List<Consulta> consulta = service.buscarPeloCrm(crm);
@@ -127,7 +127,7 @@ public class ConsultaRestController {
         }
     }
 
-    @DeleteMapping(path = "/api/consultas/medicos/excluir/")
+    @DeleteMapping(path = "/consultas/medicos/excluir/")
     public ResponseEntity<Boolean> removeDataHoraMedico(@RequestBody String crm, Date data, Time hora) {
         boolean e = service.existePeloCrmEData(crm, data, hora);
 
@@ -139,7 +139,7 @@ public class ConsultaRestController {
         }
     }
 
-    @DeleteMapping(path = "/api/consultas/pacientes/excluir/")
+    @DeleteMapping(path = "/consultas/pacientes/excluir/")
     public ResponseEntity<Boolean> removeDataHoraPaciente(@RequestBody String cpf, Date data, Time hora) {
         boolean e = service.existePeloCpfEData(cpf, data, hora);
 

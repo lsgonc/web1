@@ -17,15 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.*;
-
 @RestController
 public class PacienteRestController {
 
     @Autowired
     private IPacienteService service;
 
-    @GetMapping(path = "/api/pacientes")
+    @GetMapping(path = "/pacientes")
     public ResponseEntity<List<Paciente>> lista() {
         List<Paciente> lista = service.buscarTodos();
         if (lista.isEmpty()) {
@@ -34,7 +32,7 @@ public class PacienteRestController {
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping(path = "/api/pacientes/{cpf}")
+    @GetMapping(path = "/pacientes/{cpf}")
     public ResponseEntity<Paciente> lista(@PathVariable("cpf") String cpf) {
         Paciente paciente = service.buscaPorCPF(cpf);
         if (paciente == null) {
@@ -43,7 +41,7 @@ public class PacienteRestController {
         return ResponseEntity.ok(paciente);
     }
 
-    @PostMapping(path = "/api/pacientes")
+    @PostMapping(path = "/pacientes")
     @ResponseBody
     public ResponseEntity<Paciente> cria(@RequestBody Paciente paciente, BindingResult result) {
 
@@ -55,7 +53,7 @@ public class PacienteRestController {
         }
     }
 
-    @PutMapping(path = "/api/pacientes/{cpf}")
+    @PutMapping(path = "/pacientes/{cpf}")
     public ResponseEntity<Paciente> atualiza(@PathVariable("cpf") String cpf, @RequestBody Paciente paciente,
                                             BindingResult result) {
         Paciente e = service.buscaPorCPF(cpf);
@@ -69,7 +67,7 @@ public class PacienteRestController {
         }
     }
 
-    @DeleteMapping(path = "/api/pacientes/{cpf}")
+    @DeleteMapping(path = "/pacientes/{cpf}")
     public ResponseEntity<Boolean> remove(@PathVariable("cpf") String cpf) {
 
         Paciente paciente = service.buscaPorCPF(cpf);

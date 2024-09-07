@@ -17,7 +17,7 @@ public class UsuarioRestController {
     @Autowired
     private IUsuarioService service;
 
-    @GetMapping(path = "/api/usuarios")
+    @GetMapping(path = "/usuarios")
     public ResponseEntity<List<Usuario>> lista() {
         List<Usuario> lista = service.buscarTodos();
         if (lista.isEmpty()) {
@@ -26,7 +26,7 @@ public class UsuarioRestController {
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping(path = "/api/usuarios/{id}")
+    @GetMapping(path = "/usuarios/{id}")
     public ResponseEntity<Usuario> lista(@PathVariable("id") Integer id) {
         Optional<Usuario> Usuario = service.buscarPorId(id);
         if (Usuario == null) {
@@ -36,7 +36,7 @@ public class UsuarioRestController {
         return ResponseEntity.ok(Usuario.orElse(null));
     }
 
-    @PostMapping(path = "/api/usuarios")
+    @PostMapping(path = "/usuarios")
     @ResponseBody
     public ResponseEntity<Usuario> cria(@RequestBody Usuario Usuario, BindingResult result) {
 
@@ -48,7 +48,7 @@ public class UsuarioRestController {
         }
     }
 
-    @PutMapping(path = "/api/usuarios/{id}")
+    @PutMapping(path = "/usuarios/{id}")
     public ResponseEntity<Usuario> atualiza(@PathVariable("id") Integer id, @RequestBody Usuario Usuario,
                                            BindingResult result) {
         Optional<Usuario> e = service.buscarPorId(id);
@@ -62,7 +62,7 @@ public class UsuarioRestController {
         }
     }
 
-    @DeleteMapping(path = "/api/usuarios/{id}")
+    @DeleteMapping(path = "/usuarios/{id}")
     public ResponseEntity<Boolean> remove(@PathVariable("id") Integer id) {
 
         Optional<Usuario> Usuario = service.buscarPorId(id);
