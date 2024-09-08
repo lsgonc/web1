@@ -1,0 +1,344 @@
+{
+	"info": {
+		"_postman_id": "4ff80aa3-131a-4210-8880-87c8e493b857",
+		"name": "AA3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38073365"
+	},
+	"item": [
+		{
+			"name": "clientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clientes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[  \n   {\n        \"email\": \"paciente3@gmail.com\",\n        \"senha\": \"paciente3\",\n        \"nome\": \"Luisa\",\n        \"tipoUsuario\": \"PACIENTE\",\n        \"telefone\": \"(00) 98765-4321\",\n        \"sexo\": \"Feminino\",\n        \"dataNascimento\": \"1980-10-10\",\n        \"cpf\": \"222.333.444-55\"\n    },\n    {\n        \"email\": \"paciente4@gmail.com\",\n        \"senha\": \"paciente4\",\n        \"nome\": \"Marcos\",\n        \"tipoUsuario\": \"PACIENTE\",\n        \"telefone\": \"(11) 98123-4123\",\n        \"sexo\": \"Masculino\",\n        \"dataNascimento\": \"1990-10-10\",\n        \"cpf\": \"212.313.545-66\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clientes/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pacientes/111.222.333-44",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"111.222.333-44"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clientes/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Ana Clara\",\n    \"telefone\": \"(33) 88888-7777\",\n    \"sexo\": \"Feminino\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pacientes/111.222.333-44",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"111.222.333-44"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clientes/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pacientes/222.333.444-55",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"222.333.444-55"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profissionais",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/medicos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profissionais/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/medicos/666333",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos",
+						"666333"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profissionais/especialidades/{nome}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/medicos/especialidades/cardiologia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos",
+						"especialidades",
+						"cardiologia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profissionais",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"email\": \"medico5@gmail.com\",\n        \"senha\": \"medico5\",\n        \"nome\": \"Dr. Andre\",\n        \"tipoUsuario\": \"MEDICO\",\n        \"especialidade\": \"pediatria\",\n        \"crm\": \"898989\"\n    },\n    {\n        \"email\": \"medico6@gmail.com\",\n        \"senha\": \"medico6\",\n        \"nome\": \"Dr. Maria\",\n        \"tipoUsuario\": \"MEDICO\",\n        \"especialidade\": \"neurologia\",\n        \"crm\": \"010101\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/medicos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profissionais/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Dr. João Andrade\",\n    \"especialidade\": \"cardiologia\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/medicos/123456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos",
+						"123456"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profissionais/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/medicos/010101",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos",
+						"010101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/consultas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"consultas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultas/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/consultas/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"consultas",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultas/clientes/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/consultas/pacientes/555.666.777-88",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"consultas",
+						"pacientes",
+						"555.666.777-88"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultas/profissionais/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/consultas/medicos/123456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"consultas",
+						"medicos",
+						"123456"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

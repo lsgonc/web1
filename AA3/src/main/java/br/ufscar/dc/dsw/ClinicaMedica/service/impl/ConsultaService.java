@@ -15,6 +15,7 @@ import br.ufscar.dc.dsw.ClinicaMedica.service.spec.IConsultaService;
 @Service
 @Transactional(readOnly = false)
 public class ConsultaService implements IConsultaService {
+    @Autowired
     IConsultaDAO dao;
 
     public Optional<Consulta> buscaPorId(Integer id) {
