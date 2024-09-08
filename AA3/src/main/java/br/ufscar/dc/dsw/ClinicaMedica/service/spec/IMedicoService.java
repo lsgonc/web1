@@ -9,4 +9,5 @@ public interface IMedicoService {
     List<Medico> buscarTodos();
     void salvar(Medico medico);
     void excluir(String crm);
-}
+    List<Medico> buscaPorEspecialidade(String especialidade);
+}   

@@ -32,4 +32,8 @@ public class MedicoService implements IMedicoService {
     public void excluir(String crm) {
         medicoDAO.deleteByCRM(crm);
     }
+
+    public List<Medico> buscaPorEspecialidade(String especialidade) {
+        return medicoDAO.findByEspecialidade(especialidade);
+    }
 }

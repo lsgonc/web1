@@ -25,10 +25,10 @@ public class ClinicaMedicaApplication {
             Usuario admin = new Usuario("admin@gmail.com",encoder.encode("admin"),"admin",Usuario.TipoUsuario.ADMIN);
             usuarioDAO.save(admin);
 
-            Medico m1 = new Medico("123456", "medico1@gmail.com", encoder.encode("medico1"), Usuario.TipoUsuario.MEDICO, "Dr. João", "Cardiologia");
-            Medico m2 = new Medico("654321", "medico2@gmail.com", encoder.encode("medico2"), Usuario.TipoUsuario.MEDICO, "Dr. Maria", "Neurologia");
-            Medico m3 = new Medico("222444", "medico3@gmail.com", encoder.encode("medico3"), Usuario.TipoUsuario.MEDICO, "Dr. Rafael", "Cardiologia");
-            Medico m4 = new Medico("666333", "medico4@gmail.com", encoder.encode("medico4"), Usuario.TipoUsuario.MEDICO, "Dr. Elisa", "Neurologia");
+            Medico m1 = new Medico("123456", "medico1@gmail.com", encoder.encode("medico1"), Usuario.TipoUsuario.MEDICO, "Dr. João", "cardiologia");
+            Medico m2 = new Medico("654321", "medico2@gmail.com", encoder.encode("medico2"), Usuario.TipoUsuario.MEDICO, "Dr. Maria", "neurologia");
+            Medico m3 = new Medico("222444", "medico3@gmail.com", encoder.encode("medico3"), Usuario.TipoUsuario.MEDICO, "Dr. Rafael", "cardiologia");
+            Medico m4 = new Medico("666333", "medico4@gmail.com", encoder.encode("medico4"), Usuario.TipoUsuario.MEDICO, "Dr. Elisa", "neurologia");
             medicoDAO.save(m1);
             medicoDAO.save(m2);
             medicoDAO.save(m3);

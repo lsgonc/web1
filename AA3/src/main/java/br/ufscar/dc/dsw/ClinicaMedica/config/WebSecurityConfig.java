@@ -40,12 +40,12 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(authz -> authz
             // Permissões para controladores REST
                 .requestMatchers("/pacientes", "/medicos", "/consultas").permitAll()
-                .requestMatchers("/pacientes/*", "/medicos/{\\d+}").permitAll()
-                .requestMatchers("/consultas/{\\d+}").permitAll()
-                .requestMatchers("/medicos/especialidades/{\\w+}").permitAll()
-                .requestMatchers("/consultas/pacientes/{\\d+}").permitAll()
-                .requestMatchers("/consultas/medicos/{\\d+}").permitAll()
-            // Outras permissões já definidas
+                .requestMatchers("/pacientes/*", "/medicos/*").permitAll()
+                .requestMatchers("/consultas/*").permitAll()
+                .requestMatchers("/medicos/especialidades/*").permitAll()
+                .requestMatchers("/consultas/pacientes/*").permitAll()
+                .requestMatchers("/consultas/medicos/*").permitAll()
+            // Permissões do trabalho 2
                 // .requestMatchers("/", "/index", "/error", "/medico").permitAll()
                 // .requestMatchers("/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**").permitAll()
                 // .requestMatchers("/admin/**", "/adm/**").hasRole("ADMIN")
