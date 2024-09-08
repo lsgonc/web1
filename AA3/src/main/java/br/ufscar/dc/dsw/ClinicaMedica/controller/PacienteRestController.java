@@ -61,18 +61,34 @@ public class PacienteRestController {
     }
 
     @PutMapping(path = "/pacientes/{cpf}")
-    public ResponseEntity<Paciente> atualiza(@PathVariable("cpf") String cpf, @RequestBody Paciente paciente,
+    public ResponseEntity<Paciente> atualiza(@PathVariable("cpf") String cpf, @RequestBody Paciente pacienteAtualizado,
                                             BindingResult result) {
-        Paciente e = service.buscaPorCPF(cpf);
+        Paciente pacienteExistente = service.buscaPorCPF(cpf);
 
-        if (e==null) {
+        if (pacienteExistente == null) {
             return ResponseEntity.notFound().build();
-        } else {
-                paciente.setCPF(cpf);
-                service.salvar(paciente);
-                return ResponseEntity.ok(paciente);
         }
+
+        if (pacienteAtualizado.getNome() != null) {
+            pacienteExistente.setNome(pacienteAtualizado.getNome());
+        }
+        if (pacienteAtualizado.getTelefone() != null) {
+            pacienteExistente.setTelefone(pacienteAtualizado.getTelefone());
+        }
+        if (pacienteAtualizado.getSexo() != null) {
+            pacienteExistente.setSexo(pacienteAtualizado.getSexo());
+        }
+        if (pacienteAtualizado.getDataNascimento() != null) {
+            pacienteExistente.setDataNascimento(pacienteAtualizado.getDataNascimento());
+        }
+        if (pacienteAtualizado.getSenha() != null) {
+            pacienteExistente.setSenha(passwordEncoder.encode(pacienteAtualizado.getSenha()));
+        }
+
+        service.salvar(pacienteExistente);
+        return ResponseEntity.ok(pacienteExistente);
     }
+
 
     @DeleteMapping(path = "/pacientes/{cpf}")
     public ResponseEntity<Boolean> remove(@PathVariable("cpf") String cpf) {
