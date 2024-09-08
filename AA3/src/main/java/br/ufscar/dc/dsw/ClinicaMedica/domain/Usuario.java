@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.ClinicaMedica.domain;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity

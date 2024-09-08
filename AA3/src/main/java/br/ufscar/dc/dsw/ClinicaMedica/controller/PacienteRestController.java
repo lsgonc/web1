@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; // Faltando!
 
 @RestController
 public class PacienteRestController {
 
     @Autowired
     private IPacienteService service;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping(path = "/pacientes")
     public ResponseEntity<List<Paciente>> lista() {
@@ -43,13 +47,16 @@ public class PacienteRestController {
 
     @PostMapping(path = "/pacientes")
     @ResponseBody
-    public ResponseEntity<Paciente> cria(@RequestBody Paciente paciente, BindingResult result) {
+    public ResponseEntity<List<Paciente>> cria(@RequestBody List<Paciente> pacientes, BindingResult result) {
 
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(null);
         } else {
-            service.salvar(paciente);
-            return ResponseEntity.ok(paciente);
+            for (Paciente paciente : pacientes) {
+                paciente.setSenha(passwordEncoder.encode(paciente.getSenha()));
+                service.salvar(paciente);
+            }
+            return ResponseEntity.ok(pacientes);
         }
     }
 

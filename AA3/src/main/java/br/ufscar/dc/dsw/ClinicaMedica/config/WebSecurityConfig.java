@@ -40,7 +40,7 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(authz -> authz
             // Permissões para controladores REST
                 .requestMatchers("/pacientes", "/medicos", "/consultas").permitAll()
-                .requestMatchers("/pacientes/{\\d+}", "/medicos/{\\d+}").permitAll()
+                .requestMatchers("/pacientes/*", "/medicos/{\\d+}").permitAll()
                 .requestMatchers("/consultas/{\\d+}").permitAll()
                 .requestMatchers("/medicos/especialidades/{\\w+}").permitAll()
                 .requestMatchers("/consultas/pacientes/{\\d+}").permitAll()
